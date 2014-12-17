@@ -15,6 +15,11 @@ or other data since they are licensed to MBCRAFT.
 Please note that all graphics and icons are property of MBCRAFT or licensed to
 MBCRAFT.
 
+PLEASE NOTE THAT YOU CAN'T RUN YOUR OWN VERSION OF FILEPLAZA WITHOUT 
+PURCHASING THE CORRESPONDING LICENSE.
+
+(Thanks :) )
+
 - Marco Bagnaresi
 
 ----
