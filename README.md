@@ -9,16 +9,19 @@ You can't use it to create your own file manager application.
 You can use part or full source code files for creating new different applications (eg javafx dialog classes). 
 Please follow the license statements or ask if uncertain.
 
-You can use it for educational purposes. It does not contains any graphics
-or other data since they are licensed to MBCRAFT.
+You can use it for educational purposes.
 
 Please note that all graphics and icons are property of MBCRAFT or licensed to
-MBCRAFT.
+MBCRAFT and you're not allowed to use it for your own applications.
+If you want to use graphics for your own application purchase a license
+from the graphical artists that produced it.
 
 PLEASE NOTE THAT YOU CAN'T RUN YOUR OWN VERSION OF FILEPLAZA WITHOUT 
 PURCHASING THE CORRESPONDING LICENSE.
 
-(Thanks :) )
+( Thanks :) )
+
+Kind regards
 
 - Marco Bagnaresi
 
