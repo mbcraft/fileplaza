@@ -1,0 +1,29 @@
+/* 
+    Created on : Aug 3, 2014, 1:58:40 PM
+    Author     : Marco Bagnaresi <marco.bagnaresi@gmail.com>
+*/
+.icon_button {
+    -fx-background-color : transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;    
+}
+.icon_button:hover {
+    -fx-background-color : transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+}
+.icon_button:pressed {
+    -fx-background-color : transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+}
+    
