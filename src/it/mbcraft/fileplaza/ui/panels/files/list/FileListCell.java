@@ -14,16 +14,18 @@
 
 package it.mbcraft.fileplaza.ui.panels.files.list;
 
-import it.mbcraft.fileplaza.ui.common.components.AbstractListCell;
+import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
 import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import java.io.File;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class FileListCell extends AbstractListCell<File> {
+public class FileListCell extends ImprovedListCell<File> {
 
     public FileListCell(int size) {
         super(size);
@@ -31,6 +33,7 @@ public class FileListCell extends AbstractListCell<File> {
     
     @Override
     public void updateItem(File data,boolean empty) {
+        
         super.updateItem(data, empty);
         if (empty) {
             setText(null);
@@ -53,6 +56,10 @@ public class FileListCell extends AbstractListCell<File> {
         String extension = filename.substring(filename.lastIndexOf(".")+1);
         
         setMainIcon(new IconReference(IconReference.IconCategory.FILE,extension));   
+    }
+
+    IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

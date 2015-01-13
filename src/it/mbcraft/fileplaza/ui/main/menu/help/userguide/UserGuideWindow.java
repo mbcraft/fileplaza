@@ -17,7 +17,7 @@ package it.mbcraft.fileplaza.ui.main.menu.help.userguide;
 import it.mbcraft.fileplaza.i18n.Lang;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.common.components.AbstractPresenterWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractPresenterWindow;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;

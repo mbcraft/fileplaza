@@ -28,7 +28,7 @@ public class SettingsDAO implements ISettingsDAO {
     private final AbstractModelManager sz;
     
     private SettingsDAO() {
-        sz = new SettingsManager();
+        sz = new SettingsManager("");
     }
     
     public static SettingsDAO getInstance() {

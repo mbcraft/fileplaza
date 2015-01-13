@@ -15,7 +15,7 @@
 package it.mbcraft.fileplaza.ui.panels.preview.providers.screenshot;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
-import it.mbcraft.fileplaza.ui.common.components.GlassPane;
+import it.mbcraft.fileplaza.ui.common.components.misc.GlassPane;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import java.awt.Point;

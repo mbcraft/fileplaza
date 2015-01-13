@@ -33,7 +33,7 @@ public class PreviewDAO implements IPreviewDAO {
     }
     
     private PreviewDAO() {
-        _manager = new PreviewManager();
+        _manager = new PreviewManager("");
     }
     
     @Override

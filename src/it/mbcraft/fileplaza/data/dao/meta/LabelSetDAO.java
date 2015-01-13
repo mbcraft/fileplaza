@@ -40,7 +40,7 @@ public class LabelSetDAO implements ILabelSetDAO {
     }
     
     private LabelSetDAO() {
-        sz = new LabelSetManager();
+        sz = new LabelSetManager("");
         enums = sz.findAll();
     }
     

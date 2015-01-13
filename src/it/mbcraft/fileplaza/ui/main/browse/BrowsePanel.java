@@ -20,7 +20,7 @@ import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.FileCommandsPanel;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
 import it.mbcraft.fileplaza.ui.panels.info.InfoPanel;
 import it.mbcraft.fileplaza.ui.panels.notes.NotesPanel;
 import it.mbcraft.fileplaza.ui.panels.preview.PreviewPanel;
@@ -28,6 +28,7 @@ import it.mbcraft.fileplaza.ui.panels.tags.FullTagsPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.utils.FileUtils;
 import java.io.File;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Orientation;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -47,7 +48,7 @@ public class BrowsePanel implements INodeProvider {
     private final CurrentPathPanel currentPathPanel;
     private final FileCommandsPanel fileCommandsPanel;
     
-    private final FileListPanel fileListPanel;
+    private final DirectoryFileListPanel directoryFileListPanel;
     private final SplitPane splitPane = new SplitPane();
     private final PreviewPanel previewPanel;
     private final NotesPanel notesPanel;
@@ -61,11 +62,11 @@ public class BrowsePanel implements INodeProvider {
         SingleSelectionFileSystemElementState currentFileSystemElementState = SingleSelectionFileSystemElementState.getInstance();
         
         currentPathPanel = new CurrentPathPanel(currentDirState);
-        fileListPanel = new FileListPanel();
-        fileCommandsPanel = new FileCommandsPanel(currentDirState,fileListPanel);
-        fileListPanel.setCellListener(new BrowsePanelFileListListener(currentDirState));
-        currentDirState.linkWithFileList(fileListPanel);
-        currentFileSystemElementState.linkWithFileProperty(fileListPanel.selectionModelProperty().get().selectedItemProperty());
+        directoryFileListPanel = new DirectoryFileListPanel();
+        fileCommandsPanel = new FileCommandsPanel(currentDirState,directoryFileListPanel);
+        directoryFileListPanel.setCellListener(new BrowsePanelFileListListener(currentDirState));
+        currentDirState.linkWithFileList(directoryFileListPanel);
+        currentFileSystemElementState.linkWithFileProperty(directoryFileListPanel.selectionModelProperty().get().selectedItemProperty());
         
         previewPanel = new PreviewPanel(currentFileSystemElementState.previewDataProperty());
         notesPanel = new NotesPanel(currentDirState.currentSelectedFileProperty(),currentFileSystemElementState.notesProperty());
@@ -110,7 +111,7 @@ public class BrowsePanel implements INodeProvider {
 
         pane.getTabs().addAll(t1, t2, t3);
 
-        splitPane.getItems().addAll(fileListPanel.getNode(), pane);
+        splitPane.getItems().addAll(directoryFileListPanel.getNode(), pane);
 
         splitPane.setDividerPosition(0, 0.5);
     }

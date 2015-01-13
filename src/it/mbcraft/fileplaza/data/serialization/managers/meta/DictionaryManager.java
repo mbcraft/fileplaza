@@ -29,8 +29,8 @@ import java.io.File;
  */
 public class DictionaryManager extends AbstractModelManager<Dictionary> {
 
-    public DictionaryManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_DICTIONARIES_PATH)));
+    public DictionaryManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_DICTIONARIES_PATH)));
     }
 
     @Override

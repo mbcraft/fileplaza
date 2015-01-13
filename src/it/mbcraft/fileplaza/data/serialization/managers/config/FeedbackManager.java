@@ -27,8 +27,8 @@ import java.io.File;
  */
 public class FeedbackManager extends AbstractModelManager<ApplicationReview> {
 
-    public FeedbackManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_CONFIG_PATH)));
+    public FeedbackManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_CONFIG_PATH)));
     }
 
     @Override

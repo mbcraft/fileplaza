@@ -31,8 +31,8 @@ public class PreviewManager extends AbstractModelManager<BufferedImage> {
     
     private final Random rnd = new Random();
     
-    public PreviewManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_PREVIEW_PATH)));
+    public PreviewManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_PREVIEW_PATH)));
     }
 
     @Override

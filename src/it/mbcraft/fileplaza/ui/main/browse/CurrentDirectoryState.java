@@ -14,7 +14,7 @@
 
 package it.mbcraft.fileplaza.ui.main.browse;
 
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
 import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
 import java.io.File;
 import javafx.beans.property.ObjectProperty;
@@ -113,7 +113,7 @@ public class CurrentDirectoryState {
         return false;
     }
     
-    public void linkWithFileList(final FileListPanel panel) {
+    public void linkWithFileList(final DirectoryFileListPanel panel) {
         
         currentPath.addListener(new ChangeListener<File>(){
 

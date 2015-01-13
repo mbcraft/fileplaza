@@ -16,7 +16,7 @@ package it.mbcraft.fileplaza.ui.main.search;
 
 import it.mbcraft.fileplaza.data.models.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
 import it.mbcraft.fileplaza.ui.main.search.filters.FiltersPanel;
 import it.mbcraft.fileplaza.ui.panels.tags.TagListPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
@@ -35,7 +35,7 @@ import javafx.scene.layout.VBox;
 public class SearchPanel implements INodeProvider {
     private final VBox box = new VBox();
     private final SearchState state = new SearchState();
-    private FileListPanel fileListPanel;
+    private DirectoryFileListPanel fileListPanel;
     private TagListPanel tagListPanel;
     private final ListProperty<Tag> tagList = new SimpleListProperty();
 
@@ -57,7 +57,7 @@ public class SearchPanel implements INodeProvider {
 
     private void initPanels() {
         FiltersPanel filtersPanel = new FiltersPanel(state);
-        fileListPanel = new FileListPanel();
+        fileListPanel = new DirectoryFileListPanel();
         fileListPanel.setCellListener(new SearchPanelFileListListener());
         
         tagListPanel = new TagListPanel(L(this,"TagList_Label"), true, tagList);

@@ -1,0 +1,23 @@
+.grid-view {
+	-fx-skin: "com.guigarage.fx.grid.skin.GridViewSkin";
+	-fx-vertical-cell-spacing: 12;
+	-fx-horizontal-cell-spacing: 12;
+	-fx-cell-height: 64;
+	-fx-cell-width: 128;
+	-fx-horizontal-alignment: CENTER;
+        -fx-background-color:#ffffff;
+}
+
+.grid-cell {
+	-fx-skin: "com.guigarage.fx.grid.skin.GridCellSkin";
+}
+
+.color-grid-cell {
+	-fx-skin: "com.guigarage.fx.grid.skin.GridCellSkin";
+}
+.image-grid-cell {
+	-fx-skin: "com.guigarage.fx.grid.skin.GridCellSkin";
+}
+.media-grid-cell {
+	-fx-skin: "com.guigarage.fx.grid.skin.GridCellSkin";
+}

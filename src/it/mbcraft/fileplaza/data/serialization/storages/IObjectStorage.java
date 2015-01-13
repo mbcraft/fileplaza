@@ -50,7 +50,7 @@ public interface IObjectStorage<T> {
      * @param oldKey The old key
      * @param newKey The new key
      */
-    void rename(String oldKey, String newKey);
+    boolean rename(String oldKey, String newKey);
 
     /**
      * Deletes all the entries of the storage.

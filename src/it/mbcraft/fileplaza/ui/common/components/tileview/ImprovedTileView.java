@@ -12,17 +12,21 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.tileview;
 
-import javafx.scene.control.TableView;
+import com.guigarage.fx.grid.GridView;
+import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 
 /**
- * Improved table view with refresh support.
- * 
+ *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
+ * @param <T>
  */
-public class ImprovedTableView<T> extends TableView<T> implements IRefreshable<T> {
-
+public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> {  
+    
+    public ImprovedTileView() {
+        super();
+    }
     /**
      * Refreshes all the items in the list view
      */
@@ -34,7 +38,7 @@ public class ImprovedTableView<T> extends TableView<T> implements IRefreshable<T
     }
     
     /**
-     * Refreshes the item at position i inside the TableView.
+     * Refreshes the item at position i inside the listview.
      * 
      * @param index The index of the item to refresh
      */
@@ -46,7 +50,7 @@ public class ImprovedTableView<T> extends TableView<T> implements IRefreshable<T
     }
     
     /**
-     * Refreshes an arbitrary item on the TableView
+     * Refreshes an arbitrary item on the list
      * 
      * @param item The item to refresh
      */

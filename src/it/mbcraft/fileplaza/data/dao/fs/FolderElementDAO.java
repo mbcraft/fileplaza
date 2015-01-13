@@ -62,7 +62,7 @@ public class FolderElementDAO implements IFolderElementDAO {
     private final AbstractModelManager sz;
     
     private FolderElementDAO() {
-        sz = new FolderElementManager();
+        sz = new FolderElementManager("");
     }
     
     @Override

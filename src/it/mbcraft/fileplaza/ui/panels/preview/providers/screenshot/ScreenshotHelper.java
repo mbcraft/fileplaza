@@ -53,7 +53,7 @@ public class ScreenshotHelper {
         String key = null;
         if (finalPreview!=null) {
             //save and attach to current file
-            AbstractModelManager ser = new PreviewManager();
+            AbstractModelManager ser = new PreviewManager("");
             key = ser.saveOrUpdate(finalPreview);
         }
         WindowStack.top().show();

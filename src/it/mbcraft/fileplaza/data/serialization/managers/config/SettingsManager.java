@@ -28,8 +28,8 @@ import java.io.File;
  */
 public class SettingsManager extends AbstractModelManager<Settings> {
 
-    public SettingsManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_CONFIG_PATH)));
+    public SettingsManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_CONFIG_PATH)));
     }
     
     @Override

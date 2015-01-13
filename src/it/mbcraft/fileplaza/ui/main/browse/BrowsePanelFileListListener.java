@@ -33,15 +33,20 @@ public class BrowsePanelFileListListener implements IFileItemActionListener {
     }
     
     @Override
-    public void heavySelection(File f) {
+    public void heavySelection(File f, MouseEvent ev,SelectionPlace p) {
         if (f.isDirectory()) {
             myState.currentPathProperty().setValue(f);
         }
     }
 
     @Override
-    public void contextMenu(File f, MouseEvent ev) {
+    public void contextMenu(File f, MouseEvent ev,SelectionPlace p) {
         System.out.println("Context menu requested!");
+    }
+
+    @Override
+    public void simpleSelection(File f,MouseEvent ev,SelectionPlace p) {
+        System.out.println("File "+f.getName()+" clicked.");
     }
     
 }

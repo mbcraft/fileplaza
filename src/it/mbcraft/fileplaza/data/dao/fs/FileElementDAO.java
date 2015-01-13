@@ -73,7 +73,7 @@ public class FileElementDAO implements IFileElementDAO {
     private final AbstractModelManager sz;
     
     private FileElementDAO() {
-        sz = new FileElementManager();
+        sz = new FileElementManager("");
     }
     
     @Override

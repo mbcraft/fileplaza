@@ -19,7 +19,7 @@ import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.data.misc.PreviewData;
 import it.mbcraft.fileplaza.data.serialization.managers.meta.PreviewManager;
 import it.mbcraft.fileplaza.ui.panels.preview.providers.screenshot.ScreenshotHelper;
-import it.mbcraft.fileplaza.ui.common.components.ScrollableImageViewer;
+import it.mbcraft.fileplaza.ui.common.components.misc.ScrollableImageViewer;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import java.awt.image.BufferedImage;
 import javafx.beans.property.ObjectProperty;
@@ -84,7 +84,7 @@ public class CapturedPreviewProvider extends AbstractPreviewProvider {
 
     @Override
     public void updatePreview() {
-        AbstractModelManager sz = new PreviewManager();
+        AbstractModelManager sz = new PreviewManager("");
 
         viewer.updateImage(SwingFXUtils.toFXImage((BufferedImage) sz.find(previewDataProperty.getValue().getPreviewKey()), null));
     }

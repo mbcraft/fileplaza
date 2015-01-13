@@ -12,7 +12,7 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.windows;
 
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("common.AbstractPresenterWindow")
-public abstract class AbstractPresenterWindow {
+public abstract class AbstractPresenterWindow implements IWindow {
         
     private final String windowTitle;
     private Stage window;

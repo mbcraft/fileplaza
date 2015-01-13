@@ -152,7 +152,7 @@ public class SingleSelectionFileSystemElementState {
         
         String currentPreviewKey = el.getCustomPreviewKey();
         if (currentPreviewKey!=null) {
-            AbstractModelManager ser = new PreviewManager();
+            AbstractModelManager ser = new PreviewManager("");
             ser.deleteByKey(currentPreviewKey);
         }
         
@@ -176,13 +176,13 @@ public class SingleSelectionFileSystemElementState {
     
     private void saveCurrentFileElement(FileElement el) {
         el.recalculateSha256();
-        FileElementManager fem = new FileElementManager();
+        FileElementManager fem = new FileElementManager("");
         fem.saveOrUpdate(el);
     }
 
     private void saveCurrentFolderElement(FolderElement el) {
         el.recalculateSha256();
-        FolderElementManager fem = new FolderElementManager();
+        FolderElementManager fem = new FolderElementManager("");
         fem.saveOrUpdate(el);
     }
     

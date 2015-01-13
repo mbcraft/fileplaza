@@ -12,13 +12,15 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.listview;
 
+import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Pos;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
@@ -30,20 +32,20 @@ import javafx.scene.text.Font;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * @param <T>
  */
-public abstract class AbstractListCell<T> extends ListCell<T> implements IViewableElement {
+public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewableElement {
     
     private int itemSize;
     
     private IconReference mainIcon;
-    private final List<IconReference> statusIcons = new ArrayList<IconReference>();
+    private final List<IconReference> statusIcons = new ArrayList<>();
     
     private final BorderPane mainIconAndLabel;
     
     private final Label myText;
     
-    private final HBox iconPane;
+    private final HBox statusIconsPane;
     
-    public AbstractListCell(int size) {
+    public ImprovedListCell(int size) {
         itemSize = size;
         
         mainIconAndLabel = new BorderPane();
@@ -51,12 +53,12 @@ public abstract class AbstractListCell<T> extends ListCell<T> implements IViewab
         myText = new Label();
         
         mainIconAndLabel.setRight(myText);
-        iconPane = new HBox();
-        iconPane.setAlignment(Pos.CENTER_RIGHT);
+        statusIconsPane = new HBox();
+        statusIconsPane.setAlignment(Pos.CENTER_RIGHT);
         setText(null);
         BorderPane pane = new BorderPane();
         pane.setLeft(mainIconAndLabel);
-        pane.setCenter(iconPane);
+        pane.setRight(statusIconsPane);
         setGraphic(pane);
         
     }
@@ -73,8 +75,8 @@ public abstract class AbstractListCell<T> extends ListCell<T> implements IViewab
         setMainIcon(mainIcon);
         
         for (IconReference ref : statusIcons) {
-            iconPane.getChildren().clear();
-            iconPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
+            statusIconsPane.getChildren().clear();
+            statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
             setLabelFont(new Font(getLabelFont().getName(),size));
         }
     }
@@ -117,12 +119,12 @@ public abstract class AbstractListCell<T> extends ListCell<T> implements IViewab
     @Override
     public void clearStatusIcons() {
         statusIcons.clear();
-        iconPane.getChildren().clear();
+        statusIconsPane.getChildren().clear();
     }
     
     @Override
     public void pushStatusIcon(IconReference ref) {        
         statusIcons.add(ref);
-        iconPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
+        statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
     }
 }

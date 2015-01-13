@@ -29,8 +29,8 @@ import java.io.File;
  */
 public class LabelSetManager extends AbstractModelManager<LabelSet> {
 
-    public LabelSetManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_LABEL_SETS_PATH)));
+    public LabelSetManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_LABEL_SETS_PATH)));
     }
 
     @Override

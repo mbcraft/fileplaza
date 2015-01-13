@@ -31,8 +31,8 @@ import java.io.File;
  */
 public class FileElementManager extends AbstractModelManager<FileElement> {
 
-    public FileElementManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_FILE_ELEMENTS_PATH)));
+    public FileElementManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_FILE_ELEMENTS_PATH)));
     }
 
     @Override

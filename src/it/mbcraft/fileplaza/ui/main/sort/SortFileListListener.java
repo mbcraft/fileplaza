@@ -36,13 +36,18 @@ class SortFileListListener implements IFileItemActionListener {
     }
 
     @Override
-    public void heavySelection(File f) {
+    public void heavySelection(File f, MouseEvent ev,SelectionPlace p) {
         mySort.get().sort(f);
         myFileList.remove(f);
     }
 
     @Override
-    public void contextMenu(File f, MouseEvent ev) {
+    public void contextMenu(File f, MouseEvent ev,SelectionPlace p) {
+    }
+
+    @Override
+    public void simpleSelection(File f, MouseEvent ev,SelectionPlace p) {
+    
     }
     
 }

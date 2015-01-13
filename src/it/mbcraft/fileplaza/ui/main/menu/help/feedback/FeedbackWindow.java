@@ -17,7 +17,7 @@ package it.mbcraft.fileplaza.ui.main.menu.help.feedback;
 import it.mbcraft.fileplaza.data.dao.config.FeedbackDAO;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.common.components.AbstractPresenterWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractPresenterWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.StackablePanelSelector;
 import java.util.Arrays;
 import javafx.event.ActionEvent;

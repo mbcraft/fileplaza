@@ -29,7 +29,7 @@ public class FeedbackDAO implements IFeedbackDAO {
     private final AbstractModelManager sz;
     
     private FeedbackDAO() {
-        sz = new FeedbackManager();
+        sz = new FeedbackManager("");
     }
     
     public static FeedbackDAO getInstance() {

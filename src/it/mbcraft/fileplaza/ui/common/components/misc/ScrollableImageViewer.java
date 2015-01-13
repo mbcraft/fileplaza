@@ -12,8 +12,9 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.misc;
 
+import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;

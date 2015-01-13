@@ -17,7 +17,7 @@ package it.mbcraft.fileplaza.ui.main.menu.help.about;
 import it.mbcraft.fileplaza.Main;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.common.components.AbstractPresenterWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractPresenterWindow;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

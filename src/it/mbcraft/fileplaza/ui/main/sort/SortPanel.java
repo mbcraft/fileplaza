@@ -17,7 +17,7 @@ package it.mbcraft.fileplaza.ui.main.sort;
 import it.mbcraft.fileplaza.algorithm.sort.FileElementSort;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
 import it.mbcraft.fileplaza.ui.main.sort.filters.FiltersPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import javafx.beans.property.ObjectProperty;
@@ -43,7 +43,7 @@ public class SortPanel implements INodeProvider {
     private final VBox box = new VBox();
     
     private FiltersPanel filters;
-    private FileListPanel previewedList;
+    private DirectoryFileListPanel previewedList;
     private SortDetailsPanel sortDetails;
     
     private Button sortAllButton;
@@ -64,7 +64,7 @@ public class SortPanel implements INodeProvider {
     
     private void initComponents() {
         filters = new FiltersPanel(currentSort);
-        previewedList = new FileListPanel();
+        previewedList = new DirectoryFileListPanel();
         previewedList.setCellListener(new SortFileListListener(previewedList.itemsProperty().get(),currentSort));
         sortDetails = new SortDetailsPanel(previewedList.itemsProperty().get(),previewedList.selectionModelProperty(),currentSort);
     }

@@ -18,7 +18,7 @@ import it.mbcraft.fileplaza.data.dao.meta.LabelSetDAO;
 import it.mbcraft.fileplaza.data.models.LabelSet;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.common.components.AbstractSettingsWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractSettingsWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;

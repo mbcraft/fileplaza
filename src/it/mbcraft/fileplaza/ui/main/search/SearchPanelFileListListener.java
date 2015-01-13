@@ -25,13 +25,18 @@ import javafx.scene.input.MouseEvent;
 public class SearchPanelFileListListener implements IFileItemActionListener {
 
     @Override
-    public void heavySelection(File f) {
+    public void heavySelection(File f, MouseEvent ev, SelectionPlace p) {
         //
     }
 
     @Override
-    public void contextMenu(File f, MouseEvent ev) {
+    public void contextMenu(File f, MouseEvent ev, SelectionPlace p) {
         //
+    }
+
+    @Override
+    public void simpleSelection(File f, MouseEvent ev, SelectionPlace p) {
+    
     }
     
 }

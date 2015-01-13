@@ -23,13 +23,22 @@ import javafx.scene.input.MouseEvent;
  */
 public interface IFileItemActionListener {
     
+    public enum SelectionPlace {
+        NAME, ICON, STATUS_ICON, ITEM
+    }
+    /**
+     * This method is called when a file is selected with a single click.
+     * 
+     * @param f The selected file 
+     */
+    public void simpleSelection(File f, MouseEvent ev, SelectionPlace p);
     /**
      * This method is called when a file is heavy selected.
      * An heavy selection is a double click on an item or a return keypress on
      * a selected item.
      * @param f The selected file
      */
-    public void heavySelection(File f);
+    public void heavySelection(File f, MouseEvent ev, SelectionPlace p);
     
     /**
      * This method is called when alternate action is invoked for an item.
@@ -38,5 +47,5 @@ public interface IFileItemActionListener {
      * @param f The file for which a context meny is needed.
      * @param ev The MouseEvent containing mouse coordinates, if available.
      */
-    public void contextMenu(File f, MouseEvent ev);
+    public void contextMenu(File f, MouseEvent ev, SelectionPlace p);
 }

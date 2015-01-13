@@ -22,7 +22,7 @@ import it.mbcraft.fileplaza.state.CurrentLicenseState;
 import it.mbcraft.fileplaza.state.license.AbstractLicense;
 import it.mbcraft.fileplaza.state.license.LicenseException;
 import it.mbcraft.fileplaza.state.license.LicenseFactory;
-import it.mbcraft.fileplaza.ui.common.components.AbstractSettingsWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractSettingsWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import java.util.logging.Level;
 import java.util.logging.Logger;

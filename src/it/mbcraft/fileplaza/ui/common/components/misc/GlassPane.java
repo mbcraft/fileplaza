@@ -12,16 +12,17 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.misc;
+
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public abstract class AbstractIconView {
-    
-    
-    public AbstractIconView(int size) {
-        
-    }
+public class GlassPane extends Pane {
+    public GlassPane(double width,double height) {
+        setStyle("-fx-background-color:transparent;");
+        setPrefSize(width, height);
+    }    
 }

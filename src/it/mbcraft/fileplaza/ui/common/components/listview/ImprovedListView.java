@@ -12,8 +12,9 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.listview;
 
+import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 import javafx.scene.control.ListView;
 
 /**
@@ -35,7 +36,7 @@ public class ImprovedListView<T> extends ListView<T> implements IRefreshable<T> 
     }
     
     /**
-     * Refreshes the item at position i inside the listview.
+     * Refreshes the item at position i inside the list view.
      * 
      * @param index The index of the item to refresh
      */

@@ -12,7 +12,7 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.windows;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 

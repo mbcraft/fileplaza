@@ -12,17 +12,15 @@
  *  - Marco Bagnaresi
  */
 
-package it.mbcraft.fileplaza.ui.common.components;
+package it.mbcraft.fileplaza.ui.common.components.tileview;
 
-import javafx.scene.layout.Pane;
+import com.guigarage.fx.grid.GridCell;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
+ * @param <T>
  */
-public class GlassPane extends Pane {
-    public GlassPane(double width,double height) {
-        setStyle("-fx-background-color:transparent;");
-        setPrefSize(width, height);
-    }    
+public class TileCell<T> extends GridCell<T> {
+    
 }

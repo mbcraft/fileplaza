@@ -39,10 +39,14 @@ class FileListCellMouseListener implements EventHandler<MouseEvent> {
         if (cell.getItem()!=null) {
             File item = cell.getItem();
             if (t.getButton()==MouseButton.SECONDARY)
-                myListener.contextMenu(item, t);
+                myListener.contextMenu(item, t, cell.getSelectionPlace(t));
            
-            if (t.getButton()==MouseButton.PRIMARY && t.getClickCount()==2)                
-                myListener.heavySelection(item);
+            if (t.getButton()==MouseButton.PRIMARY) {
+                if (t.getClickCount()==1)                
+                    myListener.simpleSelection(item,t,cell.getSelectionPlace(t));
+                if (t.getClickCount()==2)
+                    myListener.heavySelection(item,t,cell.getSelectionPlace(t));
+            }
         } 
         t.consume();
     }

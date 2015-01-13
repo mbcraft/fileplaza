@@ -42,7 +42,7 @@ public class DictionaryDAO implements IDictionaryDAO {
     }
     
     private DictionaryDAO() {
-        sz = new DictionaryManager();
+        sz = new DictionaryManager("");
         reloadAll();
     }
     

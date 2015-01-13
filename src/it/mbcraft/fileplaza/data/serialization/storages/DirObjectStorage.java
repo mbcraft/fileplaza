@@ -48,7 +48,8 @@ public class DirObjectStorage implements IObjectStorage {
             _rootDir = rootDir;
 
             recursiveCheckPermissions(_rootDir);
-        } else throw new InvalidParameterException("Storage works only with a root dir! : "+rootDir.getAbsolutePath());
+        } else 
+            throw new InvalidParameterException("Storage works only with a root dir! : "+rootDir.getAbsolutePath());
     }
     
     /**
@@ -184,15 +185,16 @@ public class DirObjectStorage implements IObjectStorage {
      * 
      * @param oldKey The old object key
      * @param newKey The new object key
+     * @return true if rename was succesful, false otherwise
      */
     @Override
-    public void rename(String oldKey, String newKey) {
+    public boolean rename(String oldKey, String newKey) {
         checkParameterNotNull(oldKey);
         checkParameterNotNull(newKey);
         
         File f = new File(_rootDir,oldKey);
         
-        f.renameTo(new File(_rootDir,newKey));
+        return f.renameTo(new File(_rootDir,newKey));
     }
 
     /**

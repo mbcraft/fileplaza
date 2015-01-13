@@ -30,8 +30,8 @@ import java.io.File;
  */
 public class FolderElementManager extends AbstractModelManager<FolderElement> {
 
-    public FolderElementManager() {
-        super(new DirObjectStorage(new File(StorageHelper.DEFAULT_FOLDER_ELEMENTS_PATH)));
+    public FolderElementManager(String prefix) {
+        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_FOLDER_ELEMENTS_PATH)));
     }
     
     @Override

@@ -15,7 +15,7 @@
 package it.mbcraft.fileplaza.ui.main.menu.file.dictionaries;
 
 import it.mbcraft.fileplaza.data.models.Dictionary;
-import it.mbcraft.fileplaza.ui.common.components.AbstractListCell;
+import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
 import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 
@@ -23,7 +23,7 @@ import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class DictionaryListCell extends AbstractListCell<Dictionary> {    
+public class DictionaryListCell extends ImprovedListCell<Dictionary> {    
     
     public DictionaryListCell() {
         super(ZoomHelper.getMinSize());

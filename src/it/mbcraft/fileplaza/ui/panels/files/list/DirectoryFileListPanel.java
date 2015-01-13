@@ -17,7 +17,7 @@ package it.mbcraft.fileplaza.ui.panels.files.list;
 
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import it.mbcraft.fileplaza.ui.common.components.IZoomableNodeProvider;
-import it.mbcraft.fileplaza.ui.common.components.ImprovedListView;
+import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListView;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
 import javafx.beans.property.BooleanProperty;
@@ -36,7 +36,7 @@ import javafx.scene.layout.BorderPane;
  * Write   : Pencil_Blue_32
  * Execute : Red_Thunder
  */
-public class FileListPanel implements IZoomableNodeProvider {
+public class DirectoryFileListPanel implements IZoomableNodeProvider {
 
     private final BooleanProperty zoomInDisabledProperty = new SimpleBooleanProperty();
     private final BooleanProperty zoomOutDisabledProperty = new SimpleBooleanProperty();
@@ -45,12 +45,13 @@ public class FileListPanel implements IZoomableNodeProvider {
     private final ImprovedListView<File> _fileList;
     private int zoomLevel = 0;
     
-    public FileListPanel() {
+    public DirectoryFileListPanel() {
         
         _fileListPanel = new BorderPane();                
         
         _fileList = new ImprovedListView<>();
         _fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        _fileList.setCellFactory(new FileListCellFactory(null));
         
         _fileListPanel.setCenter(_fileList);
         

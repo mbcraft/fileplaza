@@ -19,7 +19,7 @@ import it.mbcraft.fileplaza.data.models.config.Settings;
 import it.mbcraft.fileplaza.i18n.Lang;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.common.components.AbstractSettingsWindow;
+import it.mbcraft.fileplaza.ui.common.components.windows.AbstractSettingsWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import javafx.beans.value.ChangeListener;
