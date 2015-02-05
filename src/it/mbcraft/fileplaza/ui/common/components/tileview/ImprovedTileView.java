@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.common.components.tileview;
@@ -24,29 +28,22 @@ import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
  */
 public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> {  
     
-    public ImprovedTileView() {
-        super();
-    }
     /**
-     * Refreshes all the items in the list view
+     * Refreshes all the items in the tile view
      */
     @Override
     public void refreshAllItems() {
-        int count = getItems().size();
-        for (int i=0;i<count;i++)
-            refreshIndex(i);
+        requestLayout();    
     }
     
     /**
-     * Refreshes the item at position i inside the listview.
+     * Refreshes the item at position i inside the tile view.
      * 
      * @param index The index of the item to refresh
      */
     @Override
     public void refreshIndex(int index) {
-        T item = getItems().get(index);
-        getItems().remove(index);
-        getItems().add(index, item);
+        requestLayout();
     }
     
     /**
@@ -56,9 +53,7 @@ public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> 
      */
     @Override
     public void refreshItem(T item) {
-        int index = getItems().indexOf(item);
-        getItems().remove(index);
-        getItems().set(index, item);
+        requestLayout();
     }
     
     /**
@@ -66,7 +61,7 @@ public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> 
      */
     @Override
     public void refreshSelectedItem() {
-        refreshIndex(getSelectionModel().getSelectedIndex());
+        requestLayout();
     }
     
 }

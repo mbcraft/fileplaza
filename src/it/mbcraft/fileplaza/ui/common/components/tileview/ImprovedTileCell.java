@@ -1,46 +1,48 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.common.components.tileview;
 
 import com.guigarage.fx.grid.GridCell;
-import com.sun.javafx.tk.FontMetrics;
+import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.Toolkit;
 import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener.SelectionPlace;
 import it.mbcraft.fileplaza.utils.NodeUtils;
+import it.mbcraft.fileplaza.utils.NumericUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Bounds;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -49,9 +51,10 @@ import javafx.stage.StageStyle;
  */
 public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewableElement {
     
-    private int itemSize;
+    protected final IntegerProperty cellZoomLevelProperty;
     
     private IconReference mainIcon;
+    
     private final List<IconReference> statusIcons = new ArrayList<>();
     
     private final BorderPane mainIconPane;
@@ -59,9 +62,11 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     private final Label myText;
     
     private final FlowPane statusIconPane;
+    
+    protected static final String CELL_FONT = "Arial";
        
-    public ImprovedTileCell(int size) {
-        itemSize = size;
+    public ImprovedTileCell(IntegerProperty cellZoomLevelProp) {
+        cellZoomLevelProperty = cellZoomLevelProp;
         
         statusIconPane = new FlowPane();
         statusIconPane.setAlignment(Pos.CENTER);
@@ -80,25 +85,42 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         layoutPane.getChildren().add(mainIconPane);       
         layoutPane.getChildren().add(myText);
                 
+        setText(null);
         setGraphic(layoutPane);
+        
+        setupListeners();
     }
     
-    @Override
-    public int getItemSize() {
-        return itemSize;
+    private void setupListeners() {
+        itemProperty().addListener(new ChangeListener<T>() {
+
+            @Override
+            public void changed(ObservableValue<? extends T> ov, T oldValue, T newValue) {
+                updateCellContent(cellZoomLevelProperty.get());
+            }
+        });
+        
+        cellZoomLevelProperty.addListener((ChangeListener)new ChangeListener<Integer>(){
+
+            @Override
+            public void changed(ObservableValue<? extends Integer> ov, Integer oldValue, Integer newValue) {
+                updateCellContent(newValue);
+            }
+        });
     }
     
-    @Override
-    public void setItemSize(int size) {
-        itemSize = size;
+    private void updateCellContent(int zoomLevel) {
+                
+        int itemSize = ZoomHelper.getSizeFromZoomLevel(zoomLevel);
         
         setMainIcon(mainIcon);
-        
+
+        statusIconPane.getChildren().clear();
         for (IconReference ref : statusIcons) {
-            statusIconPane.getChildren().clear();
             statusIconPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
-            setLabelFont(new Font(getLabelFont().getName(),size));
         }
+        
+        setLabelFont(new Font(CELL_FONT,itemSize));
     }
     
     @Override
@@ -111,9 +133,21 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         mainIcon = ref;
         
         if (ref!=null)
-            mainIconPane.setCenter(IconFactory.getIconByReference(ref, itemSize));
+            mainIconPane.setCenter(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
         else
             mainIconPane.setCenter(null);
+    }
+    
+    private String[] getLabelTokens(String fullText) {
+        List<String> tokens = new ArrayList<>();
+        int pos = 0;
+        while (fullText.length() > pos+18) {
+            int endPosition = pos+18 < fullText.length() ? pos+18 : fullText.length()-1;
+            tokens.add(fullText.substring(pos, endPosition));
+            pos+=18;
+        }
+        tokens.add(fullText.substring(pos));
+        return tokens.toArray(new String[tokens.size()]);
     }
     
     @Override
@@ -123,15 +157,12 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     
     @Override
     public void setLabelText(String text) {
+        String[] tokens = getLabelTokens(text);
         String finalText = "";
-        int pos = 0;
-        while (text.length() > pos+18) {
-            int endPosition = pos+18 < text.length() ? pos+18 : text.length()-1;
-            finalText += text.substring(pos, endPosition)+"\n";
-            pos+=18;
+        for (String tok : tokens) {
+            finalText+=tok+"\n";
         }
-        finalText+=text.substring(pos);
-        myText.setText(finalText);
+        myText.setText(finalText.substring(0,finalText.length()-1));
     }
     
     @Override
@@ -153,9 +184,10 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     @Override
     public void pushStatusIcon(IconReference ref) {        
         statusIcons.add(ref);
-        statusIconPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
+        statusIconPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
     }
-    
+        
+    /*
     private void printBounds(Bounds b) {
         System.out.println("Min X :"+b.getMinX());
         System.out.println("Min Y :"+b.getMinY());
@@ -181,9 +213,11 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         return Toolkit.getToolkit().getFontLoader().computeStringWidth(text, f);
     }
     
+    */
+    
     public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {
-        System.out.println("X : "+t.getX());
-        System.out.println("Y : "+t.getY());       
+        //System.out.println("X : "+t.getX());
+        //System.out.println("Y : "+t.getY());       
         
         if (NodeUtils.containsMouseEvent(myText,t))
             return SelectionPlace.NAME;
@@ -193,6 +227,30 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
             return SelectionPlace.ICON;
         
         return SelectionPlace.ITEM;
-
     }
+    
+    protected double getRequiredCellWidth() {
+        double statusIconsWidth = statusIconPane.getPrefWidth();
+        double mainIconWidth = mainIconPane.getPrefWidth();
+        double textWidth = 0;
+        Font f = getLabelFont();
+        FontLoader fl = Toolkit.getToolkit().getFontLoader();
+        for (String st : getLabelTokens(getLabelText())) {
+            double w = fl.computeStringWidth(st, f);
+            if (textWidth < w) 
+                textWidth = w;
+        }
+        
+        return NumericUtils.getMaxValue(statusIconsWidth,mainIconWidth,textWidth);
+    }
+    
+
+    protected double getRequiredCellHeight() {
+        double statusIconsHeight = statusIconPane.getPrefHeight();
+        double mainIconHeight = mainIconPane.getPrefHeight();
+        double textHeight = getLabelFont().getSize();
+        
+        return statusIconsHeight+mainIconHeight+textHeight*(getLabelTokens(getLabelText()).length);
+    }
+    
 }

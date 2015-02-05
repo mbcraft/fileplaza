@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.common.components.listview;
@@ -17,15 +21,24 @@ package it.mbcraft.fileplaza.ui.common.components.listview;
 import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
+import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
+import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.utils.NodeUtils;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -34,66 +47,90 @@ import javafx.scene.text.Font;
  */
 public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewableElement {
     
-    private int itemSize;
+    private final IntegerProperty cellZoomLevelProperty;
     
     private IconReference mainIcon;
+    
     private final List<IconReference> statusIcons = new ArrayList<>();
     
-    private final BorderPane mainIconAndLabel;
+    private final HBox mainIconAndLabelPane;
+    
+    private final Pane mainIconPane;
     
     private final Label myText;
     
     private final HBox statusIconsPane;
     
-    public ImprovedListCell(int size) {
-        itemSize = size;
+    protected static final String CELL_FONT = "Arial";
+    
+    public ImprovedListCell(IntegerProperty cellZoomLevelProp) {
         
-        mainIconAndLabel = new BorderPane();
+        cellZoomLevelProperty = cellZoomLevelProp;
         
+        mainIconAndLabelPane = new HBox();
+        mainIconAndLabelPane.setAlignment(Pos.CENTER_LEFT);
+        mainIconAndLabelPane.setSpacing(5);
+        
+        mainIconPane = new Pane();
         myText = new Label();
+
+        mainIconAndLabelPane.getChildren().add(mainIconPane);
+        mainIconAndLabelPane.getChildren().add(myText);
         
-        mainIconAndLabel.setRight(myText);
         statusIconsPane = new HBox();
         statusIconsPane.setAlignment(Pos.CENTER_RIGHT);
-        setText(null);
-        BorderPane pane = new BorderPane();
-        pane.setLeft(mainIconAndLabel);
-        pane.setRight(statusIconsPane);
-        setGraphic(pane);
+        
+        BorderPane finalPane = new BorderPane();
+        
+        finalPane.setLeft(mainIconAndLabelPane);
+        finalPane.setRight(statusIconsPane);
+        
+        setGraphic(finalPane);
+        
+        setupListeners();
+    }
+              
+    private void setupListeners() {
+        itemProperty().addListener((ChangeListener)new ChangeListener<T>(){
+
+            @Override
+            public void changed(ObservableValue<? extends T> ov, T oldValue, T newValue) {
+                if (newValue != null) {
+                    updateItem(newValue, false);
+                    updateCellContent();
+                } else {
+                    updateItem(null, true);
+                }}
+        });
         
     }
     
-    @Override
-    public int getItemSize() {
-        return itemSize;
-    }
-    
-    @Override
-    public void setItemSize(int size) {
-        itemSize = size;
+    private void updateCellContent() {
+        int itemSize = ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get());
         
         setMainIcon(mainIcon);
         
+        statusIconsPane.getChildren().clear();
         for (IconReference ref : statusIcons) {
-            statusIconsPane.getChildren().clear();
             statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
-            setLabelFont(new Font(getLabelFont().getName(),size));
         }
+        
+        setLabelFont(new Font(CELL_FONT,itemSize));
     }
     
     @Override
     public void clearMainIcon() {
-        mainIconAndLabel.setLeft(null);
+        mainIconPane.getChildren().clear();
     }
     
     @Override
     public void setMainIcon(IconReference ref) {
         mainIcon = ref;
         
+        mainIconPane.getChildren().clear();
+        
         if (ref!=null)
-            mainIconAndLabel.setLeft(IconFactory.getIconByReference(ref, itemSize));
-        else
-            mainIconAndLabel.setLeft(null);
+            mainIconPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get()))); 
     }
     
     @Override
@@ -125,6 +162,30 @@ public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewab
     @Override
     public void pushStatusIcon(IconReference ref) {        
         statusIcons.add(ref);
-        statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, itemSize));
+        statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
+    }
+    
+    public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {
+        //System.out.println("X : "+t.getX());
+        //System.out.println("Y : "+t.getY());       
+        
+        if (NodeUtils.containsMouseEvent(myText,t)) {
+            System.out.println("NAME");
+            return IFileItemActionListener.SelectionPlace.NAME;
+        }
+        
+        if (NodeUtils.containsMouseEvent(statusIconsPane,t)) {
+            System.out.println("STATUS ICON");
+            return IFileItemActionListener.SelectionPlace.STATUS_ICON;
+        }
+        
+        if (NodeUtils.containsMouseEvent(mainIconPane,t)) {
+            System.out.println("ICON");
+            return IFileItemActionListener.SelectionPlace.ICON;
+        }
+        
+        System.out.println("ITEM");
+        return IFileItemActionListener.SelectionPlace.ITEM;
+        
     }
 }

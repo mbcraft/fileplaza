@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.main.browse.path;
@@ -22,6 +26,8 @@ import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -73,12 +79,12 @@ public class CurrentPathPanel implements INodeProvider {
         File[] roots = File.listRoots();
                 
         driveSelector = new ComboBox();
-        
+
         driveSelector.setCellFactory(new Callback<ListView<File>,ListCell<File>>(){
 
             @Override
             public ListCell<File> call(ListView<File> p) {
-                return new FileListCell(ZoomHelper.getMinSize());
+                return new FileListCell(new SimpleIntegerProperty(1));
             }
         });
         driveSelector.getItems().setAll((Object[]) roots);

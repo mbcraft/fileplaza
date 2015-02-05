@@ -1,29 +1,37 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.panels.files.icon;
 
 import com.guigarage.fx.grid.GridCell;
 import com.guigarage.fx.grid.GridView;
-import com.sun.javafx.WeakReferenceQueue;
-import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
+import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
+import it.mbcraft.fileplaza.ui.panels.files.CellSizeUpdater;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import java.io.File;
-import java.util.Iterator;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
@@ -33,41 +41,24 @@ import javafx.util.Callback;
  */
 public class FileIconCellFactory implements Callback<GridView<File>,GridCell<File>> {
 
+    private final IntegerProperty zoomLevelProperty;
+    private final IntegerProperty cellZoomLevelProperty;
+    
     private final EventHandler<MouseEvent> mouseHandler;
-    private int currentItemSize;
-    private int zoomLevel = 1;
+    private final List<WeakReference<Node>> currentCells = new ArrayList();
     
-    private final WeakReferenceQueue<GridCell<File>> cells = new WeakReferenceQueue<>();
-    
-    
-    public FileIconCellFactory(IFileItemActionListener listener) {
-        mouseHandler = new FileIconCellMouseListener(listener);
-        currentItemSize = ZoomHelper.getSizeFromZoomLevel(zoomLevel);
+    public FileIconCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IFileItemActionListener listener) {
+        zoomLevelProperty = zoomLevelProp;
+        cellZoomLevelProperty = new SimpleIntegerProperty(zoomLevelProperty.get());
+        mouseHandler = new FileIconCellMouseListener(listener);   
+        zoomLevelProperty.addListener((ChangeListener)new CellSizeUpdater(cellZoomLevelProperty,ref,currentCells));
     }
     
     @Override
     public GridCell<File> call(final GridView<File> gv) {
-        final FileIconCell cell = new FileIconCell(currentItemSize);
+        final FileIconCell cell = new FileIconCell(cellZoomLevelProperty);
         cell.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseHandler);        
-        cells.add(cell);
+        currentCells.add(new WeakReference(cell));
         return cell;
     }
-
-    public void setZoomLevel(int level) {
-        ZoomHelper.checkZoomLevel(level);
-        zoomLevel = level;
-        currentItemSize = ZoomHelper.getSizeFromZoomLevel(level);
-        
-        Iterator it = cells.iterator();
-        while (it.hasNext()) {
-            FileIconCell obj = (FileIconCell) it.next();
-            obj.setItemSize(currentItemSize);
-        }  
-        
-    }
-    
-    public int getZoomLevel() {
-        return zoomLevel;
-    }
-
 }

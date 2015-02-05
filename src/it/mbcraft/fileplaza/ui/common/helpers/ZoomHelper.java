@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.common.helpers;
@@ -24,24 +28,30 @@ public class ZoomHelper {
     
     private static final int ZOOM_SIZES[] = {16,24,32,48,96,128,256};
     
-    public static int getMinSize() {
-        return ZOOM_SIZES[getMinLevel()];
+    public static int getMinItemSize() {
+        return ZOOM_SIZES[getMinLevelIndex()];
     }    
     
-    public static int getMaxSize() {
-        return ZOOM_SIZES[getMaxLevel()];
+    public static int getMaxItemSize() {
+        return ZOOM_SIZES[getMaxLevelIndex()];
     }
     
-    public static int getMinLevel() {
+    public static int getMinLevelIndex() {
         return 0;
     }
     
-    public static int getMaxLevel() {
+    public static int getMaxLevelIndex() {
         return ZOOM_SIZES.length-1;
     }
     
     public static final int getSizeFromZoomLevel(int zoomLevel) {
         return ZOOM_SIZES[zoomLevel];
+    }
+    
+    public static final void checkAllowedItemSize(int itemSize) {
+        for (int i=0;i<ZOOM_SIZES.length;i++)
+            if (ZOOM_SIZES[i]==itemSize) return;
+        throw new InvalidParameterException("Item size is not valid!");
     }
 
     public static void checkZoomLevel(int level) {

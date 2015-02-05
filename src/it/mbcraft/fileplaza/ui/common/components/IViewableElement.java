@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.common.components;
@@ -26,67 +30,53 @@ public interface IViewableElement {
     /**
      * Removes the main icon, clearing the slot.
      */
-    void clearMainIcon();
+    public void clearMainIcon();
 
     /**
      * Removes all the status icons.
      */
-    void clearStatusIcons();
-
-    /**
-     * Returns the current element size
-     * 
-     * @return The item size.
-     */
-    int getItemSize();
+    public void clearStatusIcons();
 
     /**
      * Returns the current Font used for the element label.
      * 
      * @return The font of the label.
      */
-    Font getLabelFont();
+    public Font getLabelFont();
 
     /**
      * Gets the value of the label text.
      * 
      * @return The label text as a String.
     */
-    String getLabelText();
+    public String getLabelText();
 
     /**
      * Adds an icon to the element status icons.
      * 
      * @param ref The reference to the icon to add.
      */
-    void pushStatusIcon(IconReference ref);
-
-    /**
-     * Sets the size of the item.
-     * 
-     * @param size The number of pixels of the item.
-     */
-    void setItemSize(int size);
+    public void pushStatusIcon(IconReference ref);
 
     /**
      * Sets the font for the element label.
      * 
      * @param f The font for the label. 
      */
-    void setLabelFont(Font f);
+    public void setLabelFont(Font f);
 
     /**
      * Sets the text of the label.
      * 
      * @param text The text of the label.
      */
-    void setLabelText(String text);
+    public void setLabelText(String text);
 
     /**
      * Sets the main icon for this element.
      * 
      * @param ref The reference to the icon to use.
      */
-    void setMainIcon(IconReference ref);
+    public void setMainIcon(IconReference ref);
     
 }

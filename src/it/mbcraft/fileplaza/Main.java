@@ -1,19 +1,23 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package it.mbcraft.fileplaza;
 
-import com.guigarage.fx.grid.GridView;
 import it.mbcraft.fileplaza.ui.common.components.windows.ComponentTesterWindow;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.i18n.Lang;
@@ -23,11 +27,7 @@ import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
 import it.mbcraft.fileplaza.ui.panels.files.icon.DirectoryFileIconPanel;
-import it.mbcraft.fileplaza.ui.panels.files.icon.FileIconCell;
-import it.mbcraft.fileplaza.ui.panels.files.icon.FileIconCellFactory;
 import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
-import it.mbcraft.fileplaza.utils.NodeUtils;
 import java.io.File;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -39,7 +39,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.IndexedCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -90,14 +89,14 @@ public class Main extends Application {
     private void runFileListTester(Stage stage) {
         WindowStack.push(stage);
         DirectoryFileListPanel panel = new DirectoryFileListPanel();
-        panel.zoomIn();
+        //panel.zoomIn();
         File home = new File("/home/marco");
         panel.itemsProperty().get().addAll(home.listFiles(new NotHiddenFileFilter()));
 
         ComponentTesterWindow tester = new ComponentTesterWindow(stage, panel.getNode());
         tester.showAndWait();
     }
-
+    /*
     private void runListCellTester(Stage stage) {
         WindowStack.push(stage);
         FileListCell cell = new FileListCell(32);
@@ -113,7 +112,6 @@ public class Main extends Application {
     private void runGridCellTester(Stage stage) {
         WindowStack.push(stage);
 
-        
         FileIconCell cell = new FileIconCell(32);
         
         NodeUtils.setupNodeHover(cell, "-fx-background-color:#ffffff", "-fx-background-color:#ededff");
@@ -126,21 +124,18 @@ public class Main extends Application {
         
         ComponentTesterWindow tester = new ComponentTesterWindow(stage, cell);
         tester.showAndWait();
-        cell.printDebugInformations();
-    }
 
+    }
+    */
     private void testGridView(Stage primaryStage) {
         primaryStage.setTitle("JGridFX Demo 1");
 
-        
-        
         final ObservableList<File> list = FXCollections.<File>observableArrayList();
         DirectoryFileIconPanel myGrid = new DirectoryFileIconPanel();
         //myGrid.setCellWidth(150);
 //		myGrid.setStyle("-fx-border-color: black;");
         File f = new File("/home/marco");
                 
-        
         myGrid.setCellListener(new IFileItemActionListener() {
         
             @Override
@@ -184,13 +179,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        //initializeLog();
-        testGridView(primaryStage);
+        initializeLog();
+        //testGridView(primaryStage);
         //runFileListTester(primaryStage);
         //runFileIconTester(primaryStage);
         //runListCellTester(primaryStage);
         //runGridCellTester(primaryStage);
-        //runFilePlaza(primaryStage);
+        runFilePlaza(primaryStage);
+        
     }
 
     /**

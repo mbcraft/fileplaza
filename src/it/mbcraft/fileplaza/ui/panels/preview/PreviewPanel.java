@@ -1,15 +1,19 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.panels.preview;
@@ -25,7 +29,7 @@ import it.mbcraft.fileplaza.ui.panels.preview.providers.NoSelectionPreviewProvid
 import it.mbcraft.fileplaza.ui.panels.preview.providers.SimpleTextPreviewProvider;
 import it.mbcraft.fileplaza.ui.panels.preview.providers.VideoPreviewProvider;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.helpers.StackablePanelSelector;
+import it.mbcraft.fileplaza.ui.common.helpers.StackableNodeProviderSelector;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
@@ -45,7 +49,7 @@ public class PreviewPanel implements INodeProvider {
     
     private final StackPane filePreviewPanel_;
     
-    private final StackablePanelSelector selector = new StackablePanelSelector();
+    private final StackableNodeProviderSelector selector = new StackableNodeProviderSelector();
     
     private final List<AbstractPreviewProvider> previewers = new ArrayList();
     

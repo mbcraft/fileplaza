@@ -1,28 +1,32 @@
 /*
- *  Developed by MBCRAFT. Copyright © 2014-2015. All rights reserved.
- *  This file of source code is property of MBCRAFT (http://www.mbcraft.it). 
- *  Do not sell, do not remove this license note even if you edit this file.
- *  Do not use this source code to develop your own file manager application.
- *  You can reuse part or full files for your own project (eg javafx ui classes)
- *  but keep copyright in files, and please link http://www.mbcraft.it on your
- *  project website.
+ *    FilePlaza - a tag based file manager
+ *    Copyright (C) 2015 - Marco Bagnaresi
  *
- *  Thanks
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
- *  - Marco Bagnaresi
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package it.mbcraft.fileplaza.ui.panels.files.list;
 
-
+import it.mbcraft.fileplaza.ui.common.components.IItemViewer;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import it.mbcraft.fileplaza.ui.common.components.IZoomableNodeProvider;
 import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListView;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
-import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MultipleSelectionModel;
@@ -36,38 +40,35 @@ import javafx.scene.layout.BorderPane;
  * Write   : Pencil_Blue_32
  * Execute : Red_Thunder
  */
-public class DirectoryFileListPanel implements IZoomableNodeProvider {
+public class DirectoryFileListPanel implements IZoomableNodeProvider,IItemViewer<File> {
 
-    private final BooleanProperty zoomInDisabledProperty = new SimpleBooleanProperty();
-    private final BooleanProperty zoomOutDisabledProperty = new SimpleBooleanProperty();
-    
+    private final IntegerProperty zoomLevelProperty;
     private final BorderPane _fileListPanel;
     private final ImprovedListView<File> _fileList;
-    private int zoomLevel = 0;
     
     public DirectoryFileListPanel() {
         
+        zoomLevelProperty = new SimpleIntegerProperty(ZoomHelper.getMinLevelIndex());
+                
         _fileListPanel = new BorderPane();                
         
         _fileList = new ImprovedListView<>();
         _fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        _fileList.setCellFactory(new FileListCellFactory(null));
         
         _fileListPanel.setCenter(_fileList);
         
-        zoomInDisabledProperty.setValue(false);
-        zoomOutDisabledProperty.setValue(true);
-
     }
     
     public void setCellListener(IFileItemActionListener listener) {
-        _fileList.setCellFactory(new FileListCellFactory(listener));
+        _fileList.setCellFactory(new FileListCellFactory(zoomLevelProperty,_fileList,listener));
     }
     
+    @Override
     public ObjectProperty<ObservableList<File>> itemsProperty() {
         return _fileList.itemsProperty();
     }
     
+    @Override
     public ObjectProperty<MultipleSelectionModel<File>> selectionModelProperty() {
         return _fileList.selectionModelProperty();
     }
@@ -76,45 +77,10 @@ public class DirectoryFileListPanel implements IZoomableNodeProvider {
     public Node getNode() {
         return _fileListPanel;
     }  
-    
-    @Override
-    public BooleanProperty zoomInDisabledProperty() {
-        return zoomInDisabledProperty;
-    }
-    
-    @Override
-    public void zoomIn() {
-        zoomLevel++;
-        if (ZoomHelper.canZoomIn(zoomLevel))
-            zoomInDisabledProperty.setValue(false);
-        else
-            zoomInDisabledProperty.setValue(true);
         
-        zoomOutDisabledProperty.setValue(false);
-        
-        FileListCellFactory factory = (FileListCellFactory) _fileList.getCellFactory();
-        factory.setZoomLevel(zoomLevel);
-        _fileList.refreshAllItems();
-    }
-    
     @Override
-    public BooleanProperty zoomOutDisabledProperty() {
-        return zoomOutDisabledProperty;
-    }
-    
-    @Override
-    public void zoomOut() {
-        zoomLevel--;
-        if (ZoomHelper.canZoomOut(zoomLevel))
-            zoomOutDisabledProperty.setValue(false);
-        else
-            zoomOutDisabledProperty.setValue(true);
-        
-        zoomInDisabledProperty.setValue(false);
-        
-        FileListCellFactory factory = (FileListCellFactory) _fileList.getCellFactory();
-        factory.setZoomLevel(zoomLevel);
-        _fileList.refreshAllItems();
+    public IntegerProperty zoomLevelProperty() {
+        return zoomLevelProperty;
     }
 
     /*
