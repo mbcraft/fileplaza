@@ -31,4 +31,5 @@ public class DefaultGridCell<T> extends GridCell<T> {
 			setText(item.toString());
 		}
 	}
+        
 }

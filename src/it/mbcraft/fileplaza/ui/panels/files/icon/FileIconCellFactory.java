@@ -26,6 +26,7 @@ import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

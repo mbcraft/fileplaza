@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
 import java.io.File;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -31,8 +32,22 @@ import javafx.beans.value.ObservableValue;
  */
 public class FileIconCell extends ImprovedTileCell<File> {
     
+    private static final int HEIGHT_PADDING = 10;
+    
+    public FileIconCell(int zoomLevel) {
+        super(new SimpleIntegerProperty(zoomLevel));
+    }
+    
     public FileIconCell(IntegerProperty zoomLevel) {
         super(zoomLevel);
+        
+        zoomLevel.addListener(new ChangeListener(){
+
+            @Override
+            public void changed(ObservableValue ov, Object oldValue, Object newValue) {
+                updateRequiredCellSize();
+            }
+        });
         
         itemProperty().addListener(new ChangeListener<File>() {
 
@@ -85,6 +100,7 @@ public class FileIconCell extends ImprovedTileCell<File> {
                 pushFileIcon(data.getName());
             }
         }
+        updateRequiredCellSize();
     }
 
     private void pushFolderIcon() {
@@ -95,6 +111,11 @@ public class FileIconCell extends ImprovedTileCell<File> {
         String extension = filename.substring(filename.lastIndexOf(".") + 1);
 
         setMainIcon(new IconReference(IconReference.IconCategory.FILE, extension));
+    }
+    
+    public void updateRequiredCellSize() {
+        requiredCellHeightProperty().setValue(getRequiredCellHeight());
+        requiredCellWidthProperty().setValue(getRequiredCellWidth()+getCharacterWidthPadding()*2);
     }
 
 }

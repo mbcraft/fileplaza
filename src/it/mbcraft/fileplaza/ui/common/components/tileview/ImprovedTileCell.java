@@ -20,6 +20,7 @@ package it.mbcraft.fileplaza.ui.common.components.tileview;
 
 import com.guigarage.fx.grid.GridCell;
 import com.sun.javafx.tk.FontLoader;
+import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
@@ -29,6 +30,7 @@ import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
 import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener.SelectionPlace;
 import it.mbcraft.fileplaza.utils.NodeUtils;
 import it.mbcraft.fileplaza.utils.NumericUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 /**
  *
@@ -65,26 +68,36 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     
     protected static final String CELL_FONT = "Arial";
        
+    private final VBox layoutPane;
+    
     public ImprovedTileCell(IntegerProperty cellZoomLevelProp) {
         cellZoomLevelProperty = cellZoomLevelProp;
         
         statusIconPane = new FlowPane();
         statusIconPane.setAlignment(Pos.CENTER);
+        statusIconPane.minWidthProperty().bind(requiredCellWidthProperty());
 
         mainIconPane = new BorderPane();
+        mainIconPane.minWidthProperty().bind(requiredCellWidthProperty());
         
         myText = new Label();
         myText.setMinWidth(Control.USE_PREF_SIZE);
         myText.setMinHeight(Control.USE_PREF_SIZE);
         myText.setAlignment(Pos.TOP_CENTER);
-        myText.minWidthProperty().bind(widthProperty());
-        myText.maxWidthProperty().bind(widthProperty());
-        
-        VBox layoutPane = new VBox(); 
+        myText.setTextAlignment(TextAlignment.CENTER);
+        myText.minWidthProperty().bind(requiredCellWidthProperty());
+        myText.prefWidthProperty().bind(requiredCellWidthProperty());
+        myText.setWrapText(true);
+                
+        layoutPane = new VBox(); 
+        layoutPane.setAlignment(Pos.TOP_CENTER);
         layoutPane.getChildren().add(statusIconPane);
         layoutPane.getChildren().add(mainIconPane);       
         layoutPane.getChildren().add(myText);
-                
+
+        layoutPane.minWidthProperty().bind(requiredCellWidthProperty());
+        layoutPane.minHeightProperty().bind(requiredCellHeightProperty());
+        
         setText(null);
         setGraphic(layoutPane);
         
@@ -143,10 +156,14 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         int pos = 0;
         while (fullText.length() > pos+18) {
             int endPosition = pos+18 < fullText.length() ? pos+18 : fullText.length()-1;
-            tokens.add(fullText.substring(pos, endPosition));
+            String piece = fullText.substring(pos, endPosition);
+            
+            tokens.add(piece);
             pos+=18;
         }
-        tokens.add(fullText.substring(pos));
+        String lastPiece = fullText.substring(pos);
+        
+        tokens.add(lastPiece);
         return tokens.toArray(new String[tokens.size()]);
     }
     
@@ -186,38 +203,8 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         statusIcons.add(ref);
         statusIconPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
     }
-        
-    /*
-    private void printBounds(Bounds b) {
-        System.out.println("Min X :"+b.getMinX());
-        System.out.println("Min Y :"+b.getMinY());
-        System.out.println("Max X :"+b.getMaxX());
-        System.out.println("Max Y :"+b.getMaxY());
-        System.out.println("Width : "+b.getWidth());
-        System.out.println("Height : "+b.getHeight());
-        
-    }
-    
-    public void printDebugInformations() {        
-        System.out.println("Component : ");
-        printBounds(layoutBoundsProperty().get());
-        System.out.println("Label : ");
-        printBounds(myText.getLayoutBounds());
-        
-        Font f = new Font("Arial",10);
-        
-        System.out.println("Size of text : "+computeTextSize("Thisisaverylongtextsoweshouldbecareful", f));
-    }
-    
-    public double computeTextSize(String text,Font f) {
-        return Toolkit.getToolkit().getFontLoader().computeStringWidth(text, f);
-    }
-    
-    */
-    
-    public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {
-        //System.out.println("X : "+t.getX());
-        //System.out.println("Y : "+t.getY());       
+            
+    public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {    
         
         if (NodeUtils.containsMouseEvent(myText,t))
             return SelectionPlace.NAME;
@@ -229,6 +216,12 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         return SelectionPlace.ITEM;
     }
     
+    protected double getCharacterWidthPadding() {
+        Font f = getLabelFont();
+        FontLoader fl = Toolkit.getToolkit().getFontLoader();
+        return fl.computeStringWidth("o", f);
+    }
+    
     protected double getRequiredCellWidth() {
         double statusIconsWidth = statusIconPane.getPrefWidth();
         double mainIconWidth = mainIconPane.getPrefWidth();
@@ -237,20 +230,27 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         FontLoader fl = Toolkit.getToolkit().getFontLoader();
         for (String st : getLabelTokens(getLabelText())) {
             double w = fl.computeStringWidth(st, f);
+            
             if (textWidth < w) 
                 textWidth = w;
         }
         
-        return NumericUtils.getMaxValue(statusIconsWidth,mainIconWidth,textWidth);
+        double requiredWidth = NumericUtils.getMaxValue(statusIconsWidth,mainIconWidth,textWidth);
+        //System.out.println("Required width : "+requiredWidth);
+        return requiredWidth;
     }
     
 
     protected double getRequiredCellHeight() {
         double statusIconsHeight = statusIconPane.getPrefHeight();
         double mainIconHeight = mainIconPane.getPrefHeight();
-        double textHeight = getLabelFont().getSize();
         
-        return statusIconsHeight+mainIconHeight+textHeight*(getLabelTokens(getLabelText()).length);
+        FontMetrics fm = Toolkit.getToolkit().getFontLoader().getFontMetrics(getLabelFont());
+        double textHeight = fm.getLineHeight()+fm.getAscent();
+        
+        double requiredHeight = statusIconsHeight+mainIconHeight+(textHeight*(getLabelTokens(getLabelText()).length))+layoutPane.getSpacing()*2;
+        //System.out.println("Required height : "+requiredHeight);
+        return requiredHeight;
     }
     
 }

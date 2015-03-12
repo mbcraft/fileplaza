@@ -27,4 +27,5 @@ public class ImageGridCell extends GridCell<Image> {
 			}
 		});
 	}
+
 }

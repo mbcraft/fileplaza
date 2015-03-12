@@ -16,264 +16,321 @@ import com.sun.javafx.scene.control.skin.SkinBase;
 
 public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> {
 
-	private ListChangeListener<T> itemsListener;
+    private final ListChangeListener<T> itemsListener;
 
-	private ChangeListener<Number> layoutListener;
+    private final ChangeListener<Number> layoutListener;
 
-	private ChangeListener<ObservableList<T>> itemListChangedListener;
+    private final ChangeListener<ObservableList<T>> itemListChangedListener;
 
-	public GridViewSkin(GridView<T> control) {
-		super(control, new GridViewBehavior<>(control));
+    public GridViewSkin(GridView<T> control) {
+        super(control, new GridViewBehavior<>(control));
 
-		layoutListener = new ChangeListener<Number>() {
+        layoutListener = new ChangeListener<Number>() {
 
-			@Override
-			public void changed(ObservableValue<? extends Number> arg0,
-					Number arg1, Number arg2) {
-				requestLayout();
-			}
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                    Number oldNumber, Number newNumber) {
+                requestLayout();
+            }
+        };
 
-		};
+        itemsListener = new ListChangeListener<T>() {
+            @Override
+            public void onChanged(Change<? extends T> change) {
+                while (change.next()) {
+                    int start = change.getFrom();
+                    int end = change.getTo();
+                    for (int i = start; i < end; i++) {
+                        if (change.wasPermutated()) {
+                            // TODO: what to do know??
+                            //System.out.println("change: Permutation");
+                            updateAllCells();
+                        } else if (change.wasUpdated()) {
+                            //System.out.println("change: Update");
+                            updateCell(i);
+                        } else {
+                            if (change.wasRemoved()) {
+                                //System.out.println("change: Removed");
+                                removeCell(i);
+                            }
+                            if (change.wasAdded()) {
+                                //System.out.println("change: Added," + i);
+                                //this method is called after zoom ... why??
+                                addCell(i);
+                            }
+                        }
+                    }
+                }
+            }
+        };
 
-		itemsListener = new ListChangeListener<T>() {
-			@Override
-			public void onChanged(Change<? extends T> change) {
-				while (change.next()) {
-					int start = change.getFrom();
-					int end = change.getTo();
-					for (int i = start; i < end; i++) {
-						if (change.wasAdded()) {
-							addCell(i);
-						} else if (change.wasPermutated()) {
-							// TODO: what to do know??
-							updateAllCells();
-						} else if (change.wasRemoved()) {
-							removeCell(i);
-						} else if (change.wasReplaced()) {
-							replaceCell(i);
-						} else if (change.wasUpdated()) {
-							updateCell(i);
-						}
-					}
-				}
-			}
-		};
+        itemListChangedListener = new ChangeListener<ObservableList<T>>() {
 
-		itemListChangedListener = new ChangeListener<ObservableList<T>>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends ObservableList<T>> obs,
+                    ObservableList<T> oldList, ObservableList<T> newList) {
+                if (oldList != null) {
+                    oldList.removeListener(itemsListener);
+                }
+                if (newList != null) {
+                    newList.addListener(itemsListener);
+                }
 
-			@Override
-			public void changed(
-					ObservableValue<? extends ObservableList<T>> arg0,
-					ObservableList<T> oldList, ObservableList<T> newList) {
-				if (oldList != null) {
-					oldList.removeListener(itemsListener);
-				}
-				if (newList != null) {
-					newList.addListener(itemsListener);
-				}
-				updateAllCells();
-			}
-		};
+                updateAllCells();
+            }
+        };
 
-		getSkinnable().itemsProperty().addListener(itemListChangedListener);
-		ObservableList<T> currentList = getSkinnable().itemsProperty().get();
-		if (currentList != null) {
-			currentList.addListener(itemsListener);
-		}
+        getSkinnable()
+                .itemsProperty().addListener(itemListChangedListener);
+        ObservableList<T> currentList = getSkinnable().itemsProperty().get();
+        if (currentList
+                != null) {
+            currentList.addListener(itemsListener);
+        }
 
-		getSkinnable().cellHeightProperty().addListener(layoutListener);
-		getSkinnable().cellWidthProperty().addListener(layoutListener);
-		getSkinnable().verticalCellSpacingProperty()
-				.addListener(layoutListener);
-		getSkinnable().horizontalCellSpacingProperty().addListener(
-				layoutListener);
+        getSkinnable()
+                .verticalCellSpacingProperty()
+                .addListener(layoutListener);
+        getSkinnable()
+                .horizontalCellSpacingProperty().addListener(
+                        layoutListener);
 
-		updateAllCells();
-	}
+        updateAllCells();
+    }
 
-	public void updateAllCells() {
-		getChildren().clear();
-		ObservableList<T> items = getSkinnable().getItems();
-		if (items != null) {
-			
-			for (int index = 0; index < items.size(); index++) {
-				T item = items.get(index);
-				GridCell<T> cell = createCell();
-				cell.setItem(item);
-				cell.updateIndex(index);
-				getChildren().add(cell);
-			}
-		}
-		requestLayout();
-	}
+    public final void updateAllCells() {
+        getChildren().clear();
+        ObservableList<T> items = getSkinnable().getItems();
+        if (items != null) {
+            for (int index = 0; index < items.size(); index++) {
+                T item = items.get(index);
+                GridCell<T> cell = createCell();
+                cell.setItem(item);
+                cell.updateIndex(index);
+                getChildren().add(cell);
+            }
+        }
+        
+        requestLayout();
+    }
 
-	private void removeCell(int index) {
-		getChildren().remove(index);
-		//TODO: Update Index for all following cells
-		requestLayout();
-	}
+    private void removeCell(int index) {
+        getSkinnable().getItems().remove(index);
+        getChildren().remove(index);
 
-	private void replaceCell(int index) {
-		getChildren().remove(index);
-		addCell(index);
-	}
+        requestLayout();
+    }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void updateCell(int index) {
-		T item = getSkinnable().getItems().get(index);
-		((GridCell) getChildren().get(index)).setItem(item);
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private void updateCell(int index) {
+        T item = getSkinnable().getItems().get(index);
+        ((GridCell) getChildren().get(index)).setItem(item);
+        
+        requestLayout();
+    }
 
-	private void addCell(int index) {
-		T item = getSkinnable().getItems().get(index);
-		GridCell<T> cell = createCell();
-		cell.setItem(item);
-		cell.updateIndex(index);
-		getChildren().add(index, cell);
-		//TODO: Update Index for all following cells
-		requestLayout();
-	}
+    private void addCell(int index) {
+        T item = getSkinnable().getItems().get(index);
+        GridCell<T> cell = createCell();
 
-	private GridCell<T> createCell() {
-		GridCell<T> cell;
-		if (getSkinnable().getCellFactory() != null) {
-			cell = getSkinnable().getCellFactory().call(getSkinnable());
-		} else {
-			cell = createDefaultCellImpl();
-		}
-		return cell;
-	}
+        cell.setItem(item);
+        cell.updateIndex(index);
 
-	protected GridCell<T> createDefaultCellImpl() {
-		return new DefaultGridCell<T>();
-	}
+        getChildren().add(index, cell);
 
-	@Override
-	protected void layoutChildren() {
-		super.layoutChildren();
-		double currentWidth = getWidth();
-		double cellWidth = getSkinnable().getCellWidth();
-		double cellHeight = getSkinnable().getCellHeight();
-		double horizontalCellSpacing = getSkinnable().getHorizontalCellSpacing();
-		double verticalCellSpacing = getSkinnable().getVerticalCellSpacing();
-		
-		double xPos = 0;
-		double yPos = 0;
-		
-		HPos currentHorizontalAlignment = getSkinnable().getHorizontalAlignment(); 
-		if(currentHorizontalAlignment != null) {
-			if(currentHorizontalAlignment.equals(HPos.CENTER)) {
-				xPos = (currentWidth % computeCellWidth()) / 2;
-			} else if(currentHorizontalAlignment.equals(HPos.RIGHT)) {
-				xPos = currentWidth % computeCellWidth();
-			}
-		}
-		
-		for (Node child : getChildren()) {
-			if (xPos + horizontalCellSpacing + cellWidth
-					+ horizontalCellSpacing > currentWidth) {
-				// new line
-				xPos = 0;
-				if(currentHorizontalAlignment != null) {
-					if(currentHorizontalAlignment.equals(HPos.CENTER)) {
-						xPos = (currentWidth % computeCellWidth()) / 2;
-					} else if(currentHorizontalAlignment.equals(HPos.RIGHT)) {
-						xPos = currentWidth % computeCellWidth();
-					}
-				}
-				
-				yPos = yPos + verticalCellSpacing + cellHeight
-						+ verticalCellSpacing;
-			}
-			child.relocate(xPos + horizontalCellSpacing, yPos + verticalCellSpacing);
-			child.resize(cellWidth, cellHeight);
-			xPos = xPos + horizontalCellSpacing + cellWidth + horizontalCellSpacing;;
-		}
-	}
+        requestLayout();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javafx.scene.layout.StackPane#getContentBias() Höhe des Grids ist
-	 * von dessen Breite abhängig. Je mehr Zellen in eine Zeile passen desto
-	 * geringer wird die Höhe
-	 */
-	@Override
-	public Orientation getContentBias() {
-		return Orientation.HORIZONTAL;
-	}
+    private GridCell<T> createCell() {
+        GridCell<T> cell;
+        if (getSkinnable().getCellFactory() != null) {
+            cell = getSkinnable().getCellFactory().call(getSkinnable());
+        } else {
+            cell = createDefaultCellImpl();
+        }
 
-	protected double computeCellWidth() {
-		return getSkinnable().cellWidthProperty().doubleValue()
-				+ getSkinnable().horizontalCellSpacingProperty().doubleValue()
-				+ getSkinnable().horizontalCellSpacingProperty().doubleValue();
-	}
-	
-	protected double computeCellHeight() {
-		return getSkinnable().cellHeightProperty().doubleValue()
-				+ getSkinnable().verticalCellSpacingProperty().doubleValue()
-				+ getSkinnable().verticalCellSpacingProperty().doubleValue();
-	}
-	
-	@Override
-	protected double computeMinHeight(double width) {
-		return computeCellHeight();
-	}
+        return cell;
+    }
 
-	@Override
-	protected double computeMinWidth(double height) {
-		return computeCellWidth();
-	}
+    protected GridCell<T> createDefaultCellImpl() {
+        return new DefaultGridCell<>();
+    }
 
-	@Override
-	protected double computeMaxHeight(double width) {
-		return Double.MAX_VALUE;
-	}
+    /*
+    Compute the required cell width with spacing included
+    */
+    protected double computeRequiredCellWidthWithSpacing() {
+        GridCell<T> cell = createCell();
+        double cellWidth = 0;
+        for (T n : getSkinnable().getItems()) {
+            cell.setItem(n);
+            if (cell.requiredCellWidthProperty().get() > cellWidth) {
+                cellWidth = cell.requiredCellWidthProperty().get();
+            }
+        }
+        //computing cell width with spacing between cells included
+        double finalCellWidth = cellWidth + 2 * getSkinnable().getHorizontalCellSpacing();
+        
+        return finalCellWidth;
+    }
+    
+    /**
+     * Compute the required cell height with spacing included
+     * 
+     * @param cellIndex the index of the cell
+     * @return 
+     */
+    protected double computeRequiredCellHeightWithSpacing(int cellIndex) {
+        GridCell<T> cell = createCell();
+        double cellHeight = 0;
+         
+        cell.setItem(getSkinnable().getItems().get(cellIndex));
+        if (cell.requiredCellHeightProperty().get() > cellHeight) {
+            cellHeight = cell.requiredCellHeightProperty().get();
+        }
+        
+        //computing cell height with spacing between cells included
+        double finalCellHeight = cellHeight + 2 * getSkinnable().getVerticalCellSpacing();
+        
+        return finalCellHeight;
+    }
 
-	@Override
-	protected double computeMaxWidth(double height) {
-		return Double.MAX_VALUE;
-	}
+    /**
+     * Compute the required row height of the given row
+     * @param rowIndex The index of the row
+     * @return The height of the row
+     */
+    protected double computeRowHeight(int rowIndex) {
+        int maxCellsInRow = computeMaxCellCountInRow();
+        int start = maxCellsInRow * rowIndex;
+        int totalItemCount = getSkinnable().getItems().size();
+        int end = (start + maxCellsInRow) < totalItemCount ? (start + maxCellsInRow) : totalItemCount;
+        double height = 0;
 
-	@Override
-	protected double computePrefHeight(double width) {
-		int maxCellsInRow = computeMaxCellsInRow(width);
-		int rowCount = (int) Math.floor((double) getSkinnable().getItems().size()
-				/ (double) maxCellsInRow);
-		return rowCount * computeCellHeight();
-	}
+        for (int i = start; i < end; i++) {
 
-	@Override
-	protected double computePrefWidth(double height) {
-            int maxCellsInColumn = computeMaxCellsInColumn(height);
-            int columnCount = (int) Math.floor((double) getSkinnable().getItems().size()
-                            / (double) maxCellsInColumn);
-            return columnCount * computeCellWidth();         
-	}
+            if (height < computeRequiredCellHeightWithSpacing(i)) {
+                height = computeRequiredCellHeightWithSpacing(i);
+            }
+        }
+        
+        return height;
+    }
 
-	public int computeRowIndexForItem(int itemIndex) {
-		int maxCellsInRow = computeMaxCellsInRow();
-		return itemIndex / maxCellsInRow;
-	}
-	
-	public int computeColumnIndexForItem(int itemIndex) {
-		int maxCellsInRow = computeMaxCellsInRow();
-		return itemIndex % maxCellsInRow;
-	}
-	
-	public int computeMaxCellsInRow() {
-		return computeMaxCellsInRow(getWidth());
-	}
-	
-	public int computeCurrentRowCount() {
-		return (int)Math.ceil((double)getSkinnable().getItems().size() / (double)computeMaxCellsInRow());
-	}
-	
-	public int computeMaxCellsInRow(double width) {
-		return Math.max((int)Math.floor(width / computeCellWidth()), 1);
-	}
+    /*
+    Vertical alignment of cells is always TOP.
+    Horizontal alignment can be LEFT,CENTER or RIGHT.
+    Horizontal and vertical spacing is always included.
+    */
+    @Override
+    protected void layoutChildren() {
+        super.layoutChildren();
 
-	public int computeMaxCellsInColumn(double height) {
-		return Math.max((int)Math.floor(height / computeCellHeight()), 1);
-	}
+        double currentWidth = getWidth();
+        double xPos = 0;
+        double yPos = 0;
+
+        double requiredCellWidth = computeRequiredCellWidthWithSpacing();
+        double actualCellWidth = Math.floor(currentWidth / computeMaxCellCountInRow());
+        double halfRemainingWidthForCell = (actualCellWidth-requiredCellWidth) / 2;
+        
+        HPos currentHorizontalAlignment = getSkinnable().getHorizontalAlignment();
+
+        int cellIndex = 0;
+        int rowIndex = 0;
+        double rowHeight = computeRowHeight(rowIndex);
+        for (Node child : getChildren()) {
+            
+            //check for vertical spacing and update row if needed
+            if (cellIndex!=0 && cellIndex%computeMaxCellCountInRow()==0) {
+                xPos = 0;
+                yPos+=rowHeight;
+                rowIndex++;
+                rowHeight = computeRowHeight(rowIndex);
+            }
+
+            //before cell horizontal spacing
+            if (currentHorizontalAlignment != null) {
+                if (currentHorizontalAlignment.equals(HPos.CENTER)) {
+                    xPos += halfRemainingWidthForCell;
+                } else if (currentHorizontalAlignment.equals(HPos.RIGHT)) {
+                    xPos += halfRemainingWidthForCell*2;
+                } else {    //HPos.LEFT
+                    //nothing to do
+                }
+            } else  //centered as default
+                xPos += halfRemainingWidthForCell;
+            
+            //locating and resizing cell
+            child.relocate(xPos, yPos);
+            child.resize(requiredCellWidth, rowHeight);
+
+            xPos+=requiredCellWidth;
+            
+            //after cell horizontal spacing
+            if (currentHorizontalAlignment != null) {
+                if (currentHorizontalAlignment.equals(HPos.CENTER)) {
+                    xPos += halfRemainingWidthForCell;
+                } else if (currentHorizontalAlignment.equals(HPos.RIGHT)) {
+                    xPos += halfRemainingWidthForCell*2;
+                } else {    //HPos.LEFT
+                    //nothing to do
+                }
+            } else  //centered as default
+                xPos += halfRemainingWidthForCell;
+            
+            cellIndex++;
+        }
+        
+        prefHeightProperty().set(yPos+rowHeight);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javafx.scene.layout.StackPane#getContentBias() Höhe des Grids ist
+     * von dessen Breite abhängig. Je mehr Zellen in eine Zeile passen desto
+     * geringer wird die Höhe
+     */
+    @Override
+    public Orientation getContentBias() {
+        return Orientation.HORIZONTAL;
+    } 
+    
+    protected double computePrefCellWidth() {
+        return Math.floor(getWidth() / computeMaxCellCountInRow());
+    }
+    
+    public int computeRowIndexForItem(int itemIndex) {
+        int maxCellsInRow = computeMaxCellCountInRow();
+        return itemIndex / maxCellsInRow;
+    }
+
+    /*
+    Gli elementi sono elencati da sinistra verso destra, dall'alto verso il basso
+    */
+    public int computeColumnIndexForItem(int itemIndex) {
+        int cellsInRow = computeMaxCellCountInRow();
+        return itemIndex % cellsInRow;
+    }
+
+    /**
+     * Compute the max number of cells in a row
+     * 
+     * @return The number of cells in a row
+     */
+    public int computeMaxCellCountInRow() {
+        return Math.max((int) Math.floor(getWidth() / computeRequiredCellWidthWithSpacing()), 1);
+    }
+
+    /**
+     * Compute the current row count
+     * 
+     * @return The number of required rows
+     */
+    public int computeCurrentRowCount() {
+        return (int) Math.ceil((double) getSkinnable().getItems().size() / (double) computeMaxCellCountInRow());
+    }
+    
 }

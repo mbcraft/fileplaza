@@ -79,16 +79,10 @@ public class GridPaginationHelper<T, U extends GridView<T>> {
 				gridView.setItems(currentItems);
 				gridView.setCellFactory(GridPaginationHelper.this.gridCellFactory);
 
-				gridView.cellHeightProperty().bind(GridPaginationHelper.this.cellHeightProperty());
-				gridView.cellWidthProperty().bind(GridPaginationHelper.this.cellWidthProperty());
-				gridView.horizontalCellSpacingProperty().bind(GridPaginationHelper.this.horizontalCellSpacingProperty());
+                                gridView.horizontalCellSpacingProperty().bind(GridPaginationHelper.this.horizontalCellSpacingProperty());
 				gridView.verticalCellSpacingProperty().bind(GridPaginationHelper.this.verticalCellSpacingProperty());
 				
-				
-				
-				gridView.cellHeightProperty().addListener(defaultUpdateListener);
-				gridView.cellWidthProperty().addListener(defaultUpdateListener);
-				gridView.horizontalCellSpacingProperty().addListener(defaultUpdateListener);
+                                gridView.horizontalCellSpacingProperty().addListener(defaultUpdateListener);
 				gridView.verticalCellSpacingProperty().addListener(defaultUpdateListener);
 				
 				return gridView;
@@ -97,8 +91,7 @@ public class GridPaginationHelper<T, U extends GridView<T>> {
 
 		//TODO: Initialisierung der Werte, hier bin ich noch nicht ganz mit zufrieden...
 		U dummyGridView = gridViewClass.newInstance();
-		cellHeightProperty().setValue(dummyGridView.getCellHeight());
-		cellWidthProperty().setValue(dummyGridView.getCellWidth());
+
 		verticalCellSpacingProperty().setValue(dummyGridView.getVerticalCellSpacing());
 		horizontalCellSpacingProperty().setValue(dummyGridView.getHorizontalCellSpacing());
 		
