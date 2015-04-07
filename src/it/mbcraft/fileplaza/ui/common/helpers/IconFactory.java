@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.common.helpers;
 
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.Main;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
@@ -41,7 +42,15 @@ public class IconFactory {
      * @return The icon to use
      */
     public static ImageView getFeatureIcon(String name,double size) {
-        ImageView result = new ImageView(new Image(Main.class.getResourceAsStream("graphics/icons/misc/"+name+".png")));
+        
+        InputStream is = Main.class.getResourceAsStream("graphics/official/icons/misc/"+name+".png");
+        if (is==null)
+            is = Main.class.getResourceAsStream("graphics/stub/icons/misc/"+name+".png");
+        
+        if (is==null)
+            throw new IllegalStateException("Feature icon image not found : name:"+name+" size:"+size);
+        
+        ImageView result = new ImageView(new Image(is));
         result.setFitHeight(size);
         result.setFitWidth(size);
 
@@ -71,9 +80,18 @@ public class IconFactory {
         if (!allowedFileIconSize(size)) 
             throw new InvalidParameterException("Icon size not admitted : "+size);
         
-        InputStream stream = Main.class.getResourceAsStream("graphics/icons/file/"+size+"px/"+extension+"_"+size+".png");
+        InputStream stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/"+extension+"_"+size+".png");
         if (stream==null)
-            stream = Main.class.getResourceAsStream("graphics/icons/file/"+size+"px/default_"+size+".png");
+            stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/default_"+size+".png");
+        
+        if (stream==null) {
+            stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/"+extension+"_"+size+".png");
+            if (stream==null)
+                stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/default_"+size+".png");
+        }
+        
+        if (stream==null)
+            throw new IllegalStateException("File icon or default icon image file not found : extension:"+extension+" size:"+size);
         
         ImageView result = new ImageView(new Image(stream));
         result.setFitWidth(size);
@@ -87,15 +105,23 @@ public class IconFactory {
      * @return 
      */
     public static ImageView getFlagIconByCountryCode(String countryCode) {
-        InputStream stream = Main.class.getResourceAsStream("graphics/icons/languages/"+countryCode+".png");
+        InputStream stream = Main.class.getResourceAsStream("graphics/official/icons/languages/"+countryCode+".png");
         if (stream==null)
-            throw new InvalidParameterException("Language flag not found : " + countryCode);
+            throw new IllegalStateException("Language flag image not found : " + countryCode);
+        
         ImageView result = new ImageView(new Image(stream));
         return result;
     }
 
     public static Image getAppIconAsImage(int size) {
-        return new Image(Main.class.getResourceAsStream("graphics/icons/logo/fileplaza_"+size+".jpg"));
+        InputStream is = Main.class.getResourceAsStream("graphics/official/icons/logo/fileplaza_"+size+".jpg");
+        if (is==null)
+            is = Main.class.getResourceAsStream("graphics/stub/icons/logo/fileplaza_"+size+".jpg");
+        
+        if (is==null)
+            throw new IllegalStateException("App icon image not found.");
+        
+        return new Image(is);
     }
 
     public static ImageView getIconByReference(IconReference ref, int size) {

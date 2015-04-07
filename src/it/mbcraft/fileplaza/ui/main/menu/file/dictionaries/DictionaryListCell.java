@@ -20,7 +20,7 @@ package it.mbcraft.fileplaza.ui.main.menu.file.dictionaries;
 
 import it.mbcraft.fileplaza.data.models.Dictionary;
 import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**

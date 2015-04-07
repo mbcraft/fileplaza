@@ -107,6 +107,7 @@ public abstract class AbstractPresenterWindow implements IWindow {
     
     protected abstract void reset();
     
+    @Override
     public final void showAndWait() {
         reset();
         WindowStack.push(window);

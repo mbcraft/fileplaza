@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.main.search;
 
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import javafx.scene.input.MouseEvent;
 
@@ -26,7 +26,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class SearchPanelFileListListener implements IFileItemActionListener {
+public class SearchPanelFileListListener implements IElementActionListener {
 
     @Override
     public void heavySelection(File f, MouseEvent ev, SelectionPlace p) {

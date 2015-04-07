@@ -19,6 +19,7 @@
 package it.mbcraft.fileplaza.ui.common.helpers;
 
 import it.mbcraft.fileplaza.Main;
+import java.net.URL;
 
 /**
  *
@@ -27,7 +28,13 @@ import it.mbcraft.fileplaza.Main;
 public class CssFactory {
     
     private static String getCss(String name) {
-        return Main.class.getResource("graphics/css/"+name+".css").toExternalForm();
+        URL cssUrl = Main.class.getResource("graphics/official/css/"+name+".css");
+        if (cssUrl==null)
+            cssUrl = Main.class.getResource("graphics/stub/css/"+name+".css");
+                
+        if (cssUrl==null) throw new IllegalStateException("CSS Resource not found : "+name+".css");
+        
+        return cssUrl.toExternalForm();
     }
     
    public static String getIconButtonCss() {

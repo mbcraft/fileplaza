@@ -22,7 +22,7 @@ import com.guigarage.fx.grid.GridCell;
 import com.guigarage.fx.grid.GridView;
 import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 import it.mbcraft.fileplaza.ui.panels.files.CellSizeUpdater;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class FileIconCellFactory implements Callback<GridView<File>,GridCell<Fil
     private final EventHandler<MouseEvent> mouseHandler;
     private final List<WeakReference<Node>> currentCells = new ArrayList();
     
-    public FileIconCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IFileItemActionListener listener) {
+    public FileIconCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IElementActionListener listener) {
         zoomLevelProperty = zoomLevelProp;
         cellZoomLevelProperty = new SimpleIntegerProperty(zoomLevelProperty.get());
         mouseHandler = new FileIconCellMouseListener(listener);   

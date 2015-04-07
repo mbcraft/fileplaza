@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.main.browse.path.actions;
 
+import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -36,7 +37,8 @@ public class ZoomOutAction implements EventHandler<ActionEvent> {
     
     @Override
     public void handle(ActionEvent t) {
-        zoomLevelProp.set(zoomLevelProp.get()-1);
+        if (zoomLevelProp.get()>ZoomHelper.getMinLevelIndex())
+            zoomLevelProp.set(zoomLevelProp.get()-1);
     }
     
 }

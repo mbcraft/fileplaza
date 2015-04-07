@@ -19,10 +19,11 @@
 package it.mbcraft.fileplaza.ui.common.components.listview;
 
 import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener.SelectionPlace;
 import it.mbcraft.fileplaza.utils.NodeUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -165,27 +164,27 @@ public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewab
         statusIconsPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
     }
     
-    public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {
+    public SelectionPlace getSelectionPlace(MouseEvent t) {
         //System.out.println("X : "+t.getX());
         //System.out.println("Y : "+t.getY());       
         
         if (NodeUtils.containsMouseEvent(myText,t)) {
-            System.out.println("NAME");
-            return IFileItemActionListener.SelectionPlace.NAME;
+            //System.out.println("NAME");
+            return SelectionPlace.NAME;
         }
         
         if (NodeUtils.containsMouseEvent(statusIconsPane,t)) {
-            System.out.println("STATUS ICON");
-            return IFileItemActionListener.SelectionPlace.STATUS_ICON;
+            //System.out.println("STATUS ICON");
+            return SelectionPlace.STATUS_ICON;
         }
         
         if (NodeUtils.containsMouseEvent(mainIconPane,t)) {
-            System.out.println("ICON");
-            return IFileItemActionListener.SelectionPlace.ICON;
+            //System.out.println("ICON");
+            return SelectionPlace.ICON;
         }
         
-        System.out.println("ITEM");
-        return IFileItemActionListener.SelectionPlace.ITEM;
+        //System.out.println("ITEM");
+        return SelectionPlace.ITEM;
         
     }
 }

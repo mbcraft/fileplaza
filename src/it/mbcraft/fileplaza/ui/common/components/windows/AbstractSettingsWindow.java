@@ -40,7 +40,6 @@ import javafx.stage.Stage;
 @LangResource("common.AbstractSettingsWindow")
 public abstract class AbstractSettingsWindow implements IWindow {
     
-    private final String windowTitle;
     private Stage window;
     private VBox box;
     
@@ -50,9 +49,10 @@ public abstract class AbstractSettingsWindow implements IWindow {
     
     public AbstractSettingsWindow(String title, boolean showApplyButton) {
         showApply = showApplyButton;
-        windowTitle = title;
         
         initialize();
+        
+        window.setTitle(title);
     }
     
     private void initialize() {
@@ -72,7 +72,7 @@ public abstract class AbstractSettingsWindow implements IWindow {
     }
     
     /**
-     * Initializes the middle content od this window.
+     * Initializes the middle content of this window.
      */
     protected abstract void initMiddleContent();
     
@@ -93,7 +93,6 @@ public abstract class AbstractSettingsWindow implements IWindow {
         Scene scene = new Scene(box);
         window.setScene(scene);
         window.setResizable(false);
-        window.setTitle(windowTitle);
         window.initModality(Modality.WINDOW_MODAL);
         window.initOwner(WindowStack.top());
     }
@@ -195,6 +194,7 @@ public abstract class AbstractSettingsWindow implements IWindow {
         applyButton.setDisable(true);
     }
        
+    @Override
     public final void showAndWait() {
         loadDataImpl();
         WindowStack.push(window);

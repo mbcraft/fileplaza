@@ -23,7 +23,7 @@ import it.mbcraft.fileplaza.algorithm.sort.SortScore;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.helpers.CommonActionNodeContainer;
+import it.mbcraft.fileplaza.ui.common.CommonActionNodeContainer;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import java.io.File;
 import javafx.beans.property.ObjectProperty;

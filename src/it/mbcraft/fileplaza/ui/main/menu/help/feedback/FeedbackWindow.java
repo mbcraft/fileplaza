@@ -22,7 +22,7 @@ import it.mbcraft.fileplaza.data.dao.config.FeedbackDAO;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.common.components.windows.AbstractPresenterWindow;
-import it.mbcraft.fileplaza.ui.common.helpers.StackableNodeProviderSelector;
+import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import java.util.Arrays;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,8 +30,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -44,9 +42,8 @@ public class FeedbackWindow extends AbstractPresenterWindow {
     public static final double SECOND_COLUMN_MAX_WIDTH = 500;
     
     private ComboBox selector;
-    private StackPane stackPane;
     
-    private StackableNodeProviderSelector stackableSelector;
+    private ImprovedStackPane stackableSelector;
     
     private ThankYouPanel thankYouPanel;
     private ApplicationReviewPanel applicationReviewPanel;
@@ -74,59 +71,53 @@ public class FeedbackWindow extends AbstractPresenterWindow {
 
             @Override
             public void handle(ActionEvent t) {
-                stackableSelector.select(selector.getSelectionModel().getSelectedIndex()+1);
+                stackableSelector.selectedPanelIndexProperty().setValue(selector.getSelectionModel().getSelectedIndex()+1);
             }
         
         });
         selector.setPrefWidth(200);
         container.setCenter(selector);
+        
         addToWindow(container);
     }
 
     private void initStackPane() {
+        stackableSelector = new ImprovedStackPane();
+        stackableSelector.setAlignment(Pos.CENTER);
+        stackableSelector.setPadding(new Insets(5));
         
-        stackableSelector = new StackableNodeProviderSelector();
-        
-        stackPane = new StackPane();
-        stackPane.setAlignment(Pos.CENTER);
-        stackPane.setPadding(new Insets(5));
-        
-        initThankYouPane(stackPane);
-        initSuggestAFeaturePanel(stackPane);
-        initReviewPanel(stackPane);
-        initBugReportPanel(stackPane);
+        initThankYouPane();
+        initSuggestAFeaturePanel();
+        initReviewPanel();
+        initBugReportPanel();
 
-        addToWindow(stackPane);
+        addToWindow(stackableSelector);
     }
         
-    private void initThankYouPane(Pane parent) {
+    private void initThankYouPane() {
         thankYouPanel = new ThankYouPanel();
-        stackableSelector.add(thankYouPanel);
-        parent.getChildren().add(thankYouPanel.getNode());
+        stackableSelector.getChildren().add(thankYouPanel.getNode());
     }
     
-    private void initSuggestAFeaturePanel(Pane parent) {
+    private void initSuggestAFeaturePanel() {
         suggestAFeaturePanel = new SuggestAFeaturePanel();
-        stackableSelector.add(suggestAFeaturePanel);
-        parent.getChildren().add(suggestAFeaturePanel.getNode());
+        stackableSelector.getChildren().add(suggestAFeaturePanel.getNode());
     }
     
-    private void initBugReportPanel(Pane parent) {
+    private void initBugReportPanel() {
         bugReportPanel = new BugReportPanel();
-        stackableSelector.add(bugReportPanel);
-        parent.getChildren().add(bugReportPanel.getNode());
+        stackableSelector.getChildren().add(bugReportPanel.getNode());
+
     }
     
-    private void initReviewPanel(Pane parent) {
+    private void initReviewPanel() {
         applicationReviewPanel = new ApplicationReviewPanel();
-        stackableSelector.add(applicationReviewPanel);
-        parent.getChildren().add(applicationReviewPanel.getNode()); 
+        stackableSelector.getChildren().add(applicationReviewPanel.getNode());
     }
     
     @Override
     protected void reset() {
         selector.getSelectionModel().clearSelection();
-        stackableSelector.select(0);
         applicationReviewPanel.setApplicationReview(FeedbackDAO.getInstance().load());
     }    
 }

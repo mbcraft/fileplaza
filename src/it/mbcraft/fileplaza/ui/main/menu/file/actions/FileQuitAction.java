@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 
 /**
  *
@@ -35,11 +36,7 @@ public class FileQuitAction implements EventHandler<ActionEvent> {
         if (instance==null)
             instance = new FileQuitAction();
         return instance;
-    }
-    
-    
-    private FileQuitAction() {}
-    
+    }   
     
     @Override
     public void handle(ActionEvent t) {

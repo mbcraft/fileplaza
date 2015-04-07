@@ -24,10 +24,10 @@ import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener.SelectionPlace;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener.SelectionPlace;
 import it.mbcraft.fileplaza.utils.NodeUtils;
 import it.mbcraft.fileplaza.utils.NumericUtils;
 
@@ -49,6 +49,7 @@ import javafx.scene.text.TextAlignment;
 
 /**
  *
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * @param <T>
  */
@@ -87,6 +88,7 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         myText.setTextAlignment(TextAlignment.CENTER);
         myText.minWidthProperty().bind(requiredCellWidthProperty());
         myText.prefWidthProperty().bind(requiredCellWidthProperty());
+        myText.setStyle("-fx-background-color:#999");
         myText.setWrapText(true);
                 
         layoutPane = new VBox(); 
@@ -123,7 +125,6 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     }
     
     private void updateCellContent(int zoomLevel) {
-                
         int itemSize = ZoomHelper.getSizeFromZoomLevel(zoomLevel);
         
         setMainIcon(mainIcon);
@@ -204,7 +205,7 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         statusIconPane.getChildren().add(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
     }
             
-    public IFileItemActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {    
+    public IElementActionListener.SelectionPlace getSelectionPlace(MouseEvent t) {    
         
         if (NodeUtils.containsMouseEvent(myText,t))
             return SelectionPlace.NAME;
@@ -242,15 +243,34 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     
 
     protected double getRequiredCellHeight() {
-        double statusIconsHeight = statusIconPane.getPrefHeight();
-        double mainIconHeight = mainIconPane.getPrefHeight();
         
+        double statusIconsHeight = 0;
+        if (statusIcons.size()>0)
+            statusIconsHeight = ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())/2;
+        
+        //main icon height
+        double mainIconHeight = ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get());
+        
+        //text height
         FontMetrics fm = Toolkit.getToolkit().getFontLoader().getFontMetrics(getLabelFont());
-        double textHeight = fm.getLineHeight()+fm.getAscent();
-        
-        double requiredHeight = statusIconsHeight+mainIconHeight+(textHeight*(getLabelTokens(getLabelText()).length))+layoutPane.getSpacing()*2;
-        //System.out.println("Required height : "+requiredHeight);
-        return requiredHeight;
+        int numLines = getLabelTokens(getLabelText()).length;
+        double textHeight = Math.ceil(fm.getLineHeight());
+        double totalTextHeight = textHeight*numLines;
+                
+        return statusIconsHeight+mainIconHeight+totalTextHeight;
     }
+
+    /*
+    private void dumpFontMetrics(FontMetrics fm) {
+        System.out.println("Line Height : "+fm.getLineHeight());
+        System.out.println("Descent : "+fm.getDescent());
+        System.out.println("Ascent : "+fm.getAscent());
+        System.out.println("MaxDescent : "+fm.getMaxDescent());
+        System.out.println("MaxAscent : "+fm.getMaxAscent());
+        System.out.println("Baseline : "+fm.getBaseline());
+        System.out.println("Leading : "+fm.getLeading());
+        System.out.println("Xheight : "+fm.getXheight());
+    }
+    */
     
 }

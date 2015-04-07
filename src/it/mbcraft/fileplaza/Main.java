@@ -18,27 +18,15 @@
 
 package it.mbcraft.fileplaza;
 
-import it.mbcraft.fileplaza.ui.common.components.windows.ComponentTesterWindow;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.i18n.Lang;
 import it.mbcraft.fileplaza.state.CurrentLicenseState;
-import it.mbcraft.fileplaza.ui.main.MainWindow;
+import it.mbcraft.fileplaza.ui.window.MainWindowBehaviour;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
-import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
-import it.mbcraft.fileplaza.ui.panels.files.icon.DirectoryFileIconPanel;
-import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
-import java.io.File;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.scene.control.IndexedCell;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -82,10 +70,11 @@ public class Main extends Application {
 
         WindowStack.push(stage);
 
-        MainWindow mainWindow = new MainWindow(stage, SOFTWARE_NAME + VERSION);
+        MainWindowBehaviour mainWindow = new MainWindowBehaviour(stage, SOFTWARE_NAME + VERSION);
         mainWindow.show();
     }
 
+    /*
     private void runFileListTester(Stage stage) {
         WindowStack.push(stage);
         DirectoryFileListPanel panel = new DirectoryFileListPanel();
@@ -96,6 +85,7 @@ public class Main extends Application {
         ComponentTesterWindow tester = new ComponentTesterWindow(stage, panel.getNode());
         tester.showAndWait();
     }
+    */
     /*
     private void runListCellTester(Stage stage) {
         WindowStack.push(stage);
@@ -108,11 +98,12 @@ public class Main extends Application {
         ComponentTesterWindow tester = new ComponentTesterWindow(stage, cell);
         tester.showAndWait();
     }
-
+    */
+    /*
     private void runGridCellTester(Stage stage) {
         WindowStack.push(stage);
 
-        FileIconCell cell = new FileIconCell(32);
+        FileIconCell cell = new FileIconCell(2);
         
         NodeUtils.setupNodeHover(cell, "-fx-background-color:#ffffff", "-fx-background-color:#ededff");
         NodeUtils.setupNodeSelection(cell,"-fx-background-color:#ffffff","-fx-background-color:#abed77");
@@ -127,6 +118,7 @@ public class Main extends Application {
 
     }
     */
+    /*
     private void testGridView(Stage primaryStage) {
         primaryStage.setTitle("JGridFX Demo 1");
 
@@ -136,22 +128,22 @@ public class Main extends Application {
 //		myGrid.setStyle("-fx-border-color: black;");
         File f = new File("/home/marco");
                 
-        myGrid.setCellListener(new IFileItemActionListener() {
+        myGrid.setCellListener(new IElementActionListener() {
         
             @Override
-            public void simpleSelection(File f,MouseEvent ev,IFileItemActionListener.SelectionPlace p) {
+            public void simpleSelection(File f,MouseEvent ev,IElementActionListener.SelectionPlace p) {
                 System.out.println("Single selection over "+p.name());
                 IndexedCell cell = (IndexedCell) ev.getSource();
                 cell.updateSelected(!cell.isSelected());
             }
 
             @Override
-            public void heavySelection(File f, MouseEvent ev,IFileItemActionListener.SelectionPlace p) {
+            public void heavySelection(File f, MouseEvent ev,IElementActionListener.SelectionPlace p) {
                 System.out.println("Multiple selection over "+p.name());
             }
 
             @Override
-            public void contextMenu(File f, MouseEvent ev, IFileItemActionListener.SelectionPlace p) {
+            public void contextMenu(File f, MouseEvent ev, IElementActionListener.SelectionPlace p) {
                 System.out.println("Context menu opened on "+p.name());
             }
         
@@ -175,10 +167,10 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    */
+    
     @Override
     public void start(Stage primaryStage) {
-
         initializeLog();
         //testGridView(primaryStage);
         //runFileListTester(primaryStage);
@@ -186,7 +178,6 @@ public class Main extends Application {
         //runListCellTester(primaryStage);
         //runGridCellTester(primaryStage);
         runFilePlaza(primaryStage);
-        
     }
 
     /**

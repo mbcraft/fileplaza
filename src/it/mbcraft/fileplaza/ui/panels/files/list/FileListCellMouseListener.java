@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.panels.files.list;
 
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
@@ -30,9 +30,9 @@ import javafx.scene.input.MouseEvent;
  */
 class FileListCellMouseListener implements EventHandler<MouseEvent> {
 
-    private final IFileItemActionListener myListener;
+    private final IElementActionListener myListener;
     
-    public FileListCellMouseListener(IFileItemActionListener listener) {
+    public FileListCellMouseListener(IElementActionListener listener) {
         myListener = listener;
     }
     

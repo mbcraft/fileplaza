@@ -19,7 +19,7 @@
 package it.mbcraft.fileplaza.ui.panels.info;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
-import it.mbcraft.fileplaza.ui.common.helpers.CommonActionNodeContainer;
+import it.mbcraft.fileplaza.ui.common.CommonActionNodeContainer;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import it.mbcraft.fileplaza.utils.FileUtils;

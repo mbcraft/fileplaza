@@ -18,7 +18,7 @@
 package it.mbcraft.fileplaza.ui.panels.files.icon;
 
 import it.mbcraft.fileplaza.ui.common.components.tileview.ImprovedTileCell;
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import java.io.File;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.IntegerProperty;
@@ -31,8 +31,6 @@ import javafx.beans.value.ObservableValue;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileIconCell extends ImprovedTileCell<File> {
-    
-    private static final int HEIGHT_PADDING = 10;
     
     public FileIconCell(int zoomLevel) {
         super(new SimpleIntegerProperty(zoomLevel));

@@ -23,7 +23,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 /**
- *
+ * Enables view of elements as a "list". Allows change of items.
+ * If used directly does not allow zoom of the elements.
+ * 
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * 
  * @param <T> The type contained inside this list

@@ -20,6 +20,7 @@ package it.mbcraft.fileplaza.ui.panels.files;
 
 import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -43,16 +44,22 @@ public class CellSizeUpdater implements ChangeListener<Integer> {
     }
 
     @Override
-    public void changed(ObservableValue<? extends Integer> val, Integer oldValue, Integer newValue) {
+    public synchronized void changed(ObservableValue<? extends Integer> val, Integer oldValue, Integer newValue) {
+        
         cellZoomLevelProperty.set(newValue);
+        
+        List<WeakReference<Node>> toRemoveList = new ArrayList();
         
         for (WeakReference<Node> weakCellRef : cellsToUpdate) {
             Node cell = weakCellRef.get();
             if (cell==null) 
-                cellsToUpdate.remove(weakCellRef);
+                toRemoveList.add(weakCellRef);
         }
         
+        cellsToUpdate.removeAll(toRemoveList);
+        
         refreshable.refreshAllItems();
+        
     }
     
 }

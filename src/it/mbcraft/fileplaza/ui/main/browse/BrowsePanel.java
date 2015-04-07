@@ -18,21 +18,22 @@
 
 package it.mbcraft.fileplaza.ui.main.browse;
 
+import it.mbcraft.fileplaza.ui.common.components.misc.SwitchIconsPanel;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
-import it.mbcraft.fileplaza.ui.main.browse.path.FileCommandsPanel;
-import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
+import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
+import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
 import it.mbcraft.fileplaza.ui.panels.info.InfoPanel;
 import it.mbcraft.fileplaza.ui.panels.notes.NotesPanel;
 import it.mbcraft.fileplaza.ui.panels.preview.PreviewPanel;
 import it.mbcraft.fileplaza.ui.panels.tags.FullTagsPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.components.IZoomableNodeProvider;
+import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
-import it.mbcraft.fileplaza.ui.panels.files.icon.DirectoryFileIconPanel;
+import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.utils.FileUtils;
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +51,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * TODO : define what this component does.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class BrowsePanel implements INodeProvider {
@@ -58,11 +60,11 @@ public class BrowsePanel implements INodeProvider {
     private final VBox box = new VBox();
     
     private final CurrentPathPanel currentPathPanel;
-    private final ViewCommandsPanel viewCommandsPanel;
-    private final FileCommandsPanel fileCommandsPanel;
+    private final SwitchIconsPanel viewCommandsPanel;
+    private final DirectoryBrowserCommandsPanelProvider fileCommandsPanel;
     
-    private DirectoryFileIconPanel directoryFileIconPanel;
-    private DirectoryFileListPanel directoryFileListPanel;
+    private FileViewIconPanel directoryFileIconPanel;
+    private FileListViewPanel directoryFileListPanel;
     private final SplitPane splitPane = new SplitPane();
     private final PreviewPanel previewPanel;
     private final NotesPanel notesPanel;
@@ -74,32 +76,33 @@ public class BrowsePanel implements INodeProvider {
     private final FullTagsPanel fullTagsPanel;
     
     private final IntegerProperty sharedZoomLevel;
+    private final CurrentDirectoryState currentDirState = new CurrentDirectoryState();
     
     public BrowsePanel() {
         
         sharedZoomLevel = new SimpleIntegerProperty(ZoomHelper.getMinLevelIndex());
         
-        CurrentDirectoryState currentDirState = new CurrentDirectoryState();
         SingleSelectionFileSystemElementState currentFileSystemElementState = SingleSelectionFileSystemElementState.getInstance();
         
-        List<IZoomableNodeProvider> viewList = initFileViewStackPane(currentDirState);
-        
+        List<INodeProvider> viewList = initFileViewStackPane(currentDirState);
         
         currentPathPanel = new CurrentPathPanel(currentDirState);
-        
+                
         buttonsPane = new FlowPane();
         
-        viewCommandsPanel = new ViewCommandsPanel(viewList);
+        viewCommandsPanel = new SwitchIconsPanel(viewList);
         
-        fileCommandsPanel = new FileCommandsPanel(currentDirState);
+        
+        fileCommandsPanel = new DirectoryBrowserCommandsPanelProvider(currentPathPanel.getCurrentDirectoryState());
         
         buttonsPane.getChildren().add(viewCommandsPanel.getNode());
         buttonsPane.getChildren().add(fileCommandsPanel.getNode());
         
-        currentDirState.linkItemViewerItems(directoryFileListPanel);
-        currentDirState.linkItemViewerSelectionModel(directoryFileIconPanel);
-        currentDirState.linkItemViewerItems(directoryFileIconPanel);
-        currentFileSystemElementState.linkWithFileProperty(directoryFileListPanel.selectionModelProperty().get().selectedItemProperty());
+        // TODO : uncomment these lines!!
+        //currentDirState.linkItemViewerItems(directoryFileListPanel);
+        //currentDirState.linkItemViewerSelectionModel(directoryFileIconPanel);
+        //currentDirState.linkItemViewerItems(directoryFileIconPanel);
+        //currentFileSystemElementState.linkWithFileProperty(directoryFileListPanel.selectionModelProperty().get().selectedItemProperty());
         
         previewPanel = new PreviewPanel(currentFileSystemElementState.previewDataProperty());
         notesPanel = new NotesPanel(currentDirState.currentSelectedFileProperty(),currentFileSystemElementState.notesProperty());
@@ -114,25 +117,25 @@ public class BrowsePanel implements INodeProvider {
         setupMainContent();  
     }
         
-    private List<IZoomableNodeProvider> initFileViewStackPane(CurrentDirectoryState currentDirState) {
+    private List<INodeProvider> initFileViewStackPane(CurrentDirectoryState currentDirState) {
         
-        fileViewStackPane = new StackPane();
+        fileViewStackPane = new ImprovedStackPane();
         
-        directoryFileListPanel = new DirectoryFileListPanel();
-        directoryFileListPanel.setCellListener(new BrowsePanelFileListener(currentDirState));
+        //directoryFileListPanel = new FileListViewPanel(currentDirState,sharedZoomLevel);
+        //directoryFileListPanel.setCellListener(new BrowsePanelFileListener(currentDirState));
         
-        fileViewStackPane.getChildren().add(directoryFileListPanel.getNode());
+        //fileViewStackPane.getChildren().add(directoryFileListPanel.getNode());
         
-        directoryFileIconPanel = new DirectoryFileIconPanel();
-        directoryFileIconPanel.setCellListener(new BrowsePanelFileListener(currentDirState));
+        //directoryFileIconPanel = new FileViewIconPanel(currentDirState,sharedZoomLevel);
+        //directoryFileIconPanel.setCellListener(new BrowsePanelFileListener(currentDirState));
         
-        directoryFileIconPanel.selectionModelProperty().bindBidirectional(directoryFileListPanel.selectionModelProperty());
+        //directoryFileIconPanel.selectionModelProperty().bindBidirectional(directoryFileListPanel.selectionModelProperty());
         
-        fileViewStackPane.getChildren().add(directoryFileIconPanel.getNode());
+        //fileViewStackPane.getChildren().add(directoryFileIconPanel.getNode());
 
-        List<IZoomableNodeProvider> views = new ArrayList<>();
-        views.add(directoryFileListPanel);
-        views.add(directoryFileIconPanel);
+        List<INodeProvider> views = new ArrayList<>();
+        //views.add(directoryFileListPanel);
+        //views.add(directoryFileIconPanel);
         
         return views;
     }

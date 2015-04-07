@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.Main;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.common.components.windows.AbstractPresenterWindow;
+import it.mbcraft.fileplaza.ui.common.helpers.ImageFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -42,7 +43,7 @@ public class AboutWindow extends AbstractPresenterWindow {
     
     @Override
     protected void initMiddleContent() {
-        Image image = new Image(Main.class.getResourceAsStream("graphics/images/logo_mbcraft_black_very_small.png"));
+        Image image = ImageFactory.getImage("logo_mbcraft_black_very_small");
         ImageView i = new ImageView(image);
         
         addToWindow(new Label(L(this,"PoweredBy_Text")));

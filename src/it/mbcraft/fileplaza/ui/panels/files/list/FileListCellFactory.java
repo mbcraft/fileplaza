@@ -20,7 +20,7 @@ package it.mbcraft.fileplaza.ui.panels.files.list;
 
 import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 import it.mbcraft.fileplaza.ui.panels.files.CellSizeUpdater;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ class FileListCellFactory implements Callback<ListView<File>,ListCell<File>> {
     private final EventHandler<MouseEvent> mouseHandler;
     private final List<WeakReference<Node>> currentCells = new ArrayList();
     
-    public FileListCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IFileItemActionListener listener) {
+    public FileListCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IElementActionListener listener) {
         zoomLevelProperty = zoomLevelProp;
         cellZoomLevelProperty = new SimpleIntegerProperty(zoomLevelProp.get());
         mouseHandler = new FileListCellMouseListener(listener);

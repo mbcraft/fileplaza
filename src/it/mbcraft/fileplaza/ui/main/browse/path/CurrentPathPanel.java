@@ -24,9 +24,7 @@ import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
 import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
-import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,7 +40,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.util.Callback;
 
 /**
- *
+ * This panel shows drive and some basic directory back commands.
+ * (clicking on labels or 'buttons').
+ * 
+ * Takes the CurrentDirectoryState parameter as input since
+ * CurrentDirectoryState has information about current selected file.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.browse.path.CurrentPathPanel")
@@ -50,14 +53,13 @@ public class CurrentPathPanel implements INodeProvider {
     
     private final FlowPane pathPanel = new FlowPane();
     private ComboBox driveSelector;
-
     private Label currentPath;
     
-    private final CurrentDirectoryState myState;
+    private final CurrentDirectoryState currentDirectoryState;
     
     public CurrentPathPanel(CurrentDirectoryState state) {  
         
-        myState = state;
+        currentDirectoryState = state;
         
         initContainer();
         
@@ -103,7 +105,7 @@ public class CurrentPathPanel implements INodeProvider {
     }
     
     private void updateState() {
-        myState.setCurrentPath((File)driveSelector.getSelectionModel().getSelectedItem());  
+        currentDirectoryState.setCurrentPath((File)driveSelector.getSelectionModel().getSelectedItem());  
     }
      
     private void initCurrentPath() {
@@ -115,7 +117,7 @@ public class CurrentPathPanel implements INodeProvider {
         
         pathPanel.getChildren().add(currentPath);
         
-        myState.currentPathProperty().addListener(new ChangeListener<File>(){
+        currentDirectoryState.currentPathProperty().addListener(new ChangeListener<File>(){
 
             @Override
             public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
@@ -123,6 +125,10 @@ public class CurrentPathPanel implements INodeProvider {
             }
         });
    
+    }
+    
+    public CurrentDirectoryState getCurrentDirectoryState() {
+        return currentDirectoryState; 
     }
     
     @Override

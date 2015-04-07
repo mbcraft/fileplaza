@@ -18,22 +18,72 @@
 
 package it.mbcraft.fileplaza.ui.common.components.tileview;
 
+import com.guigarage.fx.grid.GridCell;
 import com.guigarage.fx.grid.GridView;
 import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
+import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.ScrollPane;
+import javafx.util.Callback;
 
 /**
  *
+ * This widget enables view of elements in a tiled fashion. If used directly
+ * does not allow zoom. It allows change of viewed elements.
+ * 
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
- * @param <T>
+ * @param <T> The type contained inside this view 
  */
-public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> {  
+public class ImprovedTileView<T> extends ScrollPane implements IRefreshable<T> {  
+    
+    private final GridView<T> internalView;
+    
+    public ImprovedTileView() {
+        
+        internalView = new GridView();
+        
+        setPannable(false);
+        setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        setFitToWidth(true);
+        setContent(internalView);
+    }
+    
+    /**
+     * Returns the items property of this widget.
+     * 
+     * @return The items property
+     */
+    public ObjectProperty<ObservableList<T>> itemsProperty() {
+        return internalView.itemsProperty();
+    }
+    
+    /**
+     * Returns the selection model property of this widget.
+     * 
+     * @return The selection model property
+     */
+    public ObjectProperty<MultipleSelectionModel<T>> selectionModelProperty() {
+        return internalView.selectionModelProperty();
+    }
+    
+    /**
+     * Returns the cell factory property of this widget.
+     * 
+     * @return The cell factory property
+     */
+    public ObjectProperty<Callback<GridView<T>,GridCell<T>>> cellFactoryProperty() {
+        return internalView.cellFactoryProperty();
+    }
     
     /**
      * Refreshes all the items in the tile view
      */
     @Override
     public void refreshAllItems() {
-        requestLayout();    
+        internalView.requestLayout();    
     }
     
     /**
@@ -43,7 +93,7 @@ public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> 
      */
     @Override
     public void refreshIndex(int index) {
-        requestLayout();
+        internalView.requestLayout();
     }
     
     /**
@@ -53,7 +103,7 @@ public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> 
      */
     @Override
     public void refreshItem(T item) {
-        requestLayout();
+        internalView.requestLayout();
     }
     
     /**
@@ -61,7 +111,7 @@ public class ImprovedTileView<T> extends GridView<T> implements IRefreshable<T> 
      */
     @Override
     public void refreshSelectedItem() {
-        requestLayout();
+        internalView.requestLayout();
     }
     
 }

@@ -19,7 +19,7 @@
 package it.mbcraft.fileplaza.ui.panels.files.list;
 
 import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import java.io.File;
 import javafx.beans.property.IntegerProperty;
 

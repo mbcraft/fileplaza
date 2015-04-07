@@ -30,6 +30,7 @@ public abstract class AbstractEntityEditorWindow extends AbstractSettingsWindow 
     
     public AbstractEntityEditorWindow(String title) {
         super(title,false);
+        
     }
     
     public void setMode(AbstractEntityEditorWindow.Mode mode) {

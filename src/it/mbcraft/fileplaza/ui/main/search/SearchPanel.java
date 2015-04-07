@@ -20,10 +20,11 @@ package it.mbcraft.fileplaza.ui.main.search;
 
 import it.mbcraft.fileplaza.data.models.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
-import it.mbcraft.fileplaza.ui.panels.files.list.DirectoryFileListPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
 import it.mbcraft.fileplaza.ui.main.search.filters.FiltersPanel;
 import it.mbcraft.fileplaza.ui.panels.tags.TagListPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
+import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -40,7 +41,7 @@ import javafx.scene.layout.VBox;
 public class SearchPanel implements INodeProvider {
     private final VBox box = new VBox();
     private final SearchState state = new SearchState();
-    private DirectoryFileListPanel fileListPanel;
+    private FileListViewPanel fileListPanel;
     private TagListPanel tagListPanel;
     private final ListProperty<Tag> tagList = new SimpleListProperty();
 
@@ -62,8 +63,8 @@ public class SearchPanel implements INodeProvider {
 
     private void initPanels() {
         FiltersPanel filtersPanel = new FiltersPanel(state);
-        fileListPanel = new DirectoryFileListPanel();
-        fileListPanel.setCellListener(new SearchPanelFileListListener());
+        //questo pannello deve consentire la visualizzazione di file in diverse cartelle
+        fileListPanel = new FileListViewPanel(new SimpleIntegerProperty(ZoomHelper.getMinLevelIndex()), new SearchPanelFileListListener());
         
         tagListPanel = new TagListPanel(L(this,"TagList_Label"), true, tagList);
         

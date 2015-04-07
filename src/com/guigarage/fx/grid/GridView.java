@@ -23,22 +23,26 @@ import javafx.scene.control.MultipleSelectionModel;
 
 public class GridView<T> extends Control {
 
-    // Inhalt des Grid
+    // Items property
     private final ObjectProperty<ObservableList<T>> itemsProperty;
 
-    // Factory für die Zellen
+    // Cell factory property
     private final ObjectProperty<Callback<GridView<T>, GridCell<T>>> cellFactoryProperty;
 
+    // Selection model property
     private final ObjectProperty<MultipleSelectionModel<T>> selectionModelProperty;
 
+    // Horizontal cell spacing property
     private final DoubleProperty horizontalCellSpacingProperty = new SimpleStyleableDoubleProperty(this,
             "horizontalCellSpacing",
             StyleableProperties.HORIZONTAL_CELL_SPACING);
 
+    // Vertical cell spacing property
     private final DoubleProperty verticalCellSpacingProperty = new SimpleStyleableDoubleProperty(this,
             "verticalCellSpacing",
             StyleableProperties.VERTICAL_CELL_SPACING);
 
+    // Horizontal alignment property, usually "Center"
     private ObjectProperty<HPos> horizontalAlignmentProperty = null;
 
     public GridView() {

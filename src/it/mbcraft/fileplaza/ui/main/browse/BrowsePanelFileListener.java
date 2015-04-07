@@ -19,7 +19,7 @@
 package it.mbcraft.fileplaza.ui.main.browse;
 
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import javafx.scene.input.MouseEvent;
 
@@ -28,7 +28,7 @@ import javafx.scene.input.MouseEvent;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.browse.BrowsePanelFileListListener")
-public class BrowsePanelFileListener implements IFileItemActionListener {
+public class BrowsePanelFileListener implements IElementActionListener {
 
     private final CurrentDirectoryState myState;
     

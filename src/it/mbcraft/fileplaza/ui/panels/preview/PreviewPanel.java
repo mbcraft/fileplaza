@@ -29,14 +29,13 @@ import it.mbcraft.fileplaza.ui.panels.preview.providers.NoSelectionPreviewProvid
 import it.mbcraft.fileplaza.ui.panels.preview.providers.SimpleTextPreviewProvider;
 import it.mbcraft.fileplaza.ui.panels.preview.providers.VideoPreviewProvider;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.helpers.StackableNodeProviderSelector;
+import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
 
 /**
  * This class handles the preview of the current file content.
@@ -47,9 +46,7 @@ public class PreviewPanel implements INodeProvider {
     
     private final ObjectProperty<PreviewData> previewDataProperty;
     
-    private final StackPane filePreviewPanel_;
-    
-    private final StackableNodeProviderSelector selector = new StackableNodeProviderSelector();
+    private final ImprovedStackPane previewStackPane = new ImprovedStackPane();
     
     private final List<AbstractPreviewProvider> previewers = new ArrayList();
     
@@ -62,8 +59,6 @@ public class PreviewPanel implements INodeProvider {
                 updateCurrentPreview();
             }
         });
-                
-        filePreviewPanel_ = new StackPane();
         
         addPreviewer(new NoSelectionPreviewProvider(previewDataProperty));
         addPreviewer(new CapturedPreviewProvider(previewDataProperty));
@@ -84,8 +79,7 @@ public class PreviewPanel implements INodeProvider {
      */
     private void addPreviewer(AbstractPreviewProvider provider) {
         previewers.add(provider);
-        selector.add(provider);
-        filePreviewPanel_.getChildren().add(provider.getNode());
+        previewStackPane.getChildren().add(provider.getNode());
     }
         
     /**
@@ -96,10 +90,10 @@ public class PreviewPanel implements INodeProvider {
     private void updateCurrentPreview() {
         int i = 0;
         for (AbstractPreviewProvider provider : previewers) {
-            if (provider.canPreview()) {
-                previewers.get(selector.getLastSelectionIndex()).clear();
+            if (provider.canPreview() && previewStackPane.selectedPanelIndexProperty().getValue()>=0) {
+                previewers.get(previewStackPane.selectedPanelIndexProperty().getValue()).clear();
                 provider.updatePreview();
-                selector.select(i);
+                previewStackPane.selectedPanelIndexProperty().setValue(i);
                 return;
             }
             i++;
@@ -108,7 +102,7 @@ public class PreviewPanel implements INodeProvider {
     
     @Override
     public Node getNode() {
-        return filePreviewPanel_;
+        return previewStackPane;
     }
 
 }

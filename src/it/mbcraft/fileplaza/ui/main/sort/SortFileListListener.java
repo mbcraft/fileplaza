@@ -19,7 +19,7 @@
 package it.mbcraft.fileplaza.ui.main.sort;
 
 import it.mbcraft.fileplaza.algorithm.sort.FileElementSort;
-import it.mbcraft.fileplaza.ui.panels.files.IFileItemActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
@@ -29,7 +29,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-class SortFileListListener implements IFileItemActionListener {
+class SortFileListListener implements IElementActionListener {
 
     private final ObservableList<File> myFileList;
     private final ObjectProperty<FileElementSort> mySort;

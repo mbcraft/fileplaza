@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.common.components;
 
-import it.mbcraft.fileplaza.ui.common.helpers.IconReference;
+import it.mbcraft.fileplaza.ui.common.IconReference;
 import javafx.scene.text.Font;
 
 /**
