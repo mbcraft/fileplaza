@@ -16,6 +16,27 @@ La distribuzione ufficiale utilizzerà icone di alta qualità.
 
 Per compilare il progetto sono state inserite icone segnaposto e l'applicazione è progettata per utilizzare le icone e la grafica segnaposto in mancanza di quella ufficiale.
 
+### Features :
+
+* Installer multi-piattaforma con grafica curata
+* Window manager innovativo a 4 pulsanti
+* Editor del dizionario dei termini singulari/plurali utilizzati dal motore interno
+* Finestra per bug report, opinioni e suggerimenti
+* Aggiungi una descrizione ai file
+* Associa una preview immagine personalizzata ai file ritagliando uno screenshot
+* Mostra le informazioni del file (permessi, dimensioni, ecc.)
+
+### Roadmap (ordine casuale) :
+
+- [x] Progettare la nuova gestione finestra
+- [x] Implementare la nuova gestione finestra
+- [ ] Rifinire la nuova gestione finestra
+- [ ] Terminare il refactoring del pannello per la visualizzazione dei file
+- [ ] Implementare l'auto-update dell'applicazione (con l'installer o interno all'applicazione)
+- [ ] Rendere disponibili nel sito ufficiale gli installer delle versioni preview
+- [x] Creazione dell'installer
+
+
 
 *- Marco Bagnaresi*
 
@@ -39,9 +60,26 @@ Official distribution will use high quality icons.
 In order to compile the project free stub graphics has been put inside the project, 
 and the application will use the fallback icons and graphics when the official distribution graphics is not available.
 
+### Features :
+
+* Multi platform installer/uninstaller with nice graphics
+* Innovative 4 button window manager
+* Dictionary editor for singular/plural terms used by internal engine
+* Bug report, Review and Feedback dialogs
+* Add description to files
+* Add custom preview to files
+* Show file informations (permission, size, etc.)
+
+### Roadmap (random order) :
+
+- [x] Create design of the new window manager
+- [x] Develop the new window manager
+- [ ] Improve graphics of the new window manager
+- [ ] Finish refactoring of file browse panel
+- [ ] Implement auto-update (with installer o inside the application)
+- [ ] Put the preview installers on the offical website
+- [x] Create the installer
+
+
 
 *- Marco Bagnaresi*
-
-------------------------------------------------------------------------
-
-
