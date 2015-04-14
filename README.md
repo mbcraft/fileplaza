@@ -1,64 +1,46 @@
-----
+# Italiano
 
-Please note that all graphics and icons inside are property of MBCRAFT or licensed to
-MBCRAFT and you're not allowed to use it for your own purposes.
-If you want to use graphics for your own application purchase a license
-from the graphical artists that produced it or create your own.
+### Compilare il progetto
 
-( Thanks :) )
+Per compilare i sorgenti è necessario creare un progetto che supporti JavaFX 2.2 (io utilizzo NetBeans) con JavaSE 7.
+Mettere tutti i sorgenti nella cartella src.
+Creare una cartella 'libs' con dentro i seguenti jar :
 
-Kind regards
+* httpclient : tutti i file jar [source](http://commons.apache.org/httpclient)
 
-- Marco Bagnaresi
+* xstream : xstream jar + xmlpull + xpp3_min [source](http://xstream.codehaus.net)
 
-----
+E aggiungere le librerie alle dipendenze del progetto. Aggiungere inoltre JUnit 4.10 per compilare gli unit test.
+
+La distribuzione ufficiale utilizzerà icone di alta qualità.
+
+Per compilare il progetto sono state inserite icone segnaposto e l'applicazione è progettata per utilizzare le icone e la grafica segnaposto in mancanza di quella ufficiale.
+
+
+*- Marco Bagnaresi*
+
+# English
+
+### Compilare il progetto
 
 In order to compile the sources you need to create a JavaFX 2.2 project (i
 use NetBeans) with JavaSE 7. Put all the sources in the src directory.
 Create a 'libs' directory with the following
 jars inside :
 
+* httpclient : all jar files [source](http://commons.apache.org/httpclient)
 
-httpclient : all jar files
+* xstream : xstream jar + xmlpull + xpp3_min [source](http://xstream.codehaus.net)
 
-	source : http://commons.apache.org/httpclient
+And add the libs to the project dependencies. Also add JUnit 4.10 for compiling unit tests.
 
-xstream : xstream jar + optional xmlpull + optional xpp3_min
+Official distribution will use high quality icons. 
 
-	source : http://xstream.codehaus.net
+In order to compile the project free stub graphics has been put inside the project, 
+and the application will use the fallback icons and graphics when the official distribution graphics is not available.
 
-And add the libs to the project. Also add JUnit 4.10 for compiling unit tests.
 
-You also need icons for files (create a 'file' folder inside src/it/mbcraft/fileplaza/graphics/icons/ directory, with the following subfolders :
-
-- 16px
-- 24px
-- 32px
-- 48px
-- 96px
-- 128px
-- 256px
-
-and put inside image files with the following naming scheme :
-
-<file_extension>_<px_size>.png  , eg : xls_64.png for xls file extension, 64 pixel square size
-
-You also need to create a 'misc' directory with miscellaneous icons inside it.
-Actually the following icons are used :
-
-Page_Lined_32.png
-Page_Green_Grid_32.png
-Page_Silver_32.png
-Minus_Silver_32.png
-Drive_32.png
-Arrow_Up_Blue_32.png
-Create.png
-Modify.png
-Red_Cross.png
-Task_Done_32.png
-Image_Woodenframe_32.png
-Delete_Woodenframe_32.png
-Cross_Red_32.png
+*- Marco Bagnaresi*
 
 ------------------------------------------------------------------------
 
