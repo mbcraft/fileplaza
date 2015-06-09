@@ -40,6 +40,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -146,9 +147,11 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
     public void setMainIcon(IconReference ref) {
         mainIcon = ref;
         
-        if (ref!=null)
-            mainIconPane.setCenter(IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get())));
-        else
+        if (ref!=null) {
+            ImageView myIcon = IconFactory.getIconByReference(ref, ZoomHelper.getSizeFromZoomLevel(cellZoomLevelProperty.get()));
+            mainIconPane.setCenter(myIcon);
+        
+        } else
             mainIconPane.setCenter(null);
     }
     
@@ -211,8 +214,11 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
             return SelectionPlace.NAME;
         if (NodeUtils.containsMouseEvent(statusIconPane,t))
             return SelectionPlace.STATUS_ICON;
-        if (NodeUtils.containsMouseEvent(mainIconPane,t))
+        if (NodeUtils.containsMouseEvent(mainIconPane.getCenter(), t))
             return SelectionPlace.ICON;
+        if (NodeUtils.containsMouseEvent(mainIconPane,t))
+            return SelectionPlace.ITEM;
+
         
         return SelectionPlace.ITEM;
     }
