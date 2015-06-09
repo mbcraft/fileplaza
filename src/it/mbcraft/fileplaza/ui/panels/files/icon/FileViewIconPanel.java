@@ -54,7 +54,7 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
         _fileIcons = new ImprovedTileView<>();
         _fileIcons.selectionModelProperty().get().setSelectionMode(SelectionMode.SINGLE);      
         _fileIcons.cellFactoryProperty().set(new FileIconCellFactory(_zoomLevelProperty,_fileIcons,listener));
-    
+        
         _fullPanel.setCenter(_fileIcons);
     }
     

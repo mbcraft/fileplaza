@@ -52,6 +52,7 @@ public class MainWindowBehaviour {
     
     private WindowTitleBar windowTitleBarProvider;
     private MainMenuBar mainMenuBarProvider;
+    private StatusBar statusBarProvider;
     
     public MainWindowBehaviour(Stage primaryStage, String version) {
         
@@ -63,6 +64,7 @@ public class MainWindowBehaviour {
         setupTitleBar(version);
         setupMenu();
         setupPanels();
+        setupStatusBar();
     }
 
     private void initWindow() {
@@ -119,6 +121,12 @@ public class MainWindowBehaviour {
         pane.getTabs().add(t3);
         
         mainLayout.setCenter(pane);
+    }
+    
+    private void setupStatusBar() {
+        statusBarProvider = new StatusBar();
+        
+        mainLayout.setBottom(statusBarProvider.getNode());
     }
 
     public void show() {

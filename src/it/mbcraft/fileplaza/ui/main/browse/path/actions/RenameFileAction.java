@@ -44,7 +44,7 @@ public class RenameFileAction extends AbstractBrowsePanelAction {
 
     @Override
     public void handle(ActionEvent t) {
-        File currentFile = myState.getCurrentSelectedFile();
+        File currentFile = myState.getSelectedFile();
             
         if (currentFile != null && currentFile.canWrite()) {
             Dialog inputDialog = DialogFactory.newTextInputDialog(L(this,"RenameInput_Dialog"), L(this,"RenameInput_Label"), currentFile.getName());

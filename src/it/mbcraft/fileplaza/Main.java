@@ -21,12 +21,27 @@ package it.mbcraft.fileplaza;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.i18n.Lang;
 import it.mbcraft.fileplaza.state.CurrentLicenseState;
+import it.mbcraft.fileplaza.ui.common.components.windows.ComponentTesterWindow;
 import it.mbcraft.fileplaza.ui.window.MainWindowBehaviour;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
+import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
+import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
+import it.mbcraft.fileplaza.ui.panels.files.icon.FileIconCell;
+import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
+import it.mbcraft.fileplaza.utils.NodeUtils;
+import java.io.File;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.IndexedCell;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -39,22 +54,21 @@ public class Main extends Application {
     public static final String SOFTWARE_NAME = "FilePlaza ";
     public static final String VERSION = "0.5";
 
-    private Logger logger;
+    private static final Logger logger = Logger.getLogger("it.mbcraft.fileplaza.Main");
 
+    public Main() {
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").addHandler(new ConsoleHandler());
+
+        logger.config("Logs initialized.");
+    }
+    
     public static String getVersion() {
         return VERSION;
     }
 
     public static String getReleaseDate() {
         return RELEASE_DATE;
-    }
-
-    private void initializeLog() {
-        Logger.getLogger("").setLevel(Level.INFO);
-        Logger.getLogger("").addHandler(new ConsoleHandler());
-
-        logger = Logger.getLogger("it.mbcraft.fileplaza.Main");
-        logger.config("Logs initialized.");
     }
 
     private void loadLicense() {
@@ -89,7 +103,7 @@ public class Main extends Application {
     /*
     private void runListCellTester(Stage stage) {
         WindowStack.push(stage);
-        FileListCell cell = new FileListCell(32);
+        FileListCell cell = new FileListCell(new SimpleIntegerProperty(2));
         cell.setMinHeight(200);
         cell.setMinWidth(200);
         File f = new File("/home/marco");
@@ -103,7 +117,7 @@ public class Main extends Application {
     private void runGridCellTester(Stage stage) {
         WindowStack.push(stage);
 
-        FileIconCell cell = new FileIconCell(2);
+        FileIconCell cell = new FileIconCell(new SimpleIntegerProperty(2));
         
         NodeUtils.setupNodeHover(cell, "-fx-background-color:#ffffff", "-fx-background-color:#ededff");
         NodeUtils.setupNodeSelection(cell,"-fx-background-color:#ffffff","-fx-background-color:#abed77");
@@ -118,17 +132,12 @@ public class Main extends Application {
 
     }
     */
-    /*
-    private void testGridView(Stage primaryStage) {
+    
+    private void runGridViewTester(Stage primaryStage) {
         primaryStage.setTitle("JGridFX Demo 1");
 
         final ObservableList<File> list = FXCollections.<File>observableArrayList();
-        DirectoryFileIconPanel myGrid = new DirectoryFileIconPanel();
-        //myGrid.setCellWidth(150);
-//		myGrid.setStyle("-fx-border-color: black;");
-        File f = new File("/home/marco");
-                
-        myGrid.setCellListener(new IElementActionListener() {
+        IElementActionListener listener = new IElementActionListener() {
         
             @Override
             public void simpleSelection(File f,MouseEvent ev,IElementActionListener.SelectionPlace p) {
@@ -147,8 +156,13 @@ public class Main extends Application {
                 System.out.println("Context menu opened on "+p.name());
             }
         
-        });
+        };
         
+        FileViewIconPanel myGrid = new FileViewIconPanel(new SimpleIntegerProperty(2), listener);
+
+//		myGrid.setStyle("-fx-border-color: black;");
+        File f = new File("/home/marco");
+                        
         for (File z : f.listFiles(new NotHiddenFileFilter()))
             list.add(z);
 
@@ -160,24 +174,24 @@ public class Main extends Application {
         pane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         pane.setFitToWidth(true);
-        pane.setContent(myGrid.getNode());       
+        pane.setContent(myGrid.getNode()); 
 
-        Scene scene = new Scene(pane, 600, 600);
-
+        Scene scene = new Scene(pane, 1200, 600);
+        
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    */
+    
     
     @Override
     public void start(Stage primaryStage) {
-        initializeLog();
-        //testGridView(primaryStage);
+
         //runFileListTester(primaryStage);
         //runFileIconTester(primaryStage);
         //runListCellTester(primaryStage);
         //runGridCellTester(primaryStage);
-        runFilePlaza(primaryStage);
+        runGridViewTester(primaryStage);
+        //runFilePlaza(primaryStage);
     }
 
     /**

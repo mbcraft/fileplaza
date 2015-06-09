@@ -40,7 +40,7 @@ public class DeleteFileAction extends AbstractBrowsePanelAction {
 
     @Override
     public void handle(ActionEvent t) {
-        File currentFile = myState.getCurrentSelectedFile();
+        File currentFile = myState.getSelectedFile();
         
         if (currentFile!=null && currentFile.canWrite()) {
             if (DialogFactory.newConfirmDialog(L(this,"DeleteConfirm_Dialog"),L(this,"DeleteConfirm_Text")))

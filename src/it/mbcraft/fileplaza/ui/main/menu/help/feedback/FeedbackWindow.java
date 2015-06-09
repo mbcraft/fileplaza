@@ -119,5 +119,6 @@ public class FeedbackWindow extends AbstractPresenterWindow {
     protected void reset() {
         selector.getSelectionModel().clearSelection();
         applicationReviewPanel.setApplicationReview(FeedbackDAO.getInstance().load());
+        stackableSelector.selectedPanelIndexProperty().setValue(0);
     }    
 }

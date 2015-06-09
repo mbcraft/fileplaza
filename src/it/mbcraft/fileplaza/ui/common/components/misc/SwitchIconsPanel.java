@@ -19,22 +19,11 @@
 package it.mbcraft.fileplaza.ui.common.components.misc;
 
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
-import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
-import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
-import it.mbcraft.fileplaza.ui.main.browse.path.actions.ZoomInAction;
-import it.mbcraft.fileplaza.ui.main.browse.path.actions.ZoomOutAction;
 import java.util.List;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;

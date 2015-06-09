@@ -15,134 +15,171 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package it.mbcraft.fileplaza.ui.main.browse;
 
-import it.mbcraft.fileplaza.ui.common.components.IItemViewer;
-import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
 import java.io.File;
+import java.util.ArrayList;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.MultipleSelectionModel;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class CurrentDirectoryState {
+
+    private final ObjectProperty<File> currentPathProperty = new SimpleObjectProperty();
+    private final ArrayList<File> myDataList = new ArrayList<>();
+    private final ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty = new SimpleObjectProperty(FXCollections.observableList(myDataList));
+    private final BooleanProperty singleFileSelectedProperty = new SimpleBooleanProperty();
+    private final ObjectProperty<File> selectedFileProperty = new SimpleObjectProperty();
+    private final ObjectProperty<MultipleSelectionModel<File>> selectedFilesProperty = new SimpleObjectProperty();
+
+    // http://stackoverflow.com/questions/18530493/complex-concurrency-in-javafx-using-observablelists-and-properties-from-multipl
+    // http://stackoverflow.com/users/404495/coder-nr-23
+    // For hint found in question.
     
-    private final ObjectProperty<File> currentPath = new SimpleObjectProperty();
-    private final ObjectProperty<File> currentSelectedFile = new SimpleObjectProperty();
-    
+    public CurrentDirectoryState() {
+
+        //update the 'single file selected' boolean flag
+        selectedFilesProperty.addListener(new ChangeListener<MultipleSelectionModel<File>>() {
+
+            @Override
+            public void changed(ObservableValue<? extends MultipleSelectionModel<File>> ov, MultipleSelectionModel<File> oldVal, MultipleSelectionModel<File> newVal) {
+                if (newVal.getSelectedIndices().size() == 1) {
+                    selectedFileProperty.set(newVal.getSelectedItem());
+                    singleFileSelectedProperty.set(true);
+                } else {
+                    selectedFileProperty.set(null);
+                    singleFileSelectedProperty.set(false);
+                }
+            }
+        });
+
+        currentPathProperty.addListener(new ChangeListener<File>() {
+
+            @Override
+            public void changed(ObservableValue<? extends File> ov, final File oldValue, final File newValue) {
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (newValue == null) {
+                            currentDirectoryItemsProperty.get().clear();
+                        } else {
+                            currentDirectoryItemsProperty.get().clear();
+                            for (File f : newValue.listFiles()) {
+                                myDataList.add(f);
+                            }
+                        }
+                    }
+
+                });
+
+            }
+        });
+
+    }
+
     public void setCurrentPath(File path) {
-        currentPath.setValue(path);
+        currentPathProperty.setValue(path);
     }
-    
+
     public File getCurrentPath() {
-        return currentPath.getValue();
+        return currentPathProperty.getValue();
     }
-    
+
     public void setSelectedFile(File f) {
-        currentSelectedFile.setValue(f);
+        selectedFilesProperty.get().getSelectedItems().setAll(f);
     }
-    
-    public File getCurrentSelectedFile() {
-        return currentSelectedFile.getValue();
+
+    public File getSelectedFile() {
+        return selectedFilesProperty.get().getSelectedItem();
     }
-    
+
     public ObjectProperty<File> currentPathProperty() {
-        return currentPath;
+        return currentPathProperty;
     }
-    
-    public ObjectProperty<File> currentSelectedFileProperty() {
-        return currentSelectedFile;
+
+    public BooleanProperty singleFileSelectedProperty() {
+        return singleFileSelectedProperty;
+    }
+
+    public ObjectProperty<File> selectedFileProperty() {
+        return selectedFileProperty;
+    }
+
+    public ObjectProperty<MultipleSelectionModel<File>> selectedFilesProperty() {
+        return selectedFilesProperty;
+    }
+
+    public ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty() {
+        return currentDirectoryItemsProperty;
     }
 
     /**
      * This action deletes the current file (or folder).
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean deleteCurrentFile() {
-        
-        File selected = getCurrentSelectedFile();
-        
+
+        File selected = getSelectedFile();
+
         boolean result = selected.delete();
-        
+
         setCurrentPath(getCurrentPath());
-        
+
         return result;
     }
-    
+
     /**
      * This action renames the current file to the new name provided.
-     * 
+     *
      * @param newName The new name to assign to this file (or folder).
-     * @return 
+     * @return
      */
     public boolean renameCurrentFile(String newName) {
-        
+
         setSelectedFile(null);
-        
-        File selected = getCurrentSelectedFile();
-        
+
+        File selected = getSelectedFile();
+
         String fullNewName = selected.getParentFile().getAbsolutePath();
         fullNewName += File.separatorChar + newName;
-        
+
         File _newFile = new File(fullNewName);
-        
-        boolean result  = selected.renameTo(_newFile);
-        
+
+        boolean result = selected.renameTo(_newFile);
+
         if (result) {
             setCurrentPath(_newFile.getParentFile());
             setSelectedFile(_newFile);
         }
         return result;
     }
-    
+
     public boolean newFolder(String name) {
         File newFolder = new File(getCurrentPath().getAbsolutePath() + File.separator + name);
         boolean result = newFolder.mkdir();
         return result;
     }
-    
+
     public boolean goToParentFolder() {
         File currentDir = getCurrentPath();
-        if (currentDir.getParentFile()!=null)
-        {
+        if (currentDir.getParentFile() != null) {
             setCurrentPath(currentDir.getParentFile());
             return true;
         }
         return false;
     }
-    
-    public void linkItemViewerItems(final IItemViewer<File> viewer) {
-        
-        currentPath.addListener(new ChangeListener<File>(){
 
-            @Override
-            public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
-                File list[] = currentPath.get().listFiles(new NotHiddenFileFilter());
-        
-                viewer.itemsProperty().set(FXCollections.observableArrayList(list));
-                //viewer.itemsProperty().get().setAll(list);    
-            }
-        });
-        
-
-    }
-    
-    public void linkItemViewerSelectionModel(final IItemViewer<File> viewer) {
-        viewer.selectionModelProperty().get().selectedItemProperty().addListener(new ChangeListener<File>(){
-
-            @Override
-            public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
-                setSelectedFile(newValue);
-            }
-        });
-    }
-    
-    
 }

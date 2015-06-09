@@ -49,6 +49,7 @@ public class ImprovedTileView<T> extends ScrollPane implements IRefreshable<T> {
         setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setFitToWidth(true);
         setContent(internalView);
+        prefViewportHeightProperty().bind(internalView.heightProperty());
     }
     
     /**

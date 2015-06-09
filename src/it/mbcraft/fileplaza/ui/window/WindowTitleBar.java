@@ -33,7 +33,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- *
+ * TO DO : fix button styles and icon
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class WindowTitleBar implements INodeProvider {

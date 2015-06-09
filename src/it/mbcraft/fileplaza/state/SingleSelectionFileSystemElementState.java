@@ -45,6 +45,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 
 /**
+ * TO DO : refactor for including multiple file selection
+ * 
  * This class keeps the current AbstractFileSystemElement selected instance_.
  * It contains methods used to change the current AbstractFileSystemElement.
  * It tracks changes and handles saving on file.

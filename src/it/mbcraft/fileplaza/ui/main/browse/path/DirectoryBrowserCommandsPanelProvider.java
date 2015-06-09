@@ -48,7 +48,7 @@ public class DirectoryBrowserCommandsPanelProvider implements INodeProvider {
 
     private final HBox pane = new HBox();
     
-    public DirectoryBrowserCommandsPanelProvider(CurrentDirectoryState state) {
+    public DirectoryBrowserCommandsPanelProvider(final CurrentDirectoryState state) {
         
         initContainer();
                 
@@ -92,11 +92,11 @@ public class DirectoryBrowserCommandsPanelProvider implements INodeProvider {
         
         });
         
-        state.currentSelectedFileProperty().addListener(new ChangeListener<File>(){
+        state.singleFileSelectedProperty().addListener(new ChangeListener<Boolean>(){
    
             @Override
-            public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
-                if (newValue!=null && newValue.canWrite()) {
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
+                if (newValue && state.getSelectedFile().canWrite()) {
                     renameFileButton.setDisable(false);
                     deleteFileButton.setDisable(false);
                 } else {
