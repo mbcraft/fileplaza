@@ -16,6 +16,34 @@ La distribuzione ufficiale utilizzerà icone di alta qualità.
 
 Per compilare il progetto sono state inserite icone segnaposto e l'applicazione è progettata per utilizzare le icone e la grafica segnaposto in mancanza di quella ufficiale.
 
+Al momento utilizzo le seguenti librerie esterne (elenco esteso) :
+
+- commons-codec-1.6.jar
+- httpclient- cache-4.3.6.jar
+- xmlpull-1.1.3.1.jar
+- commons-logging-1.1.3.jar
+- httpcore-4.3.3.jar
+- xpp3_min-1.1.4c.jar
+- fluent-hc-4.3.6.jar
+- httpmime-4.3.6.jar
+- xstream-1.4.7.jar
+- httpclient-4.3.6.jar
+- junit-4.10.jar
+
+Inoltre è necessario che nel classpath sia presente anche jfxrt.jar, ovvero le librerie per usare JavaFX.
+
+Quindi ad esempio, assumento che questi file siano in una cartella di nome 'lib' e che FilePlaza.jar sia nella cartella corrente, con all'interno tutti
+i sorgenti compilati, è possibile lanciare il progetto da linea di comando con :
+
+`
+java -cp lib/*:/opt/java/64/jdk1.7.0_45/jre/lib/jfxrt.jar:FilePlaza.jar it.mbcraft.fileplaza.Main
+`
+
+Dove '/opt/java/64/jdk1.7.0_45/' è il percorso di installazione del jdk.
+
+Al momento inoltre è necessario che una cartella 'data' sia presente nella directory corrente, con all'interno varie sottocartelle con alcuni file di configurazione xml. Forse in futuro migliorerò l'applicazione e rimuoverò questo requisito.
+
+
 ### Funzionalità :
 
 * Installer multi-piattaforma con grafica curata
@@ -60,6 +88,32 @@ Official distribution will use high quality icons.
 
 In order to compile the project free stub graphics has been put inside the project, 
 and the application will use the fallback icons and graphics when the official distribution graphics is not available.
+
+Actually i use the following external libraries (extended list) :
+
+- commons-codec-1.6.jar
+- httpclient- cache-4.3.6.jar
+- xmlpull-1.1.3.1.jar
+- commons-logging-1.1.3.jar
+- httpcore-4.3.3.jar
+- xpp3_min-1.1.4c.jar
+- fluent-hc-4.3.6.jar
+- httpmime-4.3.6.jar
+- xstream-1.4.7.jar
+- httpclient-4.3.6.jar
+- junit-4.10.jar
+
+Moreover it's necessary to put jfxrt.jar in the classpath, the JavaFX runtime library.
+
+So for example, if these jars are in a 'lib' folder and FilePlaza.jar is in the current folder, with all the compiled sources inside, it's possibile to launch the application writing the following from the command line :
+
+`
+java -cp lib/*:/opt/java/64/jdk1.7.0_45/jre/lib/jfxrt.jar:FilePlaza.jar it.mbcraft.fileplaza.Main
+`
+
+Where '/opt/java/64/jdk1.7.0_45/' is the path of jdk installation.
+
+Actually it is also necessary that a data folder is put inside the current directory, containing various subfolder with xml configuration files. Maybe in the future i'll improve the software removing this requirement.
 
 ### Features :
 
