@@ -1,6 +1,6 @@
 # Italiano
 
-### Compilare il progetto
+### Compilare i sorgenti :
 
 Per compilare i sorgenti è necessario creare un progetto che supporti JavaFX 2.2 (io utilizzo NetBeans) con JavaSE 7.
 Mettere tutti i sorgenti nella cartella src.
@@ -16,9 +16,10 @@ La distribuzione ufficiale utilizzerà icone di alta qualità.
 
 Per compilare il progetto sono state inserite icone segnaposto e l'applicazione è progettata per utilizzare le icone e la grafica segnaposto in mancanza di quella ufficiale.
 
-### Features :
+### Funzionalità :
 
 * Installer multi-piattaforma con grafica curata
+* Grafica segnaposto per consentire l'utilizzo dell'applicazione coi sorgenti di github
 * Window manager innovativo a 4 pulsanti
 * Editor del dizionario dei termini singulari/plurali utilizzati dal motore interno
 * Finestra per bug report, opinioni e suggerimenti
@@ -42,7 +43,7 @@ Per compilare il progetto sono state inserite icone segnaposto e l'applicazione 
 
 # English
 
-### Compilare il progetto
+### Compiling the sources :
 
 In order to compile the sources you need to create a JavaFX 2.2 project (i
 use NetBeans) with JavaSE 7. Put all the sources in the src directory.
@@ -63,6 +64,7 @@ and the application will use the fallback icons and graphics when the official d
 ### Features :
 
 * Multi platform installer/uninstaller with nice graphics
+* Fallback graphics for enabling application launch from github sources
 * Innovative 4 button window manager
 * Dictionary editor for singular/plural terms used by internal engine
 * Bug report, Review and Feedback dialogs
