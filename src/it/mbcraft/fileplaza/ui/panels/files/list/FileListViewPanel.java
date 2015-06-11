@@ -25,6 +25,9 @@ import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListView;
 import java.io.File;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MultipleSelectionModel;
@@ -55,6 +58,8 @@ public class FileListViewPanel implements INodeProvider,IItemViewer<File> {
     
         _fullPanel.setCenter(_fileList);
         
+        debug();
+        
     }
     
     @Override
@@ -72,16 +77,23 @@ public class FileListViewPanel implements INodeProvider,IItemViewer<File> {
         return _fullPanel;
     }  
         
-    /*
-    private void debugSelections() {
-                     
-        _fileList.selectionModelProperty().get().selectedItemProperty().addListener(new ChangeListener<File>(){
+    
+    private void debug() {
+              
+        itemsProperty().get().addListener(new ListChangeListener<File>(){
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends File> change) {
+                System.out.println("Items changed inside file list view panel!!!");
+            }
+        });
+        
+        selectionModelProperty().get().selectedItemProperty().addListener(new ChangeListener<File>(){
 
             @Override
             public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
-                System.out.println("Selection changed!!! : " + (oldValue!=null ? oldValue.getAbsolutePath() : "null") + " -> " + (newValue!=null ? newValue.getAbsolutePath() : "null"));
+                System.out.println("Selection changed inside file list view panel!!! : " + (oldValue!=null ? oldValue.getAbsolutePath() : "null") + " -> " + (newValue!=null ? newValue.getAbsolutePath() : "null"));
             }
         });
     }
-    */
+    
 }

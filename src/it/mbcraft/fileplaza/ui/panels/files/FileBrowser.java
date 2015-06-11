@@ -25,8 +25,15 @@ import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -70,12 +77,12 @@ public class FileBrowser implements INodeProvider {
         directoryFileIconPanel = new FileViewIconPanel(zoomInOutPanel.zoomLevelProperty(),listener);
         
         //selected files are the same on both views
-        currentDirState.selectedFilesProperty().bindBidirectional(directoryFileListPanel.selectionModelProperty());
-        currentDirState.selectedFilesProperty().bindBidirectional(directoryFileIconPanel.selectionModelProperty());
-        
-        currentDirState.currentDirectoryItemsProperty().bind(directoryFileListPanel.itemsProperty());
-        currentDirState.currentDirectoryItemsProperty().bind(directoryFileIconPanel.itemsProperty());
-        
+        directoryFileListPanel.selectionModelProperty().bindBidirectional(currentDirState.selectedFilesProperty());
+        directoryFileIconPanel.selectionModelProperty().bindBidirectional(currentDirState.selectedFilesProperty());
+        //files shown in the two widgets are taken FROM che current dir state
+        directoryFileListPanel.itemsProperty().bind(currentDirState.currentDirectoryItemsProperty());
+        directoryFileIconPanel.itemsProperty().bind(currentDirState.currentDirectoryItemsProperty());
+
         panels.add(directoryFileListPanel);
         panels.add(directoryFileIconPanel);
         //adding buttons for switching the view

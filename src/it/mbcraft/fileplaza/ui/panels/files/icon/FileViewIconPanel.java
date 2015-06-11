@@ -25,6 +25,9 @@ import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MultipleSelectionModel;
@@ -56,6 +59,8 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
         _fileIcons.cellFactoryProperty().set(new FileIconCellFactory(_zoomLevelProperty,_fileIcons,listener));
         
         _fullPanel.setCenter(_fileIcons);
+        
+        debug();
     }
     
     @Override
@@ -72,5 +77,24 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
     public Node getNode() {
         return _fullPanel;
     }  
+    
+    private void debug() {
+              
+        itemsProperty().get().addListener(new ListChangeListener<File>(){
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends File> change) {
+                System.out.println("Items changed inside file view icon panel!!!");
+            }
+        });
+        
+        selectionModelProperty().get().selectedItemProperty().addListener(new ChangeListener<File>(){
+
+            @Override
+            public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
+                System.out.println("Selection changed inside file view icon panel!!! : " + (oldValue!=null ? oldValue.getAbsolutePath() : "null") + " -> " + (newValue!=null ? newValue.getAbsolutePath() : "null"));
+            }
+        });
+    }
             
 }
