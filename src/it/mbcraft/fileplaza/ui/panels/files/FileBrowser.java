@@ -18,6 +18,7 @@ import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import it.mbcraft.fileplaza.ui.common.components.misc.SwitchIconsPanel;
 import it.mbcraft.fileplaza.ui.common.components.misc.ZoomInOutPanelProvider;
+import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.main.browse.BrowsePanelFileListener;
 import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
@@ -62,7 +63,7 @@ public class FileBrowser implements INodeProvider {
         HBox switchAndZoom = new HBox();
         switchAndZoom.getChildren().addAll(viewSwitchPanel.getNode(),zoomInOutPanel.getNode());
         
-        ImprovedStackPane fileViewStackPane = new ImprovedStackPane();
+        ImprovedStackPane fileViewStackPane = viewSwitchPanel.getStackPane();
         IElementActionListener listener = new BrowsePanelFileListener(currentDirState);
         directoryFileListPanel = new FileListViewPanel(zoomInOutPanel.zoomLevelProperty(),listener);
         
@@ -77,6 +78,11 @@ public class FileBrowser implements INodeProvider {
         
         panels.add(directoryFileListPanel);
         panels.add(directoryFileIconPanel);
+        //adding buttons for switching the view
+        viewSwitchPanel.addSwitchIcon(IconFactory.getFeatureIcon("Page_Lined_32", 32));
+        viewSwitchPanel.addSwitchIcon(IconFactory.getFeatureIcon("Page_Green_Grid_32", 32));
+        
+        
         fileViewStackPane.getChildren().addAll(directoryFileListPanel.getNode(),directoryFileIconPanel.getNode());
         fileViewStackPane.selectedPanelIndexProperty().setValue(0);
         //current path

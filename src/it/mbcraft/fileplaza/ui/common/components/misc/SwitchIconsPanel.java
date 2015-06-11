@@ -39,17 +39,16 @@ public class SwitchIconsPanel implements INodeProvider {
     private final ToggleGroup viewModeGroup = new PersistentButtonToggleGroup();
     private final HBox buttonsPane; 
     private int panelCount = 0;
+    
     public SwitchIconsPanel(List<INodeProvider> panels) {
-        
         buttonsPane = new HBox();
         buttonsPane.setPadding(new Insets(5));
         buttonsPane.setSpacing(5);
-        
     }
 
     public void addSwitchIcon(ImageView icon) {
         final ToggleButton toggleButton = new ToggleButton("",icon);
-        toggleButton.setUserData(new Integer(selector.getChildren().size()));
+        toggleButton.setUserData(new Integer(panelCount));
         toggleButton.setToggleGroup(viewModeGroup);
         toggleButton.setOnAction(new EventHandler<ActionEvent>(){
 
@@ -70,6 +69,10 @@ public class SwitchIconsPanel implements INodeProvider {
     @Override
     public Node getNode() {
         return buttonsPane;
+    }
+    
+    public ImprovedStackPane getStackPane() {
+        return selector;
     }
     
 }

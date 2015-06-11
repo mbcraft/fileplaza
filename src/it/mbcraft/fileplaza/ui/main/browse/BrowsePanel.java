@@ -101,7 +101,7 @@ public class BrowsePanel implements INodeProvider {
 
         Tab t4 = new Tab(L(this,"TagsTab_Label"));
         t4.setClosable(false);
-        t4.setContent(browserPane.getNode());
+        t4.setContent(fullTagsPanel.getNode());
         
         inspectionsPanels.getTabs().addAll(t1, t2, t3, t4);
 
