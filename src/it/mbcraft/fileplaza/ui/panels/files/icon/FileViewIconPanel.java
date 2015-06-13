@@ -45,7 +45,7 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
     private final IntegerProperty _zoomLevelProperty;
     private final ImprovedTileView<File> _fileIcons;
     
-    //final component is a BorderPane
+    //final component is a BorderPane, since ScrollPane is already used inside
     private final BorderPane _fullPanel;
     
     public FileViewIconPanel(IntegerProperty zoomLevelProperty,IElementActionListener listener) {
@@ -81,7 +81,6 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
     private void debug() {
               
         itemsProperty().get().addListener(new ListChangeListener<File>(){
-
             @Override
             public void onChanged(ListChangeListener.Change<? extends File> change) {
                 System.out.println("Items changed inside file view icon panel!!!");
@@ -89,7 +88,6 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
         });
         
         selectionModelProperty().get().selectedItemProperty().addListener(new ChangeListener<File>(){
-
             @Override
             public void changed(ObservableValue<? extends File> ov, File oldValue, File newValue) {
                 System.out.println("Selection changed inside file view icon panel!!! : " + (oldValue!=null ? oldValue.getAbsolutePath() : "null") + " -> " + (newValue!=null ? newValue.getAbsolutePath() : "null"));

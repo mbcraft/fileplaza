@@ -15,7 +15,7 @@
 package it.mbcraft.fileplaza.ui.panels.files.header;
 
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
 import javafx.scene.Node;

@@ -80,7 +80,7 @@ public class Tester {
         FileListCell cell = new FileListCell(new SimpleIntegerProperty(2));
         cell.setMinHeight(200);
         cell.setMinWidth(200);
-        File f = new File("/home/marco");
+        File f = new File("/home/marco/NetBeansProjects");
         cell.updateItem(f, false);
         
         ComponentTesterWindow tester = new ComponentTesterWindow(stage, cell);
@@ -137,7 +137,7 @@ public class Tester {
         FileViewIconPanel myGrid = new FileViewIconPanel(new SimpleIntegerProperty(2), listener);
 
         //myGrid.setStyle("-fx-border-color: black;");
-        File f = new File("/home/marco");
+        File f = new File("/home/marco/NetBeansProjects");
                         
         for (File z : f.listFiles(new NotHiddenFileFilter()))
             list.add(z);

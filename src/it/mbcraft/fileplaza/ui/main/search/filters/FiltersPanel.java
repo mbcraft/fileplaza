@@ -24,7 +24,7 @@ import it.mbcraft.fileplaza.data.models.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.panels.tags.FullTagsPanel;
-import it.mbcraft.fileplaza.ui.main.search.SearchState;
+import it.mbcraft.fileplaza.state.SearchState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.ComponentFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;

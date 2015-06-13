@@ -21,7 +21,7 @@ package it.mbcraft.fileplaza.ui.main.browse.path;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
-import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import java.io.File;

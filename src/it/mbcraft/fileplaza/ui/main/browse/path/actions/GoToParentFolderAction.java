@@ -19,7 +19,7 @@
 package it.mbcraft.fileplaza.ui.main.browse.path.actions;
 
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import javafx.event.ActionEvent;
 
 /**

@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.main.browse;
 
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;

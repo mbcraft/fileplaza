@@ -53,8 +53,8 @@ public class GridPaginationHelper<T, U extends GridView<T>> {
 
 			@Override
 			public void changed(
-					ObservableValue<? extends Number> arg0,
-					Number arg1, Number arg2) {
+					ObservableValue<? extends Number> obs,
+					Number oldValue, Number newValue) {
 				update();
 			}
 		};

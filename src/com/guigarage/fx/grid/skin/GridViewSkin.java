@@ -13,6 +13,9 @@ import com.guigarage.fx.grid.GridView;
 import com.guigarage.fx.grid.behavior.GridViewBehavior;
 import com.guigarage.fx.grid.cell.DefaultGridCell;
 import com.sun.javafx.scene.control.skin.SkinBase;
+import java.util.ArrayList;
+import java.util.List;
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> {
 
@@ -21,10 +24,21 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     private final ChangeListener<Number> layoutListener;
 
     private final ChangeListener<ObservableList<T>> itemListChangedListener;
+    
+    private final GridCell<T> calcCellWidth = createCell();
+    private final GridCell<T> calcCellHeight = createCell();
+    
+    private final List<GridCell<T>> usedCells = new ArrayList<>();
+    private final List<GridCell<T>> unusedCells = new ArrayList<>();
 
     public GridViewSkin(GridView<T> control) {
         super(control, new GridViewBehavior<>(control));
 
+        //preparing cache ...
+        for (int i=0;i<300;i++) {
+            unusedCells.add(createCell());
+        }
+        
         layoutListener = new ChangeListener<Number>() {
 
             @Override
@@ -38,29 +52,28 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
             @Override
             public void onChanged(Change<? extends T> change) {
                 while (change.next()) {
-                    int start = change.getFrom();
-                    int end = change.getTo();
-                    for (int i = start; i < end; i++) {
-                        if (change.wasPermutated()) {
-                            // TODO: what to do know??
-                            //System.out.println("change: Permutation");
-                            updateAllCells();
-                        } else if (change.wasUpdated()) {
-                            //System.out.println("change: Update");
+                    if (change.wasPermutated()) {
+                        for (int i = change.getFrom();i<change.getTo();i++)
                             updateCell(i);
-                        } else {
-                            if (change.wasRemoved()) {
-                                //System.out.println("change: Removed");
-                                removeCell(i);
+                    } else if (change.wasUpdated()) {
+                        for (int i=change.getFrom();i<change.getTo();i++)
+                            updateCell(i);
+                    } else {
+                        if (change.wasRemoved()) {
+                            for (int i=change.getFrom();i<change.getFrom()+change.getRemovedSize();i++) {
+                                removeCell(change.getFrom());
                             }
-                            if (change.wasAdded()) {
-                                //System.out.println("change: Added," + i);
-                                //this method is called after zoom ... why??
+                            
+                        }
+                        //was replaced is removed+added
+                        if (change.wasAdded()) {
+                            for (int i = change.getFrom();i<change.getTo();i++)
                                 addCell(i);
-                            }
                         }
                     }
                 }
+                
+                requestLayout();
             }
         };
 
@@ -100,12 +113,19 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     }
 
     public final void updateAllCells() {
-        getChildren().clear();
+        
+        for (Node n : getChildren())
+        {
+            getChildren().remove(n);
+            unusedCells.add((GridCell<T>) n);
+        }
+            
         ObservableList<T> items = getSkinnable().getItems();
+
         if (items != null) {
             for (int index = 0; index < items.size(); index++) {
                 T item = items.get(index);
-                GridCell<T> cell = createCell();
+                GridCell<T> cell = getCell();
                 cell.setItem(item);
                 cell.updateIndex(index);
                 getChildren().add(cell);
@@ -116,32 +136,39 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     }
 
     private void removeCell(int index) {
-        getSkinnable().getItems().remove(index);
-        getChildren().remove(index);
-
-        requestLayout();
+        //getSkinnable().getItems().remove(index);
+        GridCell<T> removed = (GridCell<T>) getChildren().remove(index);
+        usedCells.remove(removed);
+        unusedCells.add(removed);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void updateCell(int index) {
         T item = getSkinnable().getItems().get(index);
         ((GridCell) getChildren().get(index)).setItem(item);
-        
-        requestLayout();
     }
 
     private void addCell(int index) {
         T item = getSkinnable().getItems().get(index);
-        GridCell<T> cell = createCell();
+        GridCell<T> cell = getCell();
 
         cell.setItem(item);
         cell.updateIndex(index);
 
         getChildren().add(index, cell);
-
-        requestLayout();
     }
-
+        
+    private GridCell<T> getCell() {
+        GridCell<T> cell;
+        if (unusedCells.isEmpty()) {
+            cell = createCell();
+        } else {
+            cell = unusedCells.remove(0);
+        }
+        usedCells.add(cell);        
+        return cell;
+    }
+    
     private GridCell<T> createCell() {
         GridCell<T> cell;
         if (getSkinnable().getCellFactory() != null) {
@@ -161,12 +188,11 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     Compute the required cell width with spacing included
     */
     protected double computeRequiredCellWidthWithSpacing() {
-        GridCell<T> cell = createCell();
         double cellWidth = 0;
         for (T n : getSkinnable().getItems()) {
-            cell.setItem(n);
-            if (cell.requiredCellWidthProperty().get() > cellWidth) {
-                cellWidth = cell.requiredCellWidthProperty().get();
+            calcCellWidth.setItem(n);
+            if (calcCellWidth.requiredCellWidthProperty().get() > cellWidth) {
+                cellWidth = calcCellWidth.requiredCellWidthProperty().get();
             }
         }
         //computing cell width with spacing between cells included
@@ -182,12 +208,11 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
      * @return 
      */
     protected double computeRequiredCellHeightWithSpacing(int cellIndex) {
-        GridCell<T> cell = createCell();
         double cellHeight = 0;
          
-        cell.setItem(getSkinnable().getItems().get(cellIndex));
-        if (cell.requiredCellHeightProperty().get() > cellHeight) {
-            cellHeight = cell.requiredCellHeightProperty().get();
+        calcCellHeight.setItem(getSkinnable().getItems().get(cellIndex));
+        if (calcCellHeight.requiredCellHeightProperty().get() > cellHeight) {
+            cellHeight = calcCellHeight.requiredCellHeightProperty().get();
         }
         
         //computing cell height with spacing between cells included
@@ -226,13 +251,13 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     @Override
     protected void layoutChildren() {
         super.layoutChildren();
-
         double currentWidth = getWidth();
         double xPos = 0;
         double yPos = 0;
 
+        int maxCellCountInRow = computeMaxCellCountInRow();
         double requiredCellWidth = computeRequiredCellWidthWithSpacing();
-        double actualCellWidth = Math.floor(currentWidth / computeMaxCellCountInRow());
+        double actualCellWidth = Math.floor(currentWidth / maxCellCountInRow);
         double halfRemainingWidthForCell = (actualCellWidth-requiredCellWidth) / 2;
         
         HPos currentHorizontalAlignment = getSkinnable().getHorizontalAlignment();
@@ -240,6 +265,10 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
         int cellIndex = 0;
         int rowIndex = 0;
         double rowHeight = computeRowHeight(rowIndex);
+        //before doing children layout we must resize the container height, or at least
+        //set the minimum size for it
+        setMinHeight((getChildren().size()%maxCellCountInRow)*rowHeight);
+        
         for (Node child : getChildren()) {
             
             //check for vertical spacing and update row if needed

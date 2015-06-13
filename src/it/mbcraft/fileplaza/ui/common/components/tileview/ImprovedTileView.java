@@ -41,7 +41,6 @@ public class ImprovedTileView<T> extends ScrollPane implements IRefreshable<T> {
     private final GridView<T> internalView;
     
     public ImprovedTileView() {
-        
         internalView = new GridView();
         
         setPannable(false);

@@ -27,7 +27,7 @@ import it.mbcraft.fileplaza.ui.main.browse.path.actions.DeleteFileAction;
 import it.mbcraft.fileplaza.ui.main.browse.path.actions.GoToParentFolderAction;
 import it.mbcraft.fileplaza.ui.main.browse.path.actions.NewFolderAction;
 import it.mbcraft.fileplaza.ui.main.browse.path.actions.RenameFileAction;
-import it.mbcraft.fileplaza.ui.main.browse.CurrentDirectoryState;
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import java.io.File;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

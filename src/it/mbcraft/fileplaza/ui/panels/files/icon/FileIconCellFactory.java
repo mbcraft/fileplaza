@@ -26,7 +26,6 @@ import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -47,12 +46,14 @@ public class FileIconCellFactory implements Callback<GridView<File>,GridCell<Fil
     
     private final EventHandler<MouseEvent> mouseHandler;
     private final List<WeakReference<Node>> currentCells = new ArrayList();
+    private int cellsCreated = 0;
     
     public FileIconCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IElementActionListener listener) {
         zoomLevelProperty = zoomLevelProp;
         cellZoomLevelProperty = new SimpleIntegerProperty(zoomLevelProperty.get());
         mouseHandler = new FileIconCellMouseListener(listener);   
         zoomLevelProperty.addListener((ChangeListener)new CellSizeUpdater(cellZoomLevelProperty,ref,currentCells));
+        
     }
     
     @Override

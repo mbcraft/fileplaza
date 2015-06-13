@@ -15,10 +15,11 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package it.mbcraft.fileplaza.ui.main.browse;
+package it.mbcraft.fileplaza.state;
 
 import java.io.File;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -68,15 +69,20 @@ public class CurrentDirectoryState {
 
             @Override
             public void changed(ObservableValue<? extends File> ov, final File oldValue, final File newValue) {
-                //There was a Platform.runLater call here
-                System.out.println("The current directory is changed!!");
-                clearFileSelection();
-                //currentDirectoryItemsProperty.get().clear();
-                myObservableList.clear();
-                if (newValue != null) {
-                    File[] files = newValue.listFiles();
-                    myObservableList.setAll(files);
-                }
+                
+                Platform.runLater(new Runnable(){
+                
+                    public void run() {
+                        clearFileSelection();
+
+                        if (newValue != null) {
+                            File[] files = newValue.listFiles();
+                            myObservableList.setAll(files);
+                        }
+                    }
+                
+                });
+
 
             }
         });
@@ -85,7 +91,7 @@ public class CurrentDirectoryState {
 
             @Override
             public void changed(ObservableValue<? extends ObservableList<File>> ov, ObservableList<File> t, ObservableList<File> t1) {
-                System.out.println("Change listener called!!");
+                //System.out.println("Change listener called!!");
             }
         });
         
@@ -94,14 +100,17 @@ public class CurrentDirectoryState {
 
             @Override
             public void onChanged(ListChangeListener.Change<? extends File> change) {
-                System.out.println("List change listener called!!");
+                //this method get called!!
+                //System.out.println("List change listener called!!");
             }
         });
         
     }
     
     public void clearFileSelection() {
-        selectedFilesProperty.get().clearSelection();
+        MultipleSelectionModel<File> model = selectedFilesProperty.get();
+        if (model!=null)
+            model.clearSelection();
         singleFileSelectedProperty.set(false);
         selectedFileProperty.setValue(null);
     }

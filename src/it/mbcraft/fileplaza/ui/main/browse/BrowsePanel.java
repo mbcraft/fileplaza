@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.main.browse;
 
+import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 import static it.mbcraft.fileplaza.i18n.Lang.L;

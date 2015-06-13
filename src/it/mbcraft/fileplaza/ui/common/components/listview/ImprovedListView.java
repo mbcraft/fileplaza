@@ -32,7 +32,7 @@ import javafx.scene.control.ListView;
  * @param <T> The type contained inside this list
  */
 public class ImprovedListView<T> extends ListView<T> implements IRefreshable<T> {
-    
+        
     /**
      * Refreshes all the items in the list view
      */

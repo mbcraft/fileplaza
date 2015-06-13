@@ -52,8 +52,10 @@ public class CellSizeUpdater implements ChangeListener<Integer> {
         
         for (WeakReference<Node> weakCellRef : cellsToUpdate) {
             Node cell = weakCellRef.get();
-            if (cell==null) 
+            if (cell==null) {
                 toRemoveList.add(weakCellRef);
+                System.out.println("Weak ref removed!");
+            }
         }
         
         cellsToUpdate.removeAll(toRemoveList);

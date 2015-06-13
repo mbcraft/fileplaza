@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.main.search;
 
+import it.mbcraft.fileplaza.state.SearchState;
 import it.mbcraft.fileplaza.data.models.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
