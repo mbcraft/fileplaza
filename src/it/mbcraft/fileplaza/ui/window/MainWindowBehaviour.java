@@ -23,21 +23,16 @@ import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.main.browse.BrowsePanel;
 import it.mbcraft.fileplaza.ui.main.search.SearchPanel;
 import it.mbcraft.fileplaza.ui.main.menu.MainMenuBar;
-import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileQuitAction;
 import it.mbcraft.fileplaza.ui.main.sort.SortPanel;
-import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import java.awt.GraphicsEnvironment;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 /**
  * This class handles the main application window.

@@ -18,7 +18,6 @@
 package it.mbcraft.fileplaza.state;
 
 import java.io.File;
-import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;

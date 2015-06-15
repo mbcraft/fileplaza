@@ -15,7 +15,7 @@ import com.guigarage.fx.grid.cell.DefaultGridCell;
 import com.sun.javafx.scene.control.skin.SkinBase;
 import java.util.ArrayList;
 import java.util.List;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
+import javafx.scene.CacheHint;
 
 public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> {
 
@@ -34,6 +34,8 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     public GridViewSkin(GridView<T> control) {
         super(control, new GridViewBehavior<>(control));
 
+        setCache(true);
+        setCacheHint(CacheHint.SPEED);
         //preparing cache ...
         for (int i=0;i<300;i++) {
             unusedCells.add(createCell());
@@ -51,6 +53,7 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
         itemsListener = new ListChangeListener<T>() {
             @Override
             public void onChanged(Change<? extends T> change) {
+                
                 while (change.next()) {
                     if (change.wasPermutated()) {
                         for (int i = change.getFrom();i<change.getTo();i++)
@@ -122,21 +125,23 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
             
         ObservableList<T> items = getSkinnable().getItems();
 
+        ArrayList<Node> toAdd = new ArrayList();
+        
         if (items != null) {
             for (int index = 0; index < items.size(); index++) {
                 T item = items.get(index);
-                GridCell<T> cell = getCell();
+                GridCell<T> cell = getCachedCell();
                 cell.setItem(item);
                 cell.updateIndex(index);
-                getChildren().add(cell);
+                toAdd.add(cell);
             }
+            getChildren().addAll(toAdd);
         }
         
         requestLayout();
     }
 
     private void removeCell(int index) {
-        //getSkinnable().getItems().remove(index);
         GridCell<T> removed = (GridCell<T>) getChildren().remove(index);
         usedCells.remove(removed);
         unusedCells.add(removed);
@@ -150,7 +155,7 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
 
     private void addCell(int index) {
         T item = getSkinnable().getItems().get(index);
-        GridCell<T> cell = getCell();
+        GridCell<T> cell = getCachedCell();
 
         cell.setItem(item);
         cell.updateIndex(index);
@@ -158,7 +163,7 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
         getChildren().add(index, cell);
     }
         
-    private GridCell<T> getCell() {
+    private GridCell<T> getCachedCell() {
         GridCell<T> cell;
         if (unusedCells.isEmpty()) {
             cell = createCell();
@@ -189,6 +194,7 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     */
     protected double computeRequiredCellWidthWithSpacing() {
         double cellWidth = 0;
+
         for (T n : getSkinnable().getItems()) {
             calcCellWidth.setItem(n);
             if (calcCellWidth.requiredCellWidthProperty().get() > cellWidth) {
@@ -226,8 +232,8 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
      * @param rowIndex The index of the row
      * @return The height of the row
      */
-    protected double computeRowHeight(int rowIndex) {
-        int maxCellsInRow = computeMaxCellCountInRow();
+    protected double computeRowHeight(int rowIndex, double width, double requiredCellWidthWithSpacing) {
+        int maxCellsInRow = computeMaxCellCountInRow(width, requiredCellWidthWithSpacing);
         int start = maxCellsInRow * rowIndex;
         int totalItemCount = getSkinnable().getItems().size();
         int end = (start + maxCellsInRow) < totalItemCount ? (start + maxCellsInRow) : totalItemCount;
@@ -250,21 +256,20 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
     */
     @Override
     protected void layoutChildren() {
-        super.layoutChildren();
         double currentWidth = getWidth();
         double xPos = 0;
         double yPos = 0;
 
-        int maxCellCountInRow = computeMaxCellCountInRow();
-        double requiredCellWidth = computeRequiredCellWidthWithSpacing();
+        double requiredCellWidthWithSpacing = computeRequiredCellWidthWithSpacing();
+        int maxCellCountInRow = computeMaxCellCountInRow(currentWidth,requiredCellWidthWithSpacing);
         double actualCellWidth = Math.floor(currentWidth / maxCellCountInRow);
-        double halfRemainingWidthForCell = (actualCellWidth-requiredCellWidth) / 2;
+        double halfRemainingWidthForCell = (actualCellWidth-requiredCellWidthWithSpacing) / 2;
         
         HPos currentHorizontalAlignment = getSkinnable().getHorizontalAlignment();
 
         int cellIndex = 0;
         int rowIndex = 0;
-        double rowHeight = computeRowHeight(rowIndex);
+        double rowHeight = computeRowHeight(rowIndex, currentWidth, requiredCellWidthWithSpacing);
         //before doing children layout we must resize the container height, or at least
         //set the minimum size for it
         setMinHeight((getChildren().size()%maxCellCountInRow)*rowHeight);
@@ -272,11 +277,11 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
         for (Node child : getChildren()) {
             
             //check for vertical spacing and update row if needed
-            if (cellIndex!=0 && cellIndex%computeMaxCellCountInRow()==0) {
+            if (cellIndex!=0 && cellIndex%maxCellCountInRow==0) {
                 xPos = 0;
                 yPos+=rowHeight;
                 rowIndex++;
-                rowHeight = computeRowHeight(rowIndex);
+                rowHeight = computeRowHeight(rowIndex, currentWidth, requiredCellWidthWithSpacing);
             }
 
             //before cell horizontal spacing
@@ -293,9 +298,9 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
             
             //locating and resizing cell
             child.relocate(xPos, yPos);
-            child.resize(requiredCellWidth, rowHeight);
+            child.resize(requiredCellWidthWithSpacing, rowHeight);
 
-            xPos+=requiredCellWidth;
+            xPos+=requiredCellWidthWithSpacing;
             
             //after cell horizontal spacing
             if (currentHorizontalAlignment != null) {
@@ -327,21 +332,19 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
         return Orientation.HORIZONTAL;
     } 
     
-    protected double computePrefCellWidth() {
-        return Math.floor(getWidth() / computeMaxCellCountInRow());
+    protected double computePrefCellWidth(double width,int maxCellCountInRow) {
+        return Math.floor(width / maxCellCountInRow);
     }
     
-    public int computeRowIndexForItem(int itemIndex) {
-        int maxCellsInRow = computeMaxCellCountInRow();
-        return itemIndex / maxCellsInRow;
+    public int computeRowIndexForItem(int itemIndex, int maxCellCountInRow) {
+        return itemIndex / maxCellCountInRow;
     }
 
     /*
     Gli elementi sono elencati da sinistra verso destra, dall'alto verso il basso
     */
-    public int computeColumnIndexForItem(int itemIndex) {
-        int cellsInRow = computeMaxCellCountInRow();
-        return itemIndex % cellsInRow;
+    public int computeColumnIndexForItem(int itemIndex, int maxCellCountInRow) {
+        return itemIndex % maxCellCountInRow;
     }
 
     /**
@@ -349,8 +352,8 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
      * 
      * @return The number of cells in a row
      */
-    public int computeMaxCellCountInRow() {
-        return Math.max((int) Math.floor(getWidth() / computeRequiredCellWidthWithSpacing()), 1);
+    public int computeMaxCellCountInRow(double width, double cellWidthWithSpacing) {
+        return Math.max((int) Math.floor(width / cellWidthWithSpacing), 1);
     }
 
     /**
@@ -358,8 +361,8 @@ public class GridViewSkin<T> extends SkinBase<GridView<T>, GridViewBehavior<T>> 
      * 
      * @return The number of required rows
      */
-    public int computeCurrentRowCount() {
-        return (int) Math.ceil((double) getSkinnable().getItems().size() / (double) computeMaxCellCountInRow());
+    public int computeCurrentRowCount(int maxCellCountInRow) {
+        return (int) Math.ceil((double) getSkinnable().getItems().size() / maxCellCountInRow);
     }
     
 }

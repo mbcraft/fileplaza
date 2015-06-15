@@ -20,6 +20,7 @@ package it.mbcraft.fileplaza.ui.common.components.listview;
 
 import it.mbcraft.fileplaza.ui.common.components.IRefreshable;
 import javafx.collections.ObservableList;
+import javafx.scene.CacheHint;
 import javafx.scene.control.ListView;
 
 /**
@@ -33,6 +34,10 @@ import javafx.scene.control.ListView;
  */
 public class ImprovedListView<T> extends ListView<T> implements IRefreshable<T> {
         
+    public ImprovedListView() {
+        setCache(true);
+        setCacheHint(CacheHint.SPEED);
+    }
     /**
      * Refreshes all the items in the list view
      */

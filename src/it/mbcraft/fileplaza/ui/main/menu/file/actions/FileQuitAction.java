@@ -22,7 +22,6 @@ import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
 
 /**
  *
@@ -43,7 +42,7 @@ public class FileQuitAction implements EventHandler<ActionEvent> {
         
         SingleSelectionFileSystemElementState.getInstance().saveCurrentElementIfNeeded();
         
-        Platform.exit();
+        System.exit(0);
     }
     
 }

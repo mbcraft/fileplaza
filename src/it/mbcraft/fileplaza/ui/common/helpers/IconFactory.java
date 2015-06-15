@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.Main;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
+import java.util.HashMap;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -32,6 +33,10 @@ import javafx.scene.image.ImageView;
  */
 public class IconFactory {
     
+    //caches for images (features and files)
+    private static final HashMap<String,Image> featureIconImageCache = new HashMap<>();
+    private static final HashMap<String,Image> fileIconImageCache = new HashMap<>();
+
     /**
      * Returns an icon that can be used inside the program.
      * TODO: To evaluate if i should buy another license of this icon. 
@@ -43,17 +48,24 @@ public class IconFactory {
      */
     public static ImageView getFeatureIcon(String name,double size) {
         
-        InputStream is = Main.class.getResourceAsStream("graphics/official/icons/misc/"+name+".png");
-        if (is==null)
-            is = Main.class.getResourceAsStream("graphics/stub/icons/misc/"+name+".png");
+        Image im;
+        if (featureIconImageCache.containsKey(name))
+            im = featureIconImageCache.get(name);
+        else
+        {
+            InputStream is = Main.class.getResourceAsStream("graphics/official/icons/misc/"+name+".png");
+            if (is==null)
+                is = Main.class.getResourceAsStream("graphics/stub/icons/misc/"+name+".png");
+
+            if (is==null)
+                throw new IllegalStateException("Feature icon image not found : name:"+name+" size:"+size);
+            im = new Image(is);
+            featureIconImageCache.put(name, im);
+        }
         
-        if (is==null)
-            throw new IllegalStateException("Feature icon image not found : name:"+name+" size:"+size);
-        
-        ImageView result = new ImageView(new Image(is));
+        ImageView result = new ImageView(im);
         result.setFitHeight(size);
         result.setFitWidth(size);
-
         return result;
     }
     
@@ -79,21 +91,29 @@ public class IconFactory {
     public static ImageView getFileIconByExtension(String extension, int size) {
         if (!allowedFileIconSize(size)) 
             throw new InvalidParameterException("Icon size not admitted : "+size);
-        
-        InputStream stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/"+extension+"_"+size+".png");
-        if (stream==null)
-            stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/default_"+size+".png");
-        
-        if (stream==null) {
-            stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/"+extension+"_"+size+".png");
+        Image im;
+        if (fileIconImageCache.containsKey(extension)) {
+            im = fileIconImageCache.get(extension);
+        } else {
+            
+            InputStream stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/"+extension+"_"+size+".png");
             if (stream==null)
-                stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/default_"+size+".png");
+                stream = Main.class.getResourceAsStream("graphics/official/icons/file/"+size+"px/default_"+size+".png");
+
+            if (stream==null) {
+                stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/"+extension+"_"+size+".png");
+                if (stream==null)
+                    stream = Main.class.getResourceAsStream("graphics/stub/icons/file/"+size+"px/default_"+size+".png");
+            }
+        
+            if (stream==null)
+                throw new IllegalStateException("File icon or default icon image file not found : extension:"+extension+" size:"+size);
+            
+            im = new Image(stream);
+            fileIconImageCache.put(extension, im);
         }
         
-        if (stream==null)
-            throw new IllegalStateException("File icon or default icon image file not found : extension:"+extension+" size:"+size);
-        
-        ImageView result = new ImageView(new Image(stream));
+        ImageView result = new ImageView(im);
         result.setFitWidth(size);
         result.setFitWidth(size);
         
