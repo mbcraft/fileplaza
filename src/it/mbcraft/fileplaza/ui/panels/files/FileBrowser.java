@@ -21,13 +21,14 @@ package it.mbcraft.fileplaza.ui.panels.files;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import it.mbcraft.fileplaza.ui.common.components.misc.SwitchIconsPanel;
-import it.mbcraft.fileplaza.ui.common.components.misc.ZoomInOutPanelProvider;
+import it.mbcraft.fileplaza.ui.common.components.misc.ZoomInOutPanel;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.main.browse.BrowsePanelFileListener;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.helpers.ImageFactory;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
+import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsPanel;
 import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsWindow;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
@@ -53,9 +54,10 @@ public class FileBrowser implements INodeProvider {
     private final DirectoryBrowserCommandsPanelProvider fileCommandsPanel;
     
     private final SwitchIconsPanel viewSwitchPanel;
-    private final ZoomInOutPanelProvider zoomInOutPanel;
-    private final Button sortOptionsButton;
-    private final FileSortOptionsWindow fileSortOptionsWindow;
+    private final ZoomInOutPanel zoomInOutPanel;
+    private final FileSortOptionsPanel optionsPanel;
+    
+    
             
     private final FileViewIconPanel directoryFileIconPanel;
     private final FileListViewPanel directoryFileListPanel;
@@ -69,20 +71,12 @@ public class FileBrowser implements INodeProvider {
         
         List<INodeProvider> panels = new ArrayList<>();
         viewSwitchPanel = new SwitchIconsPanel(panels);
-        zoomInOutPanel = new ZoomInOutPanelProvider();
-        fileSortOptionsWindow = new FileSortOptionsWindow(currentDirState.sortModeProperty(),currentDirState.sortOptionProperty());
-        sortOptionsButton = new Button();
-        sortOptionsButton.setGraphic(IconFactory.getFeatureIcon("Directions_32", 32));
-        sortOptionsButton.setOnAction(new EventHandler<ActionEvent>(){
-
-            @Override
-            public void handle(ActionEvent t) {
-                fileSortOptionsWindow.showAndWait();
-            }
-        });
+        zoomInOutPanel = new ZoomInOutPanel();
+        optionsPanel = new FileSortOptionsPanel(currentDirState);
+        
         
         HBox switchZoomAndOptions = new HBox();
-        switchZoomAndOptions.getChildren().addAll(viewSwitchPanel.getNode(),zoomInOutPanel.getNode(),sortOptionsButton);
+        switchZoomAndOptions.getChildren().addAll(viewSwitchPanel.getNode(),zoomInOutPanel.getNode(),optionsPanel.getNode());
         
         ImprovedStackPane fileViewStackPane = viewSwitchPanel.getStackPane();
         IElementActionListener listener = new BrowsePanelFileListener(currentDirState);

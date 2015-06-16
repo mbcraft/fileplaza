@@ -36,12 +36,12 @@ import javafx.scene.layout.HBox;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class ZoomInOutPanelProvider implements INodeProvider{
+public class ZoomInOutPanel implements INodeProvider{
 
     private final HBox buttonsPane;
     private final IntegerProperty zoomLevel;
         
-    public ZoomInOutPanelProvider() {
+    public ZoomInOutPanel() {
         
         buttonsPane = new HBox();
         buttonsPane.setPadding(new Insets(5));

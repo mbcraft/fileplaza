@@ -42,6 +42,8 @@ public class CurrentDirectoryState {
     private final ObjectProperty<FileSortMode> sortModeProperty = new SimpleObjectProperty(FileSortMode.ALPHABETICAL_ASCENDING);
     private final ObjectProperty<FileSortOption> sortOptionProperty = new SimpleObjectProperty(FileSortOption.FOLDERS_THEN_FILES);
     
+    private boolean fileListNeedsRefresh = false;
+    
     private final ObjectProperty<File> currentPathProperty = new SimpleObjectProperty();
     private final ObservableList<File> myObservableList = FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty = new SimpleObjectProperty(myObservableList);
@@ -112,6 +114,31 @@ public class CurrentDirectoryState {
             }
         });
         
+        sortModeProperty.addListener(new ChangeListener<FileSortMode>(){
+
+            @Override
+            public void changed(ObservableValue<? extends FileSortMode> ov, FileSortMode oldValue, FileSortMode newValue) {
+                fileListNeedsRefresh = true;
+            }
+        });
+        
+        sortOptionProperty.addListener(new ChangeListener<FileSortOption>(){
+
+            @Override
+            public void changed(ObservableValue<? extends FileSortOption> ov, FileSortOption oldValue, FileSortOption newValue) {
+                fileListNeedsRefresh = true;
+            }
+        });
+    }
+    
+    public void refreshFileListIfNeeded() {
+        if (fileListNeedsRefresh) {
+            fileListNeedsRefresh = false;
+            
+            File[] files = currentPathProperty.get().listFiles();
+            File[] sortedFiles = FileSorter.sort(files, sortModeProperty.get(), sortOptionProperty.get());
+            myObservableList.setAll(sortedFiles);
+        }
     }
     
     public void clearFileSelection() {

@@ -26,7 +26,10 @@ import it.mbcraft.fileplaza.ui.common.components.windows.AbstractSettingsWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.GridPaneFiller;
 import java.security.InvalidParameterException;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -42,17 +45,17 @@ public class FileSortOptionsWindow extends AbstractSettingsWindow {
     private final ObjectProperty<FileSortMode> sortModeProperty;
     private final ObjectProperty<FileSortOption> sortOptionProperty;
     
-    private final ToggleGroup sortMode = new PersistentButtonToggleGroup();
+    private ToggleGroup sortModeToggleGroup;
     
     private ToggleButton alphabeticalToggle;
     private ToggleButton dateToggle;
     
-    private final ToggleGroup sortDirection = new PersistentButtonToggleGroup();
+    private ToggleGroup sortDirectionToggleGroup;
     
     private ToggleButton ascendingToggle;
     private ToggleButton descendingToggle;
     
-    private final ToggleGroup sortOption = new PersistentButtonToggleGroup();
+    private ToggleGroup sortOptionToggleGroup;
     
     private ToggleButton mixedToggle;
     private ToggleButton foldersThenFilesToggle;
@@ -67,42 +70,80 @@ public class FileSortOptionsWindow extends AbstractSettingsWindow {
             throw new InvalidParameterException("FileSortMode property can't be null.");
         if (sortOptionProp==null)
             throw new InvalidParameterException("FileSortOption property can't be null.");
-        
+                
         sortModeProperty = sortModeProp;
-        sortOptionProperty = sortOptionProp;
+        sortOptionProperty = sortOptionProp;      
+        
     }
 
     @Override
     protected void initMiddleContent() {
         
+        //initializing mode toggles
+        sortModeToggleGroup = new PersistentButtonToggleGroup();
+        alphabeticalToggle = new ToggleButton(L(this,"Toggle_ModeAlphabetical"));
+        alphabeticalToggle.setToggleGroup(sortModeToggleGroup);
+        alphabeticalToggle.setSelected(true);
+        dateToggle = new ToggleButton(L(this,"Toggle_ModeDate"));
+        dateToggle.setToggleGroup(sortModeToggleGroup);
+        sortModeToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+
+            @Override
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+                fireDataChanged();
+            }
+        });
+        
+        //initializing direction toggles
+        sortDirectionToggleGroup = new PersistentButtonToggleGroup();
+        ascendingToggle = new ToggleButton(L(this,"Toggle_ModeAscending"));
+        ascendingToggle.setToggleGroup(sortDirectionToggleGroup);
+        ascendingToggle.setSelected(true);
+        descendingToggle = new ToggleButton(L(this,"Toggle_ModeDescending"));
+        descendingToggle.setToggleGroup(sortDirectionToggleGroup);
+        sortDirectionToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+
+            @Override
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+                fireDataChanged();
+            }
+        });
+        
+        //initializing option toggles
+        sortOptionToggleGroup = new PersistentButtonToggleGroup();
+        mixedToggle = new ToggleButton(L(this,"Toggle_OptionMixed"));
+        mixedToggle.setToggleGroup(sortOptionToggleGroup);
+        foldersThenFilesToggle = new ToggleButton(L(this,"Toggle_OptionFoldersThenFiles"));
+        foldersThenFilesToggle.setToggleGroup(sortOptionToggleGroup);
+        foldersThenFilesToggle.setSelected(true);
+        filesThenFoldersToggle = new ToggleButton(L(this,"Toggle_OptionFilesThenFolders"));
+        filesThenFoldersToggle.setToggleGroup(sortOptionToggleGroup);
+        sortOptionToggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+
+            @Override
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+                fireDataChanged();
+            }
+        });
         //sort mode
         FlowPane modePane = new FlowPane();
-        alphabeticalToggle = new ToggleButton(L(this,"Toggle_ModeAlphabetical"));
-        alphabeticalToggle.setToggleGroup(sortMode);
-        dateToggle = new ToggleButton(L(this,"Toggle_ModeDate"));
-        dateToggle.setToggleGroup(sortMode);
+        modePane.setHgap(5);
         modePane.getChildren().addAll(alphabeticalToggle,dateToggle);
                
         //sort direction
         FlowPane directionPane = new FlowPane();
-        ascendingToggle = new ToggleButton(L(this,"Toggle_ModeAscending"));
-        ascendingToggle.setToggleGroup(sortDirection);
-        descendingToggle = new ToggleButton(L(this,"Toggle_ModeDescending"));
-        descendingToggle.setToggleGroup(sortDirection);
+        directionPane.setHgap(5);
         directionPane.getChildren().addAll(ascendingToggle,descendingToggle);
         
         //sort option
         FlowPane optionPane = new FlowPane();
-        mixedToggle = new ToggleButton(L(this,"Toggle_OptionMixed"));
-        mixedToggle.setToggleGroup(sortOption);
-        foldersThenFilesToggle = new ToggleButton(L(this,"Toggle_OptionFoldersThenFiles"));
-        foldersThenFilesToggle.setToggleGroup(sortOption);
-        filesThenFoldersToggle = new ToggleButton(L(this,"Toggle_OptionFilesThenFolders"));
-        filesThenFoldersToggle.setToggleGroup(sortOption);
+        optionPane.setHgap(5);
         optionPane.getChildren().addAll(mixedToggle,foldersThenFilesToggle,filesThenFoldersToggle);
         
         GridPaneFiller.reset(2);
         GridPane pane = new GridPane();
+        pane.setHgap(10);
+        pane.setVgap(20);
         pane.add(new Label(L(this, "Label_SortMode")), GridPaneFiller.X(), GridPaneFiller.Y());
         pane.add(modePane,GridPaneFiller.X(),GridPaneFiller.Y());
         
@@ -118,17 +159,17 @@ public class FileSortOptionsWindow extends AbstractSettingsWindow {
     @Override
     protected void loadData() {
         switch (sortModeProperty.get()) {
-            case ALPHABETICAL_ASCENDING:sortMode.selectToggle(alphabeticalToggle);sortDirection.selectToggle(ascendingToggle);break;
-            case ALPHABETICAL_DESCENDING:sortMode.selectToggle(alphabeticalToggle);sortDirection.selectToggle(descendingToggle);break;
-            case DATE_ASCENDING:sortMode.selectToggle(dateToggle);sortDirection.selectToggle(ascendingToggle);break;
-            case DATE_DESCENDING:sortMode.selectToggle(dateToggle);sortDirection.selectToggle(descendingToggle);break;
+            case ALPHABETICAL_ASCENDING:alphabeticalToggle.setSelected(true);ascendingToggle.setSelected(true);break;
+            case ALPHABETICAL_DESCENDING:alphabeticalToggle.setSelected(true);descendingToggle.setSelected(true);break;
+            case DATE_ASCENDING:dateToggle.setSelected(true);ascendingToggle.setSelected(true);break;
+            case DATE_DESCENDING:dateToggle.setSelected(true);descendingToggle.setSelected(true);break;
             default:throw new IllegalStateException("Unexpected FileSortMode value.");
         }
         
         switch (sortOptionProperty.get()) {
-            case MIXED:sortOption.selectToggle(mixedToggle);break;
-            case FOLDERS_THEN_FILES:sortOption.selectToggle(foldersThenFilesToggle);break;
-            case FILES_THEN_FOLDERS:sortOption.selectToggle(filesThenFoldersToggle);break;
+            case MIXED:mixedToggle.setSelected(true);break;
+            case FOLDERS_THEN_FILES:foldersThenFilesToggle.setSelected(true);break;
+            case FILES_THEN_FOLDERS:filesThenFoldersToggle.setSelected(true);break;
             default:throw new IllegalStateException("Unexpected FileSortOption value.");
         }
     }
@@ -136,30 +177,31 @@ public class FileSortOptionsWindow extends AbstractSettingsWindow {
     @Override
     protected void saveData() {
         FileSortMode mode = null;
-        if (sortMode.getSelectedToggle()==alphabeticalToggle) {
-            if (sortDirection.getSelectedToggle()==ascendingToggle)
+        if (alphabeticalToggle.isSelected()) {
+            if (sortDirectionToggleGroup.getSelectedToggle()==ascendingToggle)
                 mode = FileSortMode.ALPHABETICAL_ASCENDING;
             else
                 mode = FileSortMode.ALPHABETICAL_DESCENDING;
         }
-        if (sortMode.getSelectedToggle()==dateToggle) {
-            if (sortOption.getSelectedToggle()==ascendingToggle)
+        if (dateToggle.isSelected()) {
+            if (sortOptionToggleGroup.getSelectedToggle()==ascendingToggle)
                 mode = FileSortMode.DATE_ASCENDING;
             else
                 mode = FileSortMode.DATE_DESCENDING;
         }
             
         FileSortOption option = null;
-        if (sortOption.getSelectedToggle()==mixedToggle)
+        if (mixedToggle.isSelected())
             option = FileSortOption.MIXED;
-        if (sortOption.getSelectedToggle()==foldersThenFilesToggle)
+        if (foldersThenFilesToggle.isSelected())
             option = FileSortOption.FOLDERS_THEN_FILES;
-        if (sortOption.getSelectedToggle()==filesThenFoldersToggle)
+        if (filesThenFoldersToggle.isSelected())
             option = FileSortOption.FILES_THEN_FOLDERS;
      
+        System.out.println("Setting mode : "+mode+" option : "+option);
+        
         sortModeProperty.set(mode);
         sortOptionProperty.set(option);
-        
     }
 
     @Override

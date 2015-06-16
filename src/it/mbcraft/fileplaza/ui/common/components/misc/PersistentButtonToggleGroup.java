@@ -17,6 +17,8 @@
  */
 package it.mbcraft.fileplaza.ui.common.components.misc;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.control.Toggle;
@@ -49,5 +51,6 @@ public class PersistentButtonToggleGroup extends ToggleGroup {
                 }
             }
         });
+
     }
 }
