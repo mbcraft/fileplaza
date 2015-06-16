@@ -74,7 +74,6 @@ public class InfoPanel implements INodeProvider {
     
     private void initContent() {
         
-        
         //type
         Label typeLabel = new Label(L(this,"Type_Label"));
         container.add(typeLabel);

@@ -23,5 +23,5 @@ package it.mbcraft.fileplaza.state.order;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public enum FileSortOption {
-    ALL, FOLDERS_THEN_FILES, FILES_THEN_FOLDERS
+    MIXED, FOLDERS_THEN_FILES, FILES_THEN_FOLDERS
 }

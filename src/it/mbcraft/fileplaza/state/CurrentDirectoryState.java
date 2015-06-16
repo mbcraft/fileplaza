@@ -17,6 +17,9 @@
  */
 package it.mbcraft.fileplaza.state;
 
+import it.mbcraft.fileplaza.state.order.FileSortMode;
+import it.mbcraft.fileplaza.state.order.FileSortOption;
+import it.mbcraft.fileplaza.state.order.FileSorter;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -36,7 +39,9 @@ import javafx.scene.control.MultipleSelectionModel;
  */
 public class CurrentDirectoryState {
 
-    private final ObjectProperty directorySortMode = new SimpleObjectProperty();
+    private final ObjectProperty<FileSortMode> sortModeProperty = new SimpleObjectProperty(FileSortMode.ALPHABETICAL_ASCENDING);
+    private final ObjectProperty<FileSortOption> sortOptionProperty = new SimpleObjectProperty(FileSortOption.FOLDERS_THEN_FILES);
+    
     private final ObjectProperty<File> currentPathProperty = new SimpleObjectProperty();
     private final ObservableList<File> myObservableList = FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty = new SimpleObjectProperty(myObservableList);
@@ -72,12 +77,14 @@ public class CurrentDirectoryState {
                 
                 Platform.runLater(new Runnable(){
                 
+                    @Override
                     public void run() {
                         clearFileSelection();
 
                         if (newValue != null) {
                             File[] files = newValue.listFiles();
-                            myObservableList.setAll(files);
+                            File[] sortedFiles = FileSorter.sort(files, sortModeProperty.get(), sortOptionProperty.get());
+                            myObservableList.setAll(sortedFiles);
                         }
                     }
                 
@@ -129,6 +136,14 @@ public class CurrentDirectoryState {
 
     public File getSelectedFile() {
         return selectedFilesProperty.get().getSelectedItem();
+    }
+    
+    public ObjectProperty<FileSortMode> sortModeProperty() {
+        return sortModeProperty;
+    }
+    
+    public ObjectProperty<FileSortOption> sortOptionProperty() {
+        return sortOptionProperty;
     }
 
     public ObjectProperty<File> currentPathProperty() {

@@ -49,7 +49,7 @@ public class FileSorter {
         
         foldersList.clear();
         filesList.clear();
-        if (opt!=FileSortOption.ALL) {
+        if (opt!=FileSortOption.MIXED) {
             for (File f : files) {
                 if (f.isDirectory()) 
                     foldersList.add(f);
