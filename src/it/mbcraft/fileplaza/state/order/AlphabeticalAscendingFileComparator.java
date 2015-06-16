@@ -16,12 +16,22 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.utils.collections;
+package it.mbcraft.fileplaza.state.order;
+
+import java.io.File;
+import java.util.Comparator;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class RemoveOperation {
-    
+public class AlphabeticalAscendingFileComparator implements Comparator<File> {
+
+    @Override
+    public int compare(File a, File b) {
+        String a_name = a.getName();
+        String b_name = b.getName();
+        
+        return a_name.compareTo(b_name);
+    } 
 }

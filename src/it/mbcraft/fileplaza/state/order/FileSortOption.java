@@ -16,12 +16,12 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.utils.collections;
+package it.mbcraft.fileplaza.state.order;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class RemoveOperation {
-    
+public enum FileSortOption {
+    ALL, FOLDERS_THEN_FILES, FILES_THEN_FOLDERS
 }

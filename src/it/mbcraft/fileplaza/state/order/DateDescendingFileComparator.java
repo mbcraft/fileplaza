@@ -16,12 +16,35 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.utils.collections;
+package it.mbcraft.fileplaza.state.order;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.FileTime;
+import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class RemoveOperation {
+public class DateDescendingFileComparator implements Comparator<File> {
+
+    @Override
+    public int compare(File a, File b) {
+            try {
+            FileTime a_date = Files.getLastModifiedTime(a.toPath());
+            FileTime b_date = Files.getLastModifiedTime(b.toPath());
+            
+            return b_date.compareTo(a_date);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DateAscendingFileComparator.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IllegalStateException("Unable to get file time.");
+        }
+    }
+
     
 }

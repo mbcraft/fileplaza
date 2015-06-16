@@ -36,6 +36,7 @@ import javafx.scene.control.MultipleSelectionModel;
  */
 public class CurrentDirectoryState {
 
+    private final ObjectProperty directorySortMode = new SimpleObjectProperty();
     private final ObjectProperty<File> currentPathProperty = new SimpleObjectProperty();
     private final ObservableList<File> myObservableList = FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty = new SimpleObjectProperty(myObservableList);

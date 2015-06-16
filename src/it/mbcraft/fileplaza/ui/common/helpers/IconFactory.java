@@ -23,6 +23,7 @@ import it.mbcraft.fileplaza.Main;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -66,6 +67,10 @@ public class IconFactory {
         ImageView result = new ImageView(im);
         result.setFitHeight(size);
         result.setFitWidth(size);
+        
+        result.setCache(true);
+        result.setCacheHint(CacheHint.SPEED);
+        
         return result;
     }
     
@@ -116,6 +121,9 @@ public class IconFactory {
         ImageView result = new ImageView(im);
         result.setFitWidth(size);
         result.setFitWidth(size);
+        
+        result.setCache(true);
+        result.setCacheHint(CacheHint.SPEED);
         
         return result;
     }
