@@ -65,7 +65,7 @@ public class FileBrowser implements INodeProvider {
     private final VBox layoutPanel = new VBox();
     
     public FileBrowser() {        
-        currentPathPanel = new CurrentPathPanel(currentDirState);
+        currentPathPanel = new CurrentPathPanel(null,currentDirState);
         
         fileCommandsPanel = new DirectoryBrowserCommandsPanelProvider(currentDirState);
         

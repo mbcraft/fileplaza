@@ -20,6 +20,7 @@ package it.mbcraft.fileplaza.ui.main.browse.path;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
+import it.mbcraft.fileplaza.state.CurrentDeviceState;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
@@ -57,7 +58,7 @@ public class CurrentPathPanel implements INodeProvider {
     
     private final CurrentDirectoryState currentDirectoryState;
     
-    public CurrentPathPanel(CurrentDirectoryState state) {  
+    public CurrentPathPanel(CurrentDeviceState deviceState,CurrentDirectoryState state) {  
         
         currentDirectoryState = state;
         
@@ -89,6 +90,7 @@ public class CurrentPathPanel implements INodeProvider {
                 return new FileListCell(new SimpleIntegerProperty(1));
             }
         });
+
         driveSelector.getItems().setAll((Object[]) roots);
         driveSelector.getSelectionModel().selectFirst();
         

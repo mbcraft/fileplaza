@@ -23,11 +23,15 @@ import it.mbcraft.fileplaza.i18n.Lang;
 import it.mbcraft.fileplaza.state.CurrentLicenseState;
 import it.mbcraft.fileplaza.ui.window.MainWindowBehaviour;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 
 /**
  *
@@ -72,10 +76,10 @@ public class Main extends Application {
         MainWindowBehaviour mainWindow = new MainWindowBehaviour(stage, SOFTWARE_NAME + VERSION);
         mainWindow.show();
     }
-    
+        
     @Override
-    public void start(Stage primaryStage) {
-
+    public void start(Stage primaryStage) {        
+        
         //Tester.runFileListTester(primaryStage);
         //Tester.runFileIconTester(primaryStage);
         //Tester.runListCellTester(primaryStage);

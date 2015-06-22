@@ -48,7 +48,7 @@ public class DirectoryBrowserHeader implements INodeProvider {
         
         _currentDirectoryState = state;
         
-        _currentPathPanel = new CurrentPathPanel(_currentDirectoryState);
+        _currentPathPanel = new CurrentPathPanel(null,_currentDirectoryState);
         _browseCommandsPanel = new DirectoryBrowserCommandsPanelProvider(_currentDirectoryState);
         
         

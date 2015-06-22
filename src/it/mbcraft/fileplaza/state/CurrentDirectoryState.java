@@ -45,6 +45,8 @@ public class CurrentDirectoryState {
     private boolean fileListNeedsRefresh = false;
     
     private final ObjectProperty<File> currentPathProperty = new SimpleObjectProperty();
+    
+    //necessary for correctly updating the currentDirectoryItems
     private final ObservableList<File> myObservableList = FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty = new SimpleObjectProperty(myObservableList);
     private final BooleanProperty singleFileSelectedProperty = new SimpleBooleanProperty();
