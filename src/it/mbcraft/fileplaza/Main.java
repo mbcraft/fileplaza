@@ -23,9 +23,6 @@ import it.mbcraft.fileplaza.i18n.Lang;
 import it.mbcraft.fileplaza.state.CurrentLicenseState;
 import it.mbcraft.fileplaza.ui.window.MainWindowBehaviour;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,6 +84,8 @@ public class Main extends Application {
         //Tester.runGridViewTester(primaryStage);
         
         Main.runFilePlaza(primaryStage);
+        
+        
     }
 
     /**

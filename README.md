@@ -10,6 +10,8 @@ Creare una cartella 'libs' con dentro i seguenti jar :
 
 * xstream : xstream jar + xmlpull + xpp3_min [source](http://xstream.codehaus.net)
 
+* jing : tutti i jar necessari (isorelax.jar, jing.jar, saxon.jar, xercesImpl.jar, xml-apis.jar)
+
 E aggiungere le librerie alle dipendenze del progetto. Aggiungere inoltre JUnit 4.10 per compilare gli unit test.
 
 La distribuzione ufficiale utilizzerà icone di alta qualità.
@@ -28,7 +30,12 @@ Al momento utilizzo le seguenti librerie esterne (elenco esteso) :
 - httpmime-4.3.6.jar
 - xstream-1.4.7.jar
 - httpclient-4.3.6.jar
-- junit-4.10.jar
+- isorelax.jar
+- jing.jar
+- saxon.jar
+- xercesImpl.jar
+- xml-apis.jar
+- junit-4.10.jar (solo per unit testing)
 
 Inoltre è necessario che nel classpath sia presente anche jfxrt.jar, ovvero le librerie per usare JavaFX.
 
@@ -60,7 +67,7 @@ Al momento inoltre è necessario che una cartella 'data' sia presente nella dire
 - [x] Progettare la nuova gestione finestra
 - [x] Implementare la nuova gestione finestra
 - [ ] Rifinire la nuova gestione finestra
-- [ ] Terminare il refactoring del pannello per la visualizzazione dei file
+- [x] Terminare il refactoring del pannello per la visualizzazione dei file
 - [ ] Implementare l'auto-update dell'applicazione (con l'installer o interno all'applicazione)
 - [ ] Rendere disponibili nel sito ufficiale gli installer delle versioni preview
 - [x] Creazione dell'installer
@@ -82,6 +89,8 @@ jars inside :
 
 * xstream : xstream jar + xmlpull + xpp3_min [source](http://xstream.codehaus.net)
 
+* jing : all the required jars (isorelax.jar, jing.jar, saxon.jar, xercesImpl.jar, xml-apis.jar)
+
 And add the libs to the project dependencies. Also add JUnit 4.10 for compiling unit tests.
 
 Official distribution will use high quality icons. 
@@ -101,7 +110,12 @@ Actually i use the following external libraries (extended list) :
 - httpmime-4.3.6.jar
 - xstream-1.4.7.jar
 - httpclient-4.3.6.jar
-- junit-4.10.jar
+- isorelax.jar
+- jing.jar
+- saxon.jar
+- xercesImpl.jar
+- xml-apis.jar
+- junit-4.10.jar (unit tests only)
 
 Moreover it's necessary to put jfxrt.jar in the classpath, the JavaFX runtime library.
 
@@ -131,7 +145,7 @@ Actually it is also necessary that a data folder is put inside the current direc
 - [x] Create design of the new window manager
 - [x] Develop the new window manager
 - [ ] Improve graphics of the new window manager
-- [ ] Finish refactoring of file browse panel
+- [x] Finish refactoring of file browse panel
 - [ ] Implement auto-update (with installer o inside the application)
 - [ ] Put the preview installers on the offical website
 - [x] Create the installer

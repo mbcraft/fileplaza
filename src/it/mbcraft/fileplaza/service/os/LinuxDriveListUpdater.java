@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.service.os;
 
+import it.mbcraft.fileplaza.service.os.DriveIdentifier.DriveType;
 import java.io.IOException;
 import java.nio.file.FileStore;
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
 
 /**
  * Implementation of IDriveListUpdater for the Linux os.
@@ -36,11 +35,12 @@ import javafx.collections.ObservableList;
 public class LinuxDriveListUpdater implements IDriveListUpdater {
 
     @Override
-    public void updateDriveList(Iterable<FileStore> stores,ObjectProperty<ObservableList<DriveIdentifier>> driveList) {
+    public void updateDriveList(Iterable<FileStore> stores,List<DriveIdentifier> driveList) {
         
             List<DriveIdentifier> drives = getValidDrives(stores);
-        
-            driveList.get().setAll(drives);
+            
+            driveList.clear();
+            driveList.addAll(drives);
         }
         
     /**
@@ -76,7 +76,7 @@ public class LinuxDriveListUpdater implements IDriveListUpdater {
     private DriveIdentifier createDriveIdentifierFromFileStore(FileStore fs) {
         DriveIdentifier di;
         try {
-            di = new DriveIdentifier(getDeviceNameFromFileStore(fs),getMountPointFromFileStore(fs),fs.type(),fs.isReadOnly(),fs.getUnallocatedSpace(),fs.getUsableSpace(),fs.getTotalSpace());
+            di = new DriveIdentifier(getMountPointFromFileStore(fs),getMountPointFromFileStore(fs),fs.type(),fs.isReadOnly(),fs.getUnallocatedSpace(),fs.getUsableSpace(),fs.getTotalSpace(),DriveType.UNKNOWN);
         } catch (IOException ex) {
             Logger.getLogger(LinuxDriveListUpdater.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalStateException("Unable to create DriveIdentifier");
@@ -90,7 +90,7 @@ public class LinuxDriveListUpdater implements IDriveListUpdater {
      * @param fs The FileStore instance.
      * @return The device name.
      */
-    private String getDeviceNameFromFileStore(FileStore fs) {
+    private String getMountPointFromFileStore(FileStore fs) {
         String fullToString = fs.toString();
         String tokens[] = fullToString.split(" ");
         return tokens[0];
@@ -102,10 +102,10 @@ public class LinuxDriveListUpdater implements IDriveListUpdater {
      * @param fs The FileStore instance
      * @return The mount point path.
      */
-    private String getMountPointFromFileStore(FileStore fs) {
+    private String getDeviceNameFromFileStore(FileStore fs) {
         String fullToString = fs.toString();
         String tokens[] = fullToString.split(" ");
-        return tokens[1].substring(1,tokens[1].length()-2);
+        return tokens[1].substring(1,tokens[1].length()-1);
     }
     
 }

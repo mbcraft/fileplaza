@@ -18,6 +18,7 @@
 
 package it.mbcraft.fileplaza.service;
 
+import com.sun.javafx.tk.quantum.FxEventLoop;
 import it.mbcraft.fileplaza.service.os.DriveIdentifier;
 import it.mbcraft.fileplaza.service.os.DriveListUpdaterFactory;
 import it.mbcraft.fileplaza.service.os.IDriveListUpdater;
@@ -25,8 +26,10 @@ import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 
@@ -42,7 +45,7 @@ public class DriveWatchServiceRunnable implements Runnable {
     private final ArrayList<FileStore> currentFileStoreList = new ArrayList<>();
     
     private final IDriveListUpdater myDriveListUpdater;
-    private final ObjectProperty<ObservableList<DriveIdentifier>> myDrives;
+    private final List<DriveIdentifier> myDrives;
     
     /**
      * 
@@ -50,8 +53,8 @@ public class DriveWatchServiceRunnable implements Runnable {
      * 
      * @param driveListProperty The drive list property to be updated.
      */
-    public DriveWatchServiceRunnable(ObjectProperty<ObservableList<DriveIdentifier>> driveListProperty) {
-        myDrives = driveListProperty;
+    public DriveWatchServiceRunnable(List<DriveIdentifier> driveList) {
+        myDrives = driveList;
         myDriveListUpdater = DriveListUpdaterFactory.getDriveListUpdater();
     }
     
@@ -63,7 +66,14 @@ public class DriveWatchServiceRunnable implements Runnable {
                 //wait 500ms for the next poll
                 Thread.sleep(500);
                 
-                checkForDriveChanges();
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        checkForDriveChanges();
+                    }
+                });
+                
                 
             } catch (InterruptedException ex) {
                 Logger.getLogger(DriveWatchServiceRunnable.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,6 +100,7 @@ public class DriveWatchServiceRunnable implements Runnable {
     }
     
     private void updateDriveList() {
+        //System.out.println("The drive list is changed!");
         myDriveListUpdater.updateDriveList(currentFileStoreList, myDrives);
     }
     

@@ -20,15 +20,18 @@ package it.mbcraft.fileplaza.ui.main.browse.path;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.state.CurrentDeviceState;
+import it.mbcraft.fileplaza.service.os.DriveIdentifier;
+import it.mbcraft.fileplaza.state.CurrentDriveState;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
+import it.mbcraft.fileplaza.ui.panels.files.drive.DriveIdentifierListCell;
 import java.io.File;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -56,11 +59,12 @@ public class CurrentPathPanel implements INodeProvider {
     private ComboBox driveSelector;
     private Label currentPath;
     
+    private final CurrentDriveState currentDriveState;
     private final CurrentDirectoryState currentDirectoryState;
     
-    public CurrentPathPanel(CurrentDeviceState deviceState,CurrentDirectoryState state) {  
-        
-        currentDirectoryState = state;
+    public CurrentPathPanel(CurrentDriveState driveState,CurrentDirectoryState directoryState) {  
+        currentDriveState = driveState;
+        currentDirectoryState = directoryState;
         
         initContainer();
         
@@ -74,42 +78,23 @@ public class CurrentPathPanel implements INodeProvider {
         pathPanel.setHgap(10);
     }
     
-    private void initDriveSelector() {
-        Label l = new Label(L(this,"Drive_Label"));
-        l.setGraphic(IconFactory.getFeatureIcon("Drive_32", 16));
-        pathPanel.getChildren().add(l);
-        
-        File[] roots = File.listRoots();
-                
-        driveSelector = new ComboBox();
+    private void initDriveSelector() {                
+        driveSelector = new ComboBox(currentDriveState.driveListProperty().get());
 
-        driveSelector.setCellFactory(new Callback<ListView<File>,ListCell<File>>(){
+        driveSelector.setCellFactory(new Callback<ListView<DriveIdentifier>,ListCell<DriveIdentifier>>(){
 
             @Override
-            public ListCell<File> call(ListView<File> p) {
-                return new FileListCell(new SimpleIntegerProperty(1));
+            public ListCell<DriveIdentifier> call(ListView<DriveIdentifier> p) {
+                return new DriveIdentifierListCell(new SimpleIntegerProperty(1));
             }
         });
 
-        driveSelector.getItems().setAll((Object[]) roots);
-        driveSelector.getSelectionModel().selectFirst();
+        //pick the selected drive from the currently selected drive in combobox
+        currentDriveState.currentDriveProperty().bind(driveSelector.getSelectionModel().selectedItemProperty());
         
-        driveSelector.setOnAction(new EventHandler<ActionEvent>(){
-
-            @Override
-            public void handle(ActionEvent t) {
-                updateState();
-            }
-            
-        });
-
         pathPanel.getChildren().add(driveSelector);
     }
-    
-    private void updateState() {
-        currentDirectoryState.setCurrentPath((File)driveSelector.getSelectionModel().getSelectedItem());  
-    }
-     
+         
     private void initCurrentPath() {
         Label l = new Label(L(this,"CurrentDir_Label"));
         

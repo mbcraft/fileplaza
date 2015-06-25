@@ -18,9 +18,13 @@
 
 package it.mbcraft.fileplaza.service.os;
 
+import java.io.IOException;
 import java.nio.file.FileStore;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,8 +35,47 @@ import javafx.collections.ObservableList;
 public class WindowsDriveListUpdater implements IDriveListUpdater {
 
     @Override
-    public void updateDriveList(Iterable<FileStore> stores,ObjectProperty<ObservableList<DriveIdentifier>> driveList) {
+    public void updateDriveList(Iterable<FileStore> stores,List<DriveIdentifier> driveList) {
+        Iterator<FileStore> fileStores = stores.iterator();
+        
+        List<DriveIdentifier> drives = new ArrayList<>();
+        //all drives are added to the list
+        while (fileStores.hasNext()) {
+            FileStore fs = fileStores.next();
+            try {
+                DriveIdentifier di = new DriveIdentifier(getDeviceNameFromFileStore(fs),getMountPointFromFileStore(fs),fs.type(),fs.isReadOnly(),fs.getUnallocatedSpace(),fs.getUsableSpace(),fs.getTotalSpace(),DriveIdentifier.DriveType.UNKNOWN);
+                drives.add(di);
+            } catch (IOException ex) {
+                Logger.getLogger(WindowsDriveListUpdater.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        driveList.clear();
+        driveList.addAll(drives);
+    }
     
+    /**
+     * Returns the device name from the FileStore.
+     * 
+     * @param fs The FileStore instance.
+     * @return The device name.
+     */
+    private String getDeviceNameFromFileStore(FileStore fs) {
+        String fullToString = fs.toString();
+        String tokens[] = fullToString.split(" ");
+        return tokens[0];
+    }
+    
+    /**
+     * Returns the mount point path from the FileStore.
+     * 
+     * @param fs The FileStore instance
+     * @return The mount point path.
+     */
+    private String getMountPointFromFileStore(FileStore fs) {
+        String fullToString = fs.toString();
+        String tokens[] = fullToString.split(" ");
+        return tokens[1].substring(1,tokens[1].length()-2);
     }
     
 }

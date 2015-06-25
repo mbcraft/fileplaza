@@ -19,8 +19,9 @@
 package it.mbcraft.fileplaza.state;
 
 import it.mbcraft.fileplaza.service.os.DriveIdentifier;
-import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -32,26 +33,26 @@ import javafx.collections.ObservableList;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class CurrentDeviceState {
+public class CurrentDriveState {
+    private final ObservableList<DriveIdentifier> driveList = FXCollections.observableArrayList();
+    private final ObjectProperty<ObservableList<DriveIdentifier>> myDriveListProperty = new SimpleObjectProperty(driveList);
+    private final ObjectProperty<DriveIdentifier> myCurrentDriveProperty = new SimpleObjectProperty(null);
     
-    private final ObjectProperty<ObservableList<DriveIdentifier>> myDriveListProperty = new SimpleObjectProperty(FXCollections.emptyObservableList());
-
-    private final ObjectProperty<DriveIdentifier> myCurrentDrive = new SimpleObjectProperty();
-    
-    public CurrentDeviceState() {
+    public CurrentDriveState() {
         
         //add default behaviour for drive list changes
         myDriveListProperty.addListener(new ChangeListener<ObservableList<DriveIdentifier>>(){
 
             @Override
             public void changed(ObservableValue<? extends ObservableList<DriveIdentifier>> ov, ObservableList<DriveIdentifier> oldValue, ObservableList<DriveIdentifier> newValue) {
+
                 //if the old list was empty and the new is not empty, set the current drive to the first drive available
                 if (oldValue.isEmpty() && !newValue.isEmpty()) {
-                    myCurrentDrive.setValue(newValue.get(0));
+                    myCurrentDriveProperty.setValue(newValue.get(0));
                 }
                 //if the new list is empty, set the current drive to null
                 if (newValue.isEmpty()) {
-                    myCurrentDrive.setValue(null);
+                    myCurrentDriveProperty.setValue(null);
                 }
             }
         });
@@ -63,12 +64,15 @@ public class CurrentDeviceState {
      * @param currentPathProperty The property containing the current path
      */
     public void linkDriveChangesToPathChanges(final ObjectProperty<File> currentPathProperty) {
-        myCurrentDrive.addListener(new ChangeListener<DriveIdentifier>(){
+        myCurrentDriveProperty.addListener(new ChangeListener<DriveIdentifier>(){
 
             @Override
             public void changed(ObservableValue<? extends DriveIdentifier> ov, DriveIdentifier oldValue, DriveIdentifier newValue) {
-                File mp = new File(newValue.getMountPoint());
-                currentPathProperty.set(mp);
+                if (newValue!=null) {
+                    File mp = new File(newValue.getMountPoint());
+                    currentPathProperty.setValue(mp);
+                } else
+                    currentPathProperty.setValue(null);
             }
         });
     }
@@ -78,7 +82,11 @@ public class CurrentDeviceState {
     }
     
     public ObjectProperty<DriveIdentifier> currentDriveProperty() {
-        return myCurrentDrive;
+        return myCurrentDriveProperty;
+    }
+
+    public List<DriveIdentifier> getDriveList() {
+        return driveList;
     }
 
 }

@@ -22,10 +22,9 @@ import it.mbcraft.fileplaza.service.os.DriveIdentifier;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -36,7 +35,7 @@ public class DriveWatchService implements IService {
     private final DriveWatchServiceRunnable runner;
     private Thread runnerThread = null;
     
-    public DriveWatchService(ObjectProperty<ObservableList<DriveIdentifier>> driveList) {
+    public DriveWatchService(List<DriveIdentifier> driveList) {
         //mandatory check if not previously done
         checkFileStoreToStringBehaviour();
         //ok
@@ -80,5 +79,4 @@ public class DriveWatchService implements IService {
             Logger.getLogger(DriveWatchService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

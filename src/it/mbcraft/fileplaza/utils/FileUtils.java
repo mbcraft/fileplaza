@@ -47,6 +47,17 @@ public class FileUtils {
             return name.substring(0,name.lastIndexOf("."));
         }
     }
+    
+    /**
+     * Returns the extension from the full filename string.
+     * 
+     * @param name The name of the file
+     * 
+     * @return The extension of this file
+     */
+    public static String getExtensionFromFilename(String name) {
+        return name.substring(name.lastIndexOf(".")+1);
+    }
 
     /**
      * Return the extension of the file. Folders return a "no extension"
@@ -62,7 +73,7 @@ public class FileUtils {
             return NO_EXTENSION;
         else {
             String name = f.getName();
-            return name.substring(name.lastIndexOf(".")+1);
+            return getExtensionFromFilename(name);
         }
     }
     

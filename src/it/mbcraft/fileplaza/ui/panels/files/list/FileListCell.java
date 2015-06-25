@@ -20,6 +20,7 @@ package it.mbcraft.fileplaza.ui.panels.files.list;
 
 import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
 import it.mbcraft.fileplaza.ui.common.IconReference;
+import it.mbcraft.fileplaza.utils.FileUtils;
 import java.io.File;
 import javafx.beans.property.IntegerProperty;
 
@@ -29,6 +30,8 @@ import javafx.beans.property.IntegerProperty;
  */
 public class FileListCell extends ImprovedListCell<File> {
 
+    private final IconReference FOLDER_ICON_REFERENCE = new IconReference(IconReference.IconCategory.FILE,"folder");
+    
     public FileListCell(IntegerProperty zoomLevelProp) {
         super(zoomLevelProp);
     }
@@ -50,11 +53,11 @@ public class FileListCell extends ImprovedListCell<File> {
     }
     
     private void pushFolderIcon() {
-        setMainIcon(new IconReference(IconReference.IconCategory.FILE,"folder"));
+        setMainIcon(FOLDER_ICON_REFERENCE);
     }
     
     private void pushFileIcon(String filename) {
-        String extension = filename.substring(filename.lastIndexOf(".")+1);
+        String extension = FileUtils.getExtensionFromFilename(filename);
         
         setMainIcon(new IconReference(IconReference.IconCategory.FILE,extension));   
     }

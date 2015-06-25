@@ -18,6 +18,8 @@
 
 package it.mbcraft.fileplaza.ui.panels.files;
 
+import it.mbcraft.fileplaza.service.DriveWatchService;
+import it.mbcraft.fileplaza.state.CurrentDriveState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;
 import it.mbcraft.fileplaza.ui.common.components.misc.SwitchIconsPanel;
@@ -25,19 +27,14 @@ import it.mbcraft.fileplaza.ui.common.components.misc.ZoomInOutPanel;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.main.browse.BrowsePanelFileListener;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
-import it.mbcraft.fileplaza.ui.common.helpers.ImageFactory;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
 import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsPanel;
-import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsWindow;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -48,7 +45,8 @@ import javafx.scene.layout.VBox;
  */
 public class FileBrowser implements INodeProvider {
     
-    private final CurrentDirectoryState currentDirState = new CurrentDirectoryState();
+    private final CurrentDriveState driveState = new CurrentDriveState();
+    private final CurrentDirectoryState directoryState = new CurrentDirectoryState();
     
     private final CurrentPathPanel currentPathPanel; 
     private final DirectoryBrowserCommandsPanelProvider fileCommandsPanel;
@@ -57,29 +55,34 @@ public class FileBrowser implements INodeProvider {
     private final ZoomInOutPanel zoomInOutPanel;
     private final FileSortOptionsPanel optionsPanel;
     
-    
-            
     private final FileViewIconPanel directoryFileIconPanel;
     private final FileListViewPanel directoryFileListPanel;
     
     private final VBox layoutPanel = new VBox();
     
+    private final DriveWatchService watchService;
+    
     public FileBrowser() {        
-        currentPathPanel = new CurrentPathPanel(null,currentDirState);
         
-        fileCommandsPanel = new DirectoryBrowserCommandsPanelProvider(currentDirState);
+        
+        
+        driveState.linkDriveChangesToPathChanges(directoryState.currentPathProperty());
+        
+        currentPathPanel = new CurrentPathPanel(driveState,directoryState);
+        
+        fileCommandsPanel = new DirectoryBrowserCommandsPanelProvider(directoryState);
         
         List<INodeProvider> panels = new ArrayList<>();
         viewSwitchPanel = new SwitchIconsPanel(panels);
         zoomInOutPanel = new ZoomInOutPanel();
-        optionsPanel = new FileSortOptionsPanel(currentDirState);
+        optionsPanel = new FileSortOptionsPanel(directoryState);
         
         
         HBox switchZoomAndOptions = new HBox();
         switchZoomAndOptions.getChildren().addAll(viewSwitchPanel.getNode(),zoomInOutPanel.getNode(),optionsPanel.getNode());
         
         ImprovedStackPane fileViewStackPane = viewSwitchPanel.getStackPane();
-        IElementActionListener listener = new BrowsePanelFileListener(currentDirState);
+        IElementActionListener listener = new BrowsePanelFileListener(directoryState);
         
         //file views are created
         
@@ -88,12 +91,12 @@ public class FileBrowser implements INodeProvider {
         
         //selected files are the same on both views
         
-        directoryFileListPanel.selectionModelProperty().bindBidirectional(currentDirState.selectedFilesProperty());
-        directoryFileIconPanel.selectionModelProperty().bindBidirectional(currentDirState.selectedFilesProperty());
+        directoryFileListPanel.selectionModelProperty().bindBidirectional(directoryState.selectedFilesProperty());
+        directoryFileIconPanel.selectionModelProperty().bindBidirectional(directoryState.selectedFilesProperty());
         //files shown in the two widgets are taken FROM che current dir state
         
-        directoryFileListPanel.itemsProperty().bind(currentDirState.currentDirectoryItemsProperty());
-        directoryFileIconPanel.itemsProperty().bind(currentDirState.currentDirectoryItemsProperty());
+        directoryFileListPanel.itemsProperty().bind(directoryState.currentDirectoryItemsProperty());
+        directoryFileIconPanel.itemsProperty().bind(directoryState.currentDirectoryItemsProperty());
 
         //available file views are put inside a list
         
@@ -106,7 +109,6 @@ public class FileBrowser implements INodeProvider {
         viewSwitchPanel.addSwitchIcon(IconFactory.getFeatureIcon("Page_Green_Grid_32", 32));
         
         //panels are put inside the stacked view
-        
         fileViewStackPane.getChildren().add(directoryFileListPanel.getNode());
         fileViewStackPane.getChildren().add(directoryFileIconPanel.getNode());
         fileViewStackPane.selectedPanelIndexProperty().setValue(0);
@@ -115,10 +117,14 @@ public class FileBrowser implements INodeProvider {
         //switch and zoom
         //file views
         layoutPanel.getChildren().addAll(currentPathPanel.getNode(),fileCommandsPanel.getNode(),switchZoomAndOptions,fileViewStackPane);
+    
+    
+        watchService = new DriveWatchService(driveState.getDriveList());
+        watchService.start();
     }
     
     public CurrentDirectoryState getCurrentDirectoryState() {
-        return currentDirState;
+        return directoryState;
     }
 
     @Override

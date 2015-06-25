@@ -19,8 +19,7 @@
 package it.mbcraft.fileplaza.service.os;
 
 import java.nio.file.FileStore;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
+import java.util.List;
 
 /**
  * Interfaces shared by DriveListUpdater implementations.
@@ -34,5 +33,5 @@ public interface IDriveListUpdater {
      * @param stores The iterable FileStore.
      * @param driveListProperty The drive list property to update.
      */
-    public void updateDriveList(Iterable<FileStore> stores,ObjectProperty<ObservableList<DriveIdentifier>> driveListProperty);
+    public void updateDriveList(Iterable<FileStore> stores,List<DriveIdentifier> driveListProperty);
 }

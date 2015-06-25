@@ -38,8 +38,14 @@ public class DriveIdentifier {
     private final String myDeviceName,myMountPoint,myFileSystem;
     private final boolean myReadOnly;
     private final long myUnallocatedSpace,myUsableSpace,myTotalSpace;
+    private final DriveType myDriveType;
     
-    public DriveIdentifier(String deviceName,String mountPointOrRoot,String fileSystem,boolean readOnly,long unallocatedSpace,long usableSpace,long totalSpace) {
+    public enum DriveType {
+        HDD_MAIN, HDD_OTHER, CD, DVD, MMC, USB_PEN, EXT_HD, TAPE, UNKNOWN
+    }
+    
+    
+    public DriveIdentifier(String deviceName,String mountPointOrRoot,String fileSystem,boolean readOnly,long unallocatedSpace,long usableSpace,long totalSpace, DriveType typeHint) {
         
         myDeviceName = deviceName;
         myMountPoint = mountPointOrRoot;
@@ -56,6 +62,35 @@ public class DriveIdentifier {
             Logger.getLogger(DriveIdentifier.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalStateException("Unable to get StorageInfo for this root : "+mountPointOrRoot);
         }
+        
+        myDriveType = guessTypeFromInfo(typeHint);
+    }
+    
+    public String getFriendlyName() {
+        return myMountPoint;
+    }
+    
+    private DriveType guessTypeFromInfo(DriveType hint) {
+        File f = new File(getMountPoint());
+        File DCIM = new File(f,"DCIM");
+        if (DCIM.exists()) return DriveType.MMC;
+        
+        if (getMountPoint().equals("/") || getMountPoint().equals("C:"))
+            return DriveType.HDD_MAIN;
+        
+        if (getMountPoint().equals("D:") || getMountPoint().equals("/var") || getMountPoint().equals("/home") || getMountPoint().equals("/usr"))
+            return DriveType.HDD_OTHER;
+        
+        if (isReadOnly()) {
+            if (getTotalSpace()<800*1024*1024) return DriveType.CD;
+            else return DriveType.DVD;
+        }
+        
+        return DriveType.USB_PEN;
+    }
+    
+    public DriveType getDriveType() {
+        return myDriveType;
     }
     
     public String getDeviceName() {
@@ -88,5 +123,10 @@ public class DriveIdentifier {
     
     public long getUnallocatedSpace() {
         return myUnallocatedSpace;
+    }
+    
+    @Override
+    public String toString() {
+        return getMountPoint();
     }
 }
