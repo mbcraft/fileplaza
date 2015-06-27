@@ -75,8 +75,7 @@ public class Main extends Application {
     }
         
     @Override
-    public void start(Stage primaryStage) {        
-        
+    public void start(Stage primaryStage) {
         //Tester.runFileListTester(primaryStage);
         //Tester.runFileIconTester(primaryStage);
         //Tester.runListCellTester(primaryStage);
@@ -84,8 +83,6 @@ public class Main extends Application {
         //Tester.runGridViewTester(primaryStage);
         
         Main.runFilePlaza(primaryStage);
-        
-        
     }
 
     /**

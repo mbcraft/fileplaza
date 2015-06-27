@@ -25,7 +25,7 @@ import it.mbcraft.fileplaza.ui.panels.files.NotHiddenFileFilter;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileIconCell;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListViewPanel;
+import it.mbcraft.fileplaza.ui.panels.files.list.FileViewListPanel;
 import it.mbcraft.fileplaza.utils.NodeUtils;
 import java.io.File;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -67,7 +67,7 @@ public class Tester {
             }
         
         };
-        FileListViewPanel panel = new FileListViewPanel(new SimpleIntegerProperty(2), listener);
+        FileViewListPanel panel = new FileViewListPanel(new SimpleIntegerProperty(2), listener);
         //panel.zoomIn();
         File home = new File("/home/marco");
         panel.itemsProperty().get().addAll(home.listFiles(new NotHiddenFileFilter()));

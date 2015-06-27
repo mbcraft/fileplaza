@@ -38,7 +38,7 @@ import javafx.scene.layout.BorderPane;
  * This class handles the view of a list of files.
  * 
  */
-public class FileListViewPanel implements INodeProvider,IItemViewer<File> {
+public class FileViewListPanel implements INodeProvider,IItemViewer<File> {
 
     private final IntegerProperty _zoomLevelProperty;
     private final ImprovedListView<File> _fileList;
@@ -46,16 +46,16 @@ public class FileListViewPanel implements INodeProvider,IItemViewer<File> {
     //final component is a BorderPane
     private final BorderPane _fullPanel;
     
-    public FileListViewPanel(IntegerProperty zoomLevelProperty,IElementActionListener listener) {
+    public FileViewListPanel(IntegerProperty zoomLevelProperty,IElementActionListener listener) {
         
         _zoomLevelProperty = zoomLevelProperty;
                 
         _fullPanel = new BorderPane();       
                 
         _fileList = new ImprovedListView<>();
-        _fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //_fileList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         _fileList.setCellFactory(new FileListCellFactory(_zoomLevelProperty,_fileList,listener));
-    
+        
         _fullPanel.setCenter(_fileList);
         
         debug();

@@ -64,11 +64,11 @@ public class CurrentDirectoryState {
             @Override
             public void changed(ObservableValue<? extends MultipleSelectionModel<File>> ov, MultipleSelectionModel<File> oldVal, MultipleSelectionModel<File> newVal) {
                 if (newVal.getSelectedIndices().size() == 1) {
-                    selectedFileProperty.set(newVal.getSelectedItem());
-                    singleFileSelectedProperty.set(true);
+                    selectedFileProperty.setValue(newVal.getSelectedItem());
+                    singleFileSelectedProperty.setValue(true);
                 } else {
-                    selectedFileProperty.set(null);
-                    singleFileSelectedProperty.set(false);
+                    selectedFileProperty.setValue(null);
+                    singleFileSelectedProperty.setValue(false);
                 }
             }
         });
@@ -147,7 +147,7 @@ public class CurrentDirectoryState {
         MultipleSelectionModel<File> model = selectedFilesProperty.get();
         if (model!=null)
             model.clearSelection();
-        singleFileSelectedProperty.set(false);
+        singleFileSelectedProperty.setValue(false);
         selectedFileProperty.setValue(null);
     }
 

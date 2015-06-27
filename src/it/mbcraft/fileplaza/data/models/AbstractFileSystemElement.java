@@ -37,13 +37,13 @@ public abstract class AbstractFileSystemElement  {
     
     private String currentPath;
     private String sha256;
-    private Priority priority;
-    private String notes;
-    private Date indexedDate;
-    private Date lastChangedDate;
-    private boolean indexNamedByPath;
-    private final Type type;
-    private List<Tag> tags;
+    private Priority priority;  //move to meta dictionary
+    private String notes;       //move to meta dictionary
+    private Date indexedDate;   //move to meta dictionary
+    private Date lastChangedDate;   //move to meta dictionary
+    private boolean indexNamedByPath;   //move to meta dictionary
+    private final Type type;    //move to meta dictionary
+    private List<Tag> tags;     //move to generic tags list
     private List<ChangeHistory> changeHistoryList;
     
     public enum Type {

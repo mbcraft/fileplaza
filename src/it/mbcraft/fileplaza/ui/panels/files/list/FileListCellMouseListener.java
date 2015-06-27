@@ -38,6 +38,7 @@ class FileListCellMouseListener implements EventHandler<MouseEvent> {
     
     @Override
     public void handle(MouseEvent t) {
+               
         FileListCell cell = (FileListCell) t.getSource();
         
         if (cell.getItem()!=null) {

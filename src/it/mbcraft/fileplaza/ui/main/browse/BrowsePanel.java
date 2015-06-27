@@ -26,7 +26,7 @@ import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
 import it.mbcraft.fileplaza.ui.panels.info.InfoPanel;
 import it.mbcraft.fileplaza.ui.panels.notes.NotesPanel;
 import it.mbcraft.fileplaza.ui.panels.preview.PreviewPanel;
-import it.mbcraft.fileplaza.ui.panels.tags.FullTagsPanel;
+import it.mbcraft.fileplaza.ui.panels.tags.generic.FullTagsPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.panels.files.FileBrowser;
 import it.mbcraft.fileplaza.utils.FileUtils;

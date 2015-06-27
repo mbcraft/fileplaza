@@ -51,7 +51,7 @@ public class BrowsePanelFileListener implements IElementActionListener {
 
     @Override
     public void simpleSelection(File f,MouseEvent ev,SelectionPlace p) {
-        System.out.println("File "+f.getName()+" clicked.");
+        //System.out.println("File "+f.getName()+" clicked.");
     }
     
 }

@@ -22,18 +22,13 @@ import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.service.os.DriveIdentifier;
 import it.mbcraft.fileplaza.state.CurrentDriveState;
-import it.mbcraft.fileplaza.ui.panels.files.list.FileListCell;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.panels.files.drive.DriveIdentifierListCell;
 import java.io.File;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -111,7 +106,6 @@ public class CurrentPathPanel implements INodeProvider {
                 currentPath.setText(newValue.getAbsolutePath());
             }
         });
-   
     }
     
     public CurrentDirectoryState getCurrentDirectoryState() {
@@ -123,6 +117,4 @@ public class CurrentPathPanel implements INodeProvider {
         return pathPanel;
     }
     
-
-        
 }

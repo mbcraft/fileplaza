@@ -18,7 +18,6 @@
 
 package it.mbcraft.fileplaza.service;
 
-import com.sun.javafx.tk.quantum.FxEventLoop;
 import it.mbcraft.fileplaza.service.os.DriveIdentifier;
 import it.mbcraft.fileplaza.service.os.DriveListUpdaterFactory;
 import it.mbcraft.fileplaza.service.os.IDriveListUpdater;
@@ -30,8 +29,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -66,6 +63,7 @@ public class DriveWatchServiceRunnable implements Runnable {
                 //wait 500ms for the next poll
                 Thread.sleep(500);
                 
+                if (running)
                 Platform.runLater(new Runnable() {
 
                     @Override

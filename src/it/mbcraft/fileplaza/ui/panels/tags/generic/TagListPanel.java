@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.ui.panels.tags;
+package it.mbcraft.fileplaza.ui.panels.tags.generic;
 
 import it.mbcraft.fileplaza.data.models.Tag;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;

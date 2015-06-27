@@ -16,11 +16,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.ui.panels.tags;
+package it.mbcraft.fileplaza.ui.panels.tags.image;
 
-import it.mbcraft.fileplaza.data.models.Tag;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
-import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
@@ -28,27 +28,30 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class FullTagsPanel implements INodeProvider {
+public class ImageTagPanel implements INodeProvider {
 
-    private final TagListPanel tagList;
-    private final TagInputPanel tagInput;
+    private BorderPane pane;
+    private final StringProperty imageTagSpecificationProperty = new SimpleStringProperty();
     
-    private final BorderPane panel_;
-    
-    public FullTagsPanel(String label,boolean labelAlwaysShown,ListProperty<Tag> list) {
-        
-        tagList = new TagListPanel(label,labelAlwaysShown,list);
-        tagInput = new TagInputPanel(list.get());
-        
-        panel_ = new BorderPane();
-        
-        panel_.setCenter(tagList.getNode());
-        panel_.setRight(tagInput.getNode());
+    public ImageTagPanel() {
         
     }
-            
+    
+    public StringProperty imageTagSpecificationProperty() {
+        return imageTagSpecificationProperty;
+    }
+    
+    public void setCurrentImageTagSpecification(String specName) {
+        imageTagSpecificationProperty.set(specName);
+    }
+    
+    public String getCurrentImageTagSpecification() {
+        return imageTagSpecificationProperty.get();
+    }
+    
     @Override
     public Node getNode() {
-        return panel_;
-    }    
+        return pane;
+    }
+    
 }
