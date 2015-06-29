@@ -29,16 +29,23 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 /**
- *
+ * This class provides a button for showing a FileSortOptionWindow.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class FileSortOptionsPanel implements INodeProvider {
+public class FileSortOptionsButton implements INodeProvider {
 
     private final HBox pane;
     private final Button sortOptionsButton;
     private final FileSortOptionsWindow fileSortOptionsWindow;
     
-    public FileSortOptionsPanel(final CurrentDirectoryState currentDirState) {
+    /**
+     * Creates a button for showing a FileSortOptionWindow.
+     * Needs CurrentDirectoryState for changing FileSortMode and FileSortOption.
+     * 
+     * @param currentDirState The CurrentDirectoryState
+     */
+    public FileSortOptionsButton(final CurrentDirectoryState currentDirState) {
         pane = new HBox();
         pane.setPadding(new Insets(5));
         pane.setSpacing(5);

@@ -19,6 +19,8 @@
 package it.mbcraft.fileplaza.utils;
 
 /**
+ * This class contains methods for encoding and decoding strings.
+ * Used for license checks.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -26,6 +28,12 @@ public class StringUtils {
     
     public static final char OBF_CHARS[] = {'.','*',':','_','^','<','>','%','!','&',';','?','[',']','}','{'};
             
+    /**
+     * Obfuscates a Base64 String.
+     * 
+     * @param base64 The string to obfuscate, in Base64 format.
+     * @return The obfuscated String.
+     */
     public static final String obfuscateBase64String(String base64) {
         int j=0;
         String result = "0";    //current version
@@ -40,6 +48,12 @@ public class StringUtils {
         return result;
     }
     
+    /**
+     * De-obfuscates a previously obfuscated string.
+     * 
+     * @param obfuscatedBase64 The previously obfuscated string.
+     * @return The de-obfuscated string.
+     */
     public static final String deobfuscateBase64String(String obfuscatedBase64) {
         String toDecode = obfuscatedBase64.substring(1);
         for (int j=0;j<16;j++)

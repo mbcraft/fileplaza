@@ -25,6 +25,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class shows a preview of a folder.
+ * TO BE IMPLEMENTED.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

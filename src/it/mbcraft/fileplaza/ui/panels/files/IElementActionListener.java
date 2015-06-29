@@ -22,7 +22,10 @@ import java.io.File;
 import javafx.scene.input.MouseEvent;
 
 /**
- *
+ * This interface is used for file widgets, for capturing relevant events.
+ * Actually a 'simple selection', 'heavy selection' and 'context menu' events
+ * are supported.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IElementActionListener {
@@ -32,14 +35,16 @@ public interface IElementActionListener {
     }
     /**
      * This method is called when a file is selected with a single click.
+     * This is called 'simple selection'
      * 
      * @param f The selected file 
      */
     public void simpleSelection(File f, MouseEvent ev, SelectionPlace p);
     /**
-     * This method is called when a file is heavy selected.
+     * This method is called when a file is 'heavy selected'.
      * An heavy selection is a double click on an item or a return keypress on
      * a selected item.
+     * 
      * @param f The selected file
      */
     public void heavySelection(File f, MouseEvent ev, SelectionPlace p);
@@ -48,6 +53,7 @@ public interface IElementActionListener {
      * This method is called when alternate action is invoked for an item.
      * Alternate action is when user right-clicks on a file or a particular
      * key press (to define, eg CRTL+SPACE) occurs.
+     * 
      * @param f The file for which a context meny is needed.
      * @param ev The MouseEvent containing mouse coordinates, if available.
      */

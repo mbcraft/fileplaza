@@ -15,7 +15,6 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package it.mbcraft.fileplaza.ui.panels.tags.generic;
 
 import it.mbcraft.fileplaza.data.models.Tag;
@@ -36,105 +35,121 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
+ * This class provides a panel for adding tags as strings.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class TagInputPanel implements INodeProvider {
 
     private final List<Tag> myList;
-    
+
     private final HBox pane = new HBox();
-    
+
     private TextField tagInput;
-        
+
+    /**
+     * Build a tag input panel
+     *
+     * @param list The list to update with this panel.
+     */
     public TagInputPanel(List<Tag> list) {
-        
+
         myList = list;
-        
+
         initContainer();
-        
+
         initContent();
 
     }
-    
+
     private void initContainer() {
         pane.setPadding(new Insets(5));
     }
-    
+
     private void initContent() {
-        Label l = new Label(L(this,"Input_Label"));
-        
+        Label l = new Label(L(this, "Input_Label"));
+
         tagInput = new TextField();
         tagInput.setPrefColumnCount(10);
-        tagInput.setOnAction(new EventHandler<ActionEvent>(){
+        tagInput.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent ev) {
-                if (tagInput.getText()!=null && !tagInput.getText().equals("")) {
+                if (tagInput.getText() != null && !tagInput.getText().equals("")) {
                     List<Tag> tags = createTagsFromCurrentText();
-                    for (Tag t : tags)
+                    for (Tag t : tags) {
                         myList.add(t);
+                    }
                     tagInput.setText(null);
                 }
             }
         });
-        
-        pane.getChildren().addAll(ComponentFactory.newPaddingPane(l, 5),ComponentFactory.newPaddingPane(tagInput, 5)); 
-    
+
+        pane.getChildren().addAll(ComponentFactory.newPaddingPane(l, 5), ComponentFactory.newPaddingPane(tagInput, 5));
+
     }
-    
+
     @Override
     public Node getNode() {
         return pane;
     }
-            
+
+    /**
+     * Creates a list of Tag from the current text. Tags are comma separated values.
+     * @return A list of Tag instances.
+     */
     private List<Tag> createTagsFromCurrentText() {
         String text = tagInput.getText();
-        
+
         String[] parts = text.split(",");
-        
+
         List<Tag> tags = new ArrayList();
         for (String part : parts) {
             tags.add(createTagFromText(part));
         }
         return tags;
     }
-        
+
+    /**
+     * Actually a Tag can be of different types. This method guesses the type
+     * from its value and adds the type information to the tag.
+     *
+     * @param text The input text
+     * @return The tag as a Tag instance
+     */
     private Tag createTagFromText(String text) {
-                    try {
+        try {
             Date dt = Date.valueOf(text);
-            Tag t = new Tag("date",dt,Tag.TagType.DATE);
+            Tag t = new Tag("date", dt, Tag.TagType.DATE);
             return t;
+        } catch (Exception dfe) {
         }
-        catch (Exception dfe) {
-        }
-        
+
         //integer
         try {
             Integer i = Integer.parseInt(text);
-            Tag t = new Tag("num",i,Tag.TagType.NUMBER);
+            Tag t = new Tag("num", i, Tag.TagType.NUMBER);
             return t;
         } catch (NumberFormatException ex) {
-            
+
         }
-        
+
         //label set
         String enumFound = LabelSetDAO.getInstance().findSetNameForValue(text);
-        if (enumFound!=null) {
-            Tag t = new Tag(enumFound,text,Tag.TagType.LABEL);
+        if (enumFound != null) {
+            Tag t = new Tag(enumFound, text, Tag.TagType.LABEL);
             return t;
         }
-        
+
         //dictionary
         String d = DictionaryDAO.getInstance().findDictionaryTitleForWord(text);
-        if (d!=null) {
-            Tag t = new Tag(d,text,Tag.TagType.DICTIONARY);
+        if (d != null) {
+            Tag t = new Tag(d, text, Tag.TagType.DICTIONARY);
             return t;
         }
-        
+
         //string
-        Tag t = new Tag("-",text,Tag.TagType.STRING);
+        Tag t = new Tag("-", text, Tag.TagType.STRING);
         return t;
-        }
-    
+    }
 }

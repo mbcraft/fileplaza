@@ -36,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
+ * Factory for ListCell<File> items, used for showing file items in the FileViewListPanel.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

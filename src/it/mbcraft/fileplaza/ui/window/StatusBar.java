@@ -25,6 +25,8 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 /**
+ * This class models a status bar for FilePlaza.
+ * Contains a status string property that can be changed and updated when needed.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -35,8 +35,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 
 /**
- * This class handles the view of a grid of files in a 'tile' or 'grid'
- * mode.
+ * This class creates a panel for showing file items in a 'grid' or 'tile' layout.
+ * Supports zoom level and IElementActionListener interface for its items.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -48,6 +48,12 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
     //final component is a BorderPane, since ScrollPane is already used inside
     private final BorderPane _fullPanel;
     
+    /**
+     * Creates an instance of FileViewIconPanel.
+     * 
+     * @param zoomLevelProperty The IntegerProperty of the zoom level to be used.
+     * @param listener The IElementActionListener to be used for all its items.
+     */
     public FileViewIconPanel(IntegerProperty zoomLevelProperty,IElementActionListener listener) {
         
         _fullPanel = new BorderPane();
@@ -63,11 +69,21 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
         debug();
     }
     
+    /**
+     * Returns the items property for the panel, as a ObservableList<File> ObjectProperty.
+     * 
+     * @return the item list for this panel.
+     */
     @Override
     public ObjectProperty<ObservableList<File>> itemsProperty() {
         return _fileIcons.itemsProperty();
     }
     
+    /**
+     * Returns the selection model for the panel.
+     * 
+     * @return The selection model, as a MultipleSelectionModel<File> ObjectProperty.
+     */
     @Override
     public ObjectProperty<MultipleSelectionModel<File>> selectionModelProperty() {
         return _fileIcons.selectionModelProperty();
@@ -78,6 +94,9 @@ public class FileViewIconPanel implements INodeProvider,IItemViewer<File> {
         return _fullPanel;
     }  
     
+    /**
+     * Debug method : adds console output when the item list changes.
+     */
     private void debug() {
               
         itemsProperty().get().addListener(new ListChangeListener<File>(){

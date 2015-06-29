@@ -37,7 +37,8 @@ import javafx.scene.layout.GridPane;
 
 
 /**
- *
+ * This class provides a window for choosing the current file sort mode. 
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileSortOptionsWindow extends AbstractSettingsWindow {
@@ -61,9 +62,12 @@ public class FileSortOptionsWindow extends AbstractSettingsWindow {
     private ToggleButton foldersThenFilesToggle;
     private ToggleButton filesThenFoldersToggle;
     
-    
-    
-    
+    /**
+     * Builds a window to be used to change the FileSortMode and FileSortOption.
+     * 
+     * @param sortModeProp the FileSortMode, as an ObjectProperty.
+     * @param sortOptionProp the FileSortOption, as an ObjectProperty.
+     */
     public FileSortOptionsWindow(ObjectProperty<FileSortMode> sortModeProp,ObjectProperty<FileSortOption> sortOptionProp) {
         super(L("panels.files.header.FileSortOptionsWindow","Window_Title"), false);
         if (sortModeProp==null)

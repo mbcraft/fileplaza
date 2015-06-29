@@ -37,6 +37,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * This class builds a panel for adding text notes to a file.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -48,6 +49,13 @@ public class NotesPanel implements INodeProvider {
     
     private Button clearButton;
     
+    /**
+     * Build a NotesPanel.
+     * TO FIX : remove currently selected file, and use 'null' as flag value for disabling the text area
+     * 
+     * @param currentSelectedFileProperty the currently selected file, as an ObjectProperty
+     * @param notesProperty The StringProperty used for storing the notes.
+     */
     public NotesPanel(ObjectProperty<File> currentSelectedFileProperty,StringProperty notesProperty) {        
         initContainer();
         

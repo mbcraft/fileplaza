@@ -22,6 +22,8 @@ import javafx.event.EventType;
 import javafx.stage.WindowEvent;
 
 /**
+ * This class contains extended window event types for the current window
+ * implementation. Adds the 'half or full screen' and 'left or right' events.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

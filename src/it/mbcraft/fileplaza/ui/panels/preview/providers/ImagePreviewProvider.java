@@ -24,6 +24,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class shows an image preview.
+ * TO BE IMPLEMENTED.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

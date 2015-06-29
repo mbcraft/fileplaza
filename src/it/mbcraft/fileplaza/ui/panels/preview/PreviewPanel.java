@@ -50,6 +50,11 @@ public class PreviewPanel implements INodeProvider {
     
     private final List<AbstractPreviewProvider> previewers = new ArrayList();
     
+    /**
+     * Builds a preview panel using the PreviewData as a property.
+     * 
+     * @param currentPreviewData The ObjectProperty containing a PreviewData instance.
+     */
     public PreviewPanel(ObjectProperty<PreviewData> currentPreviewData) {
         previewDataProperty = currentPreviewData;
         previewDataProperty.addListener(new ChangeListener<PreviewData>() {

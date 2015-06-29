@@ -38,7 +38,8 @@ import javax.xml.transform.sax.SAXSource;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * This class contains methods useful for validating xml files against rnc (RelaxNG Compact Syntax Schema Files).
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ValidationUtils {
@@ -47,9 +48,12 @@ public class ValidationUtils {
     private static final SchemaReader compactSchemaReader = CompactSchemaReader.getInstance();
     
     /**
-     * @param schemaFile The schema file
+     * Loads an rnc schema file from file. The resulting Schema object can
+     * be used multiple times.
      * 
-     * @return The schema used for validating xml documents
+     * @param schemaFile The schema file (.rnc extension)
+     * 
+     * @return The schema object used for validating xml documents
      * 
      * @throws IOException, IncorrectSchemaException, SAXException is something bad happens.
      */
@@ -61,8 +65,10 @@ public class ValidationUtils {
     }
     
     /**
-     * @param schema The schema used for validation
-     * @param xmlFile The file to validate
+     * Validate an xml schema using a previously loaded rnc schema.
+     * 
+     * @param schema The schema object used for validation, as a Schema instance
+     * @param xmlFile The xml file to validate, as a File instance
      * @return A CountingErrorHandler useful for checking error count.
      * @throws TransformerException If something bad happens.
      */

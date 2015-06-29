@@ -27,7 +27,8 @@ import java.awt.image.BufferedImage;
 import javafx.beans.property.ObjectProperty;
 
 /**
- *
+ * This class contains methods useful for capturing a screenshot
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ScreenshotHelper {
@@ -42,12 +43,22 @@ public class ScreenshotHelper {
         screenshotCutter = new ScreenshotCutterWindow();
     }
     
+    /**
+     * Gets the current screenshot helper.
+     * 
+     * @return The current instance of ScreenshotHelper
+     */
     public static ScreenshotHelper getInstance() {
         if (instance==null)
             instance = new ScreenshotHelper();
         return instance;
     }
     
+    /**
+     * 
+     * @param previewDataProperty
+     * @return 
+     */
     public String pick(ObjectProperty<PreviewData> previewDataProperty) {
         WindowStack.top().hide();
         BufferedImage img = screenshotDetector.fetchCustomPreview();

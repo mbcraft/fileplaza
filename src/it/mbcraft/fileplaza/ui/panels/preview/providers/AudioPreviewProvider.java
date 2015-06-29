@@ -24,6 +24,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class creates a panel for showing an audio preview.
+ * TO BE IMPLEMENTED.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

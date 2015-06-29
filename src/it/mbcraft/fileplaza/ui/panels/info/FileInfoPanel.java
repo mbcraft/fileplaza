@@ -39,10 +39,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 /**
+ * This class build a panel for showing generic file information.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class InfoPanel implements INodeProvider {
+public class FileInfoPanel implements INodeProvider {
     
     private final GridPane grid = new GridPane();
     
@@ -58,7 +59,12 @@ public class InfoPanel implements INodeProvider {
     
     private final CommonActionNodeContainer container = new CommonActionNodeContainer();
     
-    public InfoPanel(ObjectProperty<File> currentSelectedFile) {
+    /**
+     * Builds a FileInfoPanel. 
+     * 
+     * @param currentSelectedFile The file to show informations, as an ObjectProperty.
+     */
+    public FileInfoPanel(ObjectProperty<File> currentSelectedFile) {
         initGrid();
         initContent();
         initBindings(currentSelectedFile);
@@ -169,7 +175,7 @@ public class InfoPanel implements INodeProvider {
                     try {
                         setupWithFile(newValue);
                     } catch (IOException ex) {
-                        Logger.getLogger(InfoPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(FileInfoPanel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -249,6 +255,5 @@ public class InfoPanel implements INodeProvider {
     public Node getNode() {
         return grid;
     }
-
 
 }

@@ -35,12 +35,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * This class handles the main application window.
+ * This class handles the main application window for FilePlaza.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-@LangResource("main.MainWindow")
-public class MainWindowBehaviour {
+@LangResource("main.FilePlazaMainWindow")
+public class FilePlazaMainWindow {
 
     private final Stage primaryStage;
     private BorderPane mainLayout;
@@ -49,7 +49,7 @@ public class MainWindowBehaviour {
     private MainMenuBar mainMenuBarProvider;
     private StatusBar statusBarProvider;
     
-    public MainWindowBehaviour(Stage primaryStage, String version) {
+    public FilePlazaMainWindow(Stage primaryStage, String version) {
         
         Platform.setImplicitExit(false);
         

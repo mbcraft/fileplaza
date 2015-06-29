@@ -36,6 +36,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
+ * This class shows a single tag with a delete button, allowing user
+ * to delete the tag.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

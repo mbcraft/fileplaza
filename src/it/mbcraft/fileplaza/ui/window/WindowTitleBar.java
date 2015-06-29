@@ -37,6 +37,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
+ * This class models a custom window title bar.
+ * It is used to add custom buttons and logic to the title bar, providing an
+ * alternative to the current one.
+ * 
  * TO DO : fix button styles and icon
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -55,14 +59,27 @@ public class WindowTitleBar implements INodeProvider {
     private final String commonBackgroundStyle;
     private final int screenWidth;
     
-    enum StageSize {
+    /**
+     * Current stage size
+     */
+    private enum StageSize {
         HALF,FULL;
     }
     
-    enum StagePosition {
+    /**
+     * Current stage position
+     */
+    private enum StagePosition {
         LEFT,RIGHT;
     }
     
+    /**
+     * Creates a title bar for the current stage.
+     * Actually four button are added : minimize, half/full screen, left or right and close.
+     * 
+     * @param title The title of the 'window'.
+     * @param st The current JavaFX stage
+     */
     public WindowTitleBar(String title, Stage st) {
         titleBar = new BorderPane();
         
@@ -101,6 +118,12 @@ public class WindowTitleBar implements INodeProvider {
         return titleBar;
     }
     
+    /**
+     * Initializes the 'minimize' button.
+     * 
+     * @param st The JavaFX stage
+     * @return The initialized button.
+     */
     private Button initMinimizeButton(final Stage st) {
         Button bt = new Button();
         bt.setMinSize(24, 24);
@@ -118,6 +141,12 @@ public class WindowTitleBar implements INodeProvider {
         return bt;
     }
     
+    /**
+     * Initializes the 'half or full' button.
+     * 
+     * @param st The JavaFX stage
+     * @return The initialized button
+     */
     private Button initHalfOrFullButton(final Stage st) {
         Button bt = new Button();
         bt.setMinSize(24, 24);
@@ -150,6 +179,12 @@ public class WindowTitleBar implements INodeProvider {
         return bt;
     }
     
+    /**
+     * Initializes the 'left or right' button.
+     * 
+     * @param st The JavaFX stage
+     * @return The initialized button.
+     */
     private Button initLeftOrRightButton(final Stage st) {
         Button bt = new Button();
         bt.setMinSize(24, 24);
@@ -175,6 +210,12 @@ public class WindowTitleBar implements INodeProvider {
         return bt;
     }
     
+    /**
+     * Initializes the 'close' button
+     * 
+     * @param st The JavaFX stage
+     * @return The initialized button.
+     */
     private Button initCloseButton(final Stage st) {
         Button bt = new Button();
         bt.setMinSize(24, 24);

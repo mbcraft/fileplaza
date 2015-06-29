@@ -37,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
 /**
+ * This panel is used for showing a 'captured' preview.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

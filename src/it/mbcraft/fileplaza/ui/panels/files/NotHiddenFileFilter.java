@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileFilter;
 
 /**
+ * This class implements the FileFilter interface. It is used for showing only
+ * non hidden files.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

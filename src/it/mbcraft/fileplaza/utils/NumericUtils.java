@@ -19,11 +19,19 @@
 package it.mbcraft.fileplaza.utils;
 
 /**
- *
+ * This class contains methods used for operations on numbers.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class NumericUtils {
     
+    /**
+     * Returns the max values in a series of double values provided as parameters.
+     * 
+     * @param values The values used for the comparison.
+     * 
+     * @return The max value found inside the values provided.
+     */
     public static double getMaxValue(Double ...values) {
         double max = Double.NEGATIVE_INFINITY;
         for (double v : values) {

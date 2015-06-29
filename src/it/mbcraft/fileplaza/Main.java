@@ -21,7 +21,7 @@ package it.mbcraft.fileplaza;
 import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.i18n.Lang;
 import it.mbcraft.fileplaza.state.CurrentLicenseState;
-import it.mbcraft.fileplaza.ui.window.MainWindowBehaviour;
+import it.mbcraft.fileplaza.ui.window.FilePlazaMainWindow;
 import it.mbcraft.fileplaza.ui.common.helpers.WindowStack;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -31,7 +31,8 @@ import javafx.stage.Stage;
 
 
 /**
- *
+ * This is the main entry point for the JavaFX application.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class Main extends Application {
@@ -42,6 +43,9 @@ public class Main extends Application {
 
     private static final Logger logger = Logger.getLogger("it.mbcraft.fileplaza.Main");
 
+    /**
+     * Initializes the logger if needed. Change logging behaviour from here.
+     */
     public Main() {
         Logger.getLogger("").setLevel(Level.INFO);
         Logger.getLogger("").addHandler(new ConsoleHandler());
@@ -49,20 +53,39 @@ public class Main extends Application {
         logger.config("Logs initialized.");
     }
     
+    /**
+     * Returns the current version of FilePlaza.
+     * 
+     * @return The complete version number of FilePlaza
+     */
     public static String getVersion() {
         return VERSION;
     }
 
+    /**
+     * Returns the release date of this application (print format).
+     * Used only for informative purposes as text.
+     * 
+     * @return The release date as text for informative purposes only.
+     */
     public static String getReleaseDate() {
         return RELEASE_DATE;
     }
 
+    /**
+     * Loads the license information of this application.
+     */
     private static void loadLicense() {
         logger.config("Loading license ...");
         CurrentLicenseState cls = CurrentLicenseState.getInstance();
         logger.config("License found : " + cls.getLicense().getLicenseName());
     }
 
+    /**
+     * Runs FilePlaza. 
+     * 
+     * @param stage The JavaFX stage
+     */
     private static void runFilePlaza(Stage stage) {
         loadLicense();
 
@@ -70,10 +93,16 @@ public class Main extends Application {
 
         WindowStack.push(stage);
 
-        MainWindowBehaviour mainWindow = new MainWindowBehaviour(stage, SOFTWARE_NAME + VERSION);
+        FilePlazaMainWindow mainWindow = new FilePlazaMainWindow(stage, SOFTWARE_NAME + VERSION);
         mainWindow.show();
     }
         
+    /**
+     * Start method of JavaFX application. Can be used to change behaviour and run
+     * Testers if needed.
+     * 
+     * @param primaryStage The JavaFX stage
+     */
     @Override
     public void start(Stage primaryStage) {
         //Tester.runFileListTester(primaryStage);

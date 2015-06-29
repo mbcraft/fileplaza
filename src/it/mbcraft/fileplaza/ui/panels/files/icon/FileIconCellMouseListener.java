@@ -25,6 +25,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * This class convert mouse events to calls to IElementActionListener
+ * methods for FileIconCell instances.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

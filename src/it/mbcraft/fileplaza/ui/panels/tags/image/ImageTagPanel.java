@@ -25,6 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This panel provides image tagging capabilities. Can support different
+ * tagging specifications.
+ * 
+ * TO BE IMPLEMENTED
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -37,18 +41,36 @@ public class ImageTagPanel implements INodeProvider {
         
     }
     
+    /**
+     * The image tag specification to use for tagging the image.
+     * @return 
+     */
     public StringProperty imageTagSpecificationProperty() {
         return imageTagSpecificationProperty;
     }
     
+    /**
+     * Sets the current image tag specification.
+     * 
+     * @param specName 
+     */
     public void setCurrentImageTagSpecification(String specName) {
         imageTagSpecificationProperty.set(specName);
     }
     
+    /**
+     * Gets the current image tag specification.
+     * @return 
+     */
     public String getCurrentImageTagSpecification() {
         return imageTagSpecificationProperty.get();
     }
     
+    /**
+     * Returns the panel
+     * 
+     * @return The panel as a JavaFX Node instance
+     */
     @Override
     public Node getNode() {
         return pane;

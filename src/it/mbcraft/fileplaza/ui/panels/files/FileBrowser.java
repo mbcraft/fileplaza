@@ -29,7 +29,7 @@ import it.mbcraft.fileplaza.ui.main.browse.BrowsePanelFileListener;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.main.browse.path.CurrentPathPanel;
 import it.mbcraft.fileplaza.ui.main.browse.path.DirectoryBrowserCommandsPanelProvider;
-import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsPanel;
+import it.mbcraft.fileplaza.ui.panels.files.header.FileSortOptionsButton;
 import it.mbcraft.fileplaza.ui.panels.files.icon.FileViewIconPanel;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileViewListPanel;
 import java.util.ArrayList;
@@ -39,7 +39,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Implements a full file browser. It has a current directory and a current selection.
+ * This class creates a panel that shows a full file browser.
+ * It actually features : 
+ * - a current path panel, with a drive selector and a label that shows the current path
+ * - a command panel, useful for going to parent directory or doing other generic operations
+ * - a double widget file shower, with support for : zoom, switch widget and file sort order.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -53,7 +57,7 @@ public class FileBrowser implements INodeProvider {
     
     private final SwitchIconsPanel viewSwitchPanel;
     private final ZoomInOutPanel zoomInOutPanel;
-    private final FileSortOptionsPanel optionsPanel;
+    private final FileSortOptionsButton optionsPanel;
     
     private final FileViewIconPanel directoryFileIconPanel;
     private final FileViewListPanel directoryFileListPanel;
@@ -73,7 +77,7 @@ public class FileBrowser implements INodeProvider {
         List<INodeProvider> panels = new ArrayList<>();
         viewSwitchPanel = new SwitchIconsPanel(panels);
         zoomInOutPanel = new ZoomInOutPanel();
-        optionsPanel = new FileSortOptionsPanel(directoryState);
+        optionsPanel = new FileSortOptionsButton(directoryState);
         
         HBox switchZoomAndOptions = new HBox();
         switchZoomAndOptions.getChildren().addAll(viewSwitchPanel.getNode(),zoomInOutPanel.getNode(),optionsPanel.getNode());
@@ -116,6 +120,11 @@ public class FileBrowser implements INodeProvider {
         watchService.start();
     }
     
+    /**
+     * Gets the CurrentDirectoryState instance.
+     * 
+     * @return The current directory state as an instance.
+     */
     public CurrentDirectoryState getCurrentDirectoryState() {
         return directoryState;
     }

@@ -38,7 +38,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- *
+ * This class contains test method used for testing components or other
+ * behavior inside the JavaFX application. This is not unit testing, it's
+ * live running inside the JavaFX environment with all the libraries loaded as
+ * dependencies.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class Tester {

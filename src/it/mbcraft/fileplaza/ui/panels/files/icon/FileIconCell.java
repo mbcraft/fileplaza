@@ -27,7 +27,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
- *
+ * This class models a single cell for file items. Extends ImprovedTileCell.
+ * Supports zoom level.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileIconCell extends ImprovedTileCell<File> {

@@ -25,6 +25,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class builds a panel that contains an input field and shows the current tags
+ * ,allowing user to delete them.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

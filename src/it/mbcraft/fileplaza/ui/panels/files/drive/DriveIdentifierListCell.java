@@ -24,6 +24,8 @@ import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
 import javafx.beans.property.IntegerProperty;
 
 /**
+ * This class shows a ListCell with a drive icon, depending on the drive type.
+ * Used for the drive selector. Support zoom.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -39,7 +41,11 @@ public class DriveIdentifierListCell extends ImprovedListCell<DriveIdentifier> {
     private static final IconReference TAPE_REFERENCE = new IconReference(IconReference.IconCategory.MISC, "Tape_32");
     private static final IconReference UNKNOWN_REFERENCE = new IconReference(IconReference.IconCategory.MISC, "Unknown_32");
     
-    
+    /**
+     * Build a DriveIdentifierListCell. Needs a zoom property (can be a fixed IntegerProperty).
+     * 
+     * @param cellZoomLevelProp The zoom property, as an IntegerProperty
+     */
     public DriveIdentifierListCell(IntegerProperty cellZoomLevelProp) {
         super(cellZoomLevelProp);
     }

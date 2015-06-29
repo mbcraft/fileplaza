@@ -23,6 +23,8 @@ import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import javafx.beans.property.ObjectProperty;
 
 /**
+ * This abstract class is the common interface for all preview providers.
+ * It just stores the PreviewData property.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

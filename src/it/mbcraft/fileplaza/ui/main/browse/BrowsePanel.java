@@ -23,7 +23,7 @@ import it.mbcraft.fileplaza.data.dao.config.SettingsDAO;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
-import it.mbcraft.fileplaza.ui.panels.info.InfoPanel;
+import it.mbcraft.fileplaza.ui.panels.info.FileInfoPanel;
 import it.mbcraft.fileplaza.ui.panels.notes.NotesPanel;
 import it.mbcraft.fileplaza.ui.panels.preview.PreviewPanel;
 import it.mbcraft.fileplaza.ui.panels.tags.generic.FullTagsPanel;
@@ -51,7 +51,7 @@ public class BrowsePanel implements INodeProvider {
     
     private final PreviewPanel previewPanel;
     private final NotesPanel notesPanel;
-    private final InfoPanel infoPanel;
+    private final FileInfoPanel infoPanel;
     private final FullTagsPanel fullTagsPanel;    
     
     public BrowsePanel() {
@@ -63,7 +63,7 @@ public class BrowsePanel implements INodeProvider {
         
         previewPanel = new PreviewPanel(currentFileSystemElementState.previewDataProperty());
         notesPanel = new NotesPanel(browserPane.getCurrentDirectoryState().selectedFileProperty(),currentFileSystemElementState.notesProperty());
-        infoPanel = new InfoPanel(browserPane.getCurrentDirectoryState().selectedFileProperty());
+        infoPanel = new FileInfoPanel(browserPane.getCurrentDirectoryState().selectedFileProperty());
         fullTagsPanel = new FullTagsPanel(L(this,"TagsPanel_Label"),false,currentFileSystemElementState.tagListProperty());
         
         setupMiddleSplitPane();

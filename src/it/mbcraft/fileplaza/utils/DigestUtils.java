@@ -29,13 +29,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class contains methods for calculating digest of files or strings.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class DigestUtils {
 
     final private static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
+    /**
+     * Converts the bytes to String hex format.
+     * 
+     * @param bytes The bytes to convert
+     * @return The String in hex format.
+     */
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
@@ -46,6 +53,12 @@ public class DigestUtils {
         return new String(hexChars);
     }
 
+    /**
+     * Calculates the Sha256 digest for a string.
+     * 
+     * @param toDigest The string to digest.
+     * @return The sha256 digest of the string.
+     */
     public static String getSha256DigestForString(String toDigest) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -57,6 +70,12 @@ public class DigestUtils {
         }
     }
 
+    /**
+     * Calculates the sha256 digest of the file.
+     * 
+     * @param f The file instance to pick content from.
+     * @return The sha256 digest of the file.
+     */
     public static String getSha256ForFile(File f) {
         try (FileChannel ch = FileChannel.open(f.toPath(), StandardOpenOption.READ)) {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -75,6 +94,12 @@ public class DigestUtils {
 
     }
 
+    /**
+     * Calculates the md5 digest of the string parameter.
+     * 
+     * @param toDigest The string to digest
+     * @return The md5 digest of the parameter
+     */
     public static String getMD5DigestForString(String toDigest) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

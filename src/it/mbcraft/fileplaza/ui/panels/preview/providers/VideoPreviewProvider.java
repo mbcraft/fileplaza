@@ -24,7 +24,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
 /**
- *
+ * This class shows a video preview for the current file.
+ * TO BE IMPLEMENTED.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class VideoPreviewProvider extends AbstractPreviewProvider {

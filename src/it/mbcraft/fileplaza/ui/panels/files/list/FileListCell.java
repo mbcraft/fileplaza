@@ -25,6 +25,8 @@ import java.io.File;
 import javafx.beans.property.IntegerProperty;
 
 /**
+ * Models a single cell for a ListView. Extends ImprovedListCell.
+ * Supports zoom level.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -51,6 +53,7 @@ public class FileListCell extends ImprovedListCell<File> {
                 pushFileIcon(data.getName());
         }
     }
+    
     
     private void pushFolderIcon() {
         setMainIcon(FOLDER_ICON_REFERENCE);

@@ -28,8 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 
 /**
- * This class handles the state of the tag panel. It contains all the tags of the current
- * selected file or folder.
+ * This class provides a panel that shows a list of tags.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -42,6 +41,13 @@ public class TagListPanel implements INodeProvider {
     private final boolean isLabelAlwaysShown;
     private final ListProperty<Tag> tagList;
     
+    /**
+     * Build a panel for showing tags.
+     * 
+     * @param labelText The label of this panel
+     * @param labelAlwaysShown True if the label should be shown also when no tags are in the list
+     * @param myList The list of tags, as a ListProperty
+     */
     public TagListPanel(String labelText,boolean labelAlwaysShown,ListProperty<Tag> myList) {    
         tagsLabel = new Label(labelText);
         tagsLabel.setLabelFor(pane);

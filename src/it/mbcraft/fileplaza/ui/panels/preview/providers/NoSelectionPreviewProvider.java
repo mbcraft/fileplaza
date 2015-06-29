@@ -26,6 +26,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class provides a panel when no file is selected, to be shown as a preview.
+ * A 'NoSelection_Label' Label is shown in the center.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -31,6 +31,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This class provides a panel for showing a text preview of the file.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

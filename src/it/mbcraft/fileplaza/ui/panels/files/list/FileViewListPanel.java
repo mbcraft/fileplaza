@@ -31,12 +31,11 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 
 /**
- * This class handles the view of a list of files.
- * 
+ * This class creates a view for a list of files. It actually supports
+ * the zoom level and the the IElementActionListener interface for dealing with operations on the items.
  */
 public class FileViewListPanel implements INodeProvider,IItemViewer<File> {
 
@@ -46,6 +45,13 @@ public class FileViewListPanel implements INodeProvider,IItemViewer<File> {
     //final component is a BorderPane
     private final BorderPane _fullPanel;
     
+    
+    /**
+     * Creates a FileViewListPanel.
+     * 
+     * @param zoomLevelProperty The IntegerProperty that contains the zoom to be used for the list items.
+     * @param listener The listener interface, for dealing with events on the file items.
+     */
     public FileViewListPanel(IntegerProperty zoomLevelProperty,IElementActionListener listener) {
         
         _zoomLevelProperty = zoomLevelProperty;
@@ -62,11 +68,21 @@ public class FileViewListPanel implements INodeProvider,IItemViewer<File> {
         
     }
     
+    /**
+     * Returns the items property for this widget.
+     * 
+     * @return The ObservableList<File> as an ObjectProperty.
+     */
     @Override
     public ObjectProperty<ObservableList<File>> itemsProperty() {
         return _fileList.itemsProperty();
     }
     
+    /**
+     * Returns the selection model for the FileViewListPanel
+     * 
+     * @return The MultipleSelectionModel<File>, as an ObjectProperty
+     */
     @Override
     public ObjectProperty<MultipleSelectionModel<File>> selectionModelProperty() {
         return _fileList.selectionModelProperty();

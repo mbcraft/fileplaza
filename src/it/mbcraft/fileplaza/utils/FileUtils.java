@@ -77,24 +77,35 @@ public class FileUtils {
         }
     }
     
+    /**
+     * Returns the user home directory.
+     * 
+     * @return The user home directory as a File instance.
+     */
     public static File getUserHomeDir() {
         return new File(System.getProperty("user.home"));
     }
     
     /**
+     * Returns the current working directory, as a File instance.
+     * 
      * Help from 
      * https://http://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
      * http://stackoverflow.com/users/505893/bluish
      * 
      * @return The current working directory
      */
-    
     public static File getWorkingDir() {
         File f = new File(".");
         return f;
         
     }
     
+    /**
+     * Waits untile the screenshot is fully written. Maybe can be changed trying to open the file for write instead of checking the file size.
+     * 
+     * @param screenshotFile The File to check, as a File instance
+     */
     public static void waitForStableSize(File screenshotFile) {
         long currentSize = screenshotFile.length();
         int trials = 0;

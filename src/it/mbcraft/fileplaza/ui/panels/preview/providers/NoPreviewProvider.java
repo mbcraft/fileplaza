@@ -29,6 +29,9 @@ import it.mbcraft.fileplaza.ui.panels.preview.providers.screenshot.ScreenshotHel
 import javafx.beans.property.ObjectProperty;
 
 /**
+ * This class creates a panel used when no preview is available. It also shows
+ * a 'Capture' button, allowing the user to capture a screen shot to be used as a preview
+ * for the current file.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

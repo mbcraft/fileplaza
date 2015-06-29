@@ -19,6 +19,8 @@
 package it.mbcraft.fileplaza.utils;
 
 /**
+ * This class contains methods for fetching information about the current
+ * os.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -30,7 +32,11 @@ public class SystemUtils {
     public static final byte OS_LINUX_X64 = 0x08;
     
     /*
+    
+    Return the current OS as a byte, as specified from the other constants inside this class.
+    
     Some help from www.stackoverflow.com :
+    
     http://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
     http://stackoverflow.com/users/13/chris-jester-young
     http://stackoverflow.com/users/348189/tacb0ss

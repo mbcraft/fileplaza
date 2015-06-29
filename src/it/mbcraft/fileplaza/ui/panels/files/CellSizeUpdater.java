@@ -28,6 +28,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 
 /**
+ * Updates all the cells as zoom level changes.
+ * Cells are weak referenced, but should not be garbage collected.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

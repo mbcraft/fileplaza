@@ -25,6 +25,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * Event handler for mouse events, that converts mouse events to
+ * calls to IElementActionListener methods.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

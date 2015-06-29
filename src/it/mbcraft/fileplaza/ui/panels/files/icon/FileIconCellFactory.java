@@ -36,7 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
- *
+ * This class is a factory for FileIconCell s.
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileIconCellFactory implements Callback<GridView<File>,GridCell<File>> {
@@ -46,7 +46,6 @@ public class FileIconCellFactory implements Callback<GridView<File>,GridCell<Fil
     
     private final EventHandler<MouseEvent> mouseHandler;
     private final List<WeakReference<Node>> currentCells = new ArrayList();
-    private int cellsCreated = 0;
     
     public FileIconCellFactory(IntegerProperty zoomLevelProp,IRefreshable ref,IElementActionListener listener) {
         zoomLevelProperty = zoomLevelProp;

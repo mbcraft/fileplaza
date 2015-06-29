@@ -48,7 +48,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- *
+ * This class provides a Screenshot cutter window. It allows the user
+ * to select the full screenshot or a region of it, confirm or cancel the operation.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ScreenshotCutterWindow {
@@ -78,6 +80,9 @@ public class ScreenshotCutterWindow {
 
     private static final double SCREENSHOT_SCALE_FACTOR = 0.9;
 
+    /**
+     * Creates a screenshot cutter window.
+     */
     public ScreenshotCutterWindow() {
         myStage = new Stage();
         myStage.setTitle(L(this, "ScreenshotCutter_Window"));
@@ -211,6 +216,10 @@ public class ScreenshotCutterWindow {
         selectButton.setDisable(true);
     }
 
+    /**
+     * Updates the current screenshot to be selected or 'cutted'.
+     * @param screenshot The screenshot as a BufferedImage instance
+     */
     public void updateInputScreenshot(BufferedImage screenshot) {
         if (screenshot == null) {
             throw new InvalidParameterException("Provided screenshot is null!");
@@ -227,7 +236,7 @@ public class ScreenshotCutterWindow {
         
     }
 
-    public void updateSelectionListeners(Node glass) {
+    private void updateSelectionListeners(Node glass) {
         glass.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
@@ -271,10 +280,17 @@ public class ScreenshotCutterWindow {
         });
     }
 
+    /**
+     * Returns the final screenshot after editing has been done.
+     * @return 
+     */
     public BufferedImage getOutputScreenshot() {
         return myOutputScreenshot;
     }
 
+    /**
+     * Waits until the uses closes the window or makes a decision about the screenshot.
+     */
     public void waitForSelection() {
         resetSelectionData();
         myStage.showAndWait();
