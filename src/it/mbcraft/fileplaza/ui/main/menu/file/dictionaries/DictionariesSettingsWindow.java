@@ -68,6 +68,11 @@ public class DictionariesSettingsWindow extends AbstractSettingsWindow {
     private Button enableButton;
     private Button disableButton;
     
+    /**
+     * Creates an instance of DictionariesSettingsWindow.
+     * 
+     * It does not have any dependencies.
+     */
     public DictionariesSettingsWindow() {
         super(L("main.menu.file.dictionaries.DictionariesSettingsWindow","DictionariesSettings_Window"),true);
     }

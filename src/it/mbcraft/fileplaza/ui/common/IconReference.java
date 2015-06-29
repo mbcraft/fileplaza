@@ -19,9 +19,9 @@
 package it.mbcraft.fileplaza.ui.common;
 
 /**
- * This class rapresents a reference to an icon.
+ * This class represents a reference to a particular kind of icon of ANY size.
  * 
- * Size is not specified.
+ * Size can change, depending on zoom level.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

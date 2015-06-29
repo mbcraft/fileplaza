@@ -22,11 +22,20 @@ import it.mbcraft.fileplaza.Main;
 import java.net.URL;
 
 /**
+ * Factory class to read css from files as a single string.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class CssFactory {
     
+    /**
+     * Reads the css from file. It tries the official folder first, and if
+     * not css are found, the stub folder is tried.
+     * If no css file is found an exception is thrown.
+     * 
+     * @param name The css name
+     * @return The css string
+     */
     private static String getCss(String name) {
         URL cssUrl = Main.class.getResource("graphics/official/css/"+name+".css");
         if (cssUrl==null)
@@ -37,6 +46,11 @@ public class CssFactory {
         return cssUrl.toExternalForm();
     }
     
+    /**
+     * Gets the css for the icon button.
+     * 
+     * @return The css as a string
+     */
    public static String getIconButtonCss() {
        return getCss("icon_button");
    } 

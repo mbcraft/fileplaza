@@ -19,7 +19,8 @@
 package it.mbcraft.fileplaza.ui.common;
 
 /**
- *
+ * Exception thrown when an icon is not found in the given path.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class IconNotFoundException extends IllegalStateException {

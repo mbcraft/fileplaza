@@ -24,6 +24,10 @@ import javafx.scene.image.Image;
 
 /**
  * Returns an image from the images folder embedded in the software.
+ * It first searches on the 'official' folder. If the path is not valid (eg. there is not an 'official' folder)
+ * it checks in the 'stub' folder.
+ * 
+ * An image must always be returned.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -32,6 +36,8 @@ public class ImageFactory {
         InputStream is = Main.class.getResourceAsStream("graphics/official/images/"+name+".png");
         if (is==null)
             is = Main.class.getResourceAsStream("graphics/stub/images/"+name+".png");
+        if (is==null)
+            throw new IllegalStateException("No image named "+name+" has been found on official or stub folders.");
         return new Image(is);
     }
 }

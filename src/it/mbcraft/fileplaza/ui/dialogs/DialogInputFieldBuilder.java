@@ -36,13 +36,10 @@ import it.mbcraft.fileplaza.ui.dialogs.DialogInputField.Type;
 public class DialogInputFieldBuilder<B extends DialogInputFieldBuilder<B>> extends ControlBuilder<B> implements Builder<DialogInputField> {
     private final Map<String,Object> properties = new HashMap<>();
 
-    protected DialogInputFieldBuilder() {
-    }
-
     /**
      * Creates and returns a DialogInputField builder object upon which 
- to set properties and eventually, create a DialogInputField for use with
- a Dialog.
+     * to set properties and eventually, create a DialogInputField for use with
+     * a Dialog.
      * 
      * @return An instance of this builder
      */
@@ -67,7 +64,6 @@ public class DialogInputFieldBuilder<B extends DialogInputFieldBuilder<B>> exten
      * @param TYPE The input type
      * @return The current builder
      */
-    
     public final DialogInputFieldBuilder type(final Type TYPE) {
         properties.put("type", TYPE);
         return this;
@@ -79,7 +75,6 @@ public class DialogInputFieldBuilder<B extends DialogInputFieldBuilder<B>> exten
      * @param VALUES The available value list
      * @return The current builder
      */
-    
     public final DialogInputFieldBuilder valueList(final List<Object> VALUES) {
         properties.put("valueList", VALUES);
         return this;

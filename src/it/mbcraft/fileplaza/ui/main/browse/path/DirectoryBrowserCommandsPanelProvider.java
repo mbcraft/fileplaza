@@ -48,6 +48,10 @@ public class DirectoryBrowserCommandsPanelProvider implements INodeProvider {
 
     private final HBox pane = new HBox();
     
+    /**
+     * Creates the directory browser commands panel. Needs the CurrentDirectoryState instance of changing path or doing action on the currently selected file.
+     * @param state 
+     */
     public DirectoryBrowserCommandsPanelProvider(final CurrentDirectoryState state) {
         
         initContainer();

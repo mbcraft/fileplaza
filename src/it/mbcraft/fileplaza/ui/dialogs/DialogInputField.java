@@ -24,7 +24,7 @@ import java.util.List;
 import javafx.util.Callback;
 
 /**
- * This class rapresents an input for a Dialog.
+ * This class represents an input for a Dialog.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

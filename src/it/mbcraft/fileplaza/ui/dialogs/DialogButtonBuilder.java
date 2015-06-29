@@ -31,13 +31,10 @@ import javafx.util.Builder;
 public class DialogButtonBuilder<B extends DialogButtonBuilder<B>> extends ControlBuilder<B> implements Builder<DialogButton> {
     private final HashMap<String, Object> properties = new HashMap<>();
 
-    protected DialogButtonBuilder() {
-    }
-
     /**
      * Creates and returns a DialogButton builder object upon which 
- to set properties and eventually, create a DialogButton for use with
- a Dialog.
+     * to set properties and eventually, create a DialogButton for use with
+     * a Dialog.
      * 
      * @return An instance of this builder
      */
@@ -116,7 +113,7 @@ public class DialogButtonBuilder<B extends DialogButtonBuilder<B>> extends Contr
 
     /**
      * This is where the button is created/assembled. Returns a DialogButton
- object, ready to add to a Dialog.
+     * object, ready to add to a Dialog.
      * 
      * @return DialogButton The builded button
      */

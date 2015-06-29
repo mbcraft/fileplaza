@@ -24,7 +24,7 @@ import java.util.List;
 import javafx.scene.Node;
 
 /**
- * It forwards the action called to all contained nodes.
+ * This helper class forwards the action called to all contained nodes.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -55,10 +55,20 @@ public class CommonActionNodeContainer {
         }
     }
     
+    /**
+     * Add a node to this container.
+     * 
+     * @param n The Node instance.
+     */
     public void add(Node n) {
         nodes.add(n);
     }
     
+    /**
+     * Adds an array of Node s to this container.
+     * 
+     * @param nn An array of Node instances.
+     */
     public void addAll(Node ...nn) {
         nodes.addAll(Arrays.asList(nn));
     }

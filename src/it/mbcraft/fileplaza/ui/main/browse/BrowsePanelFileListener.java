@@ -25,6 +25,8 @@ import java.io.File;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * Listener for file browse panel. Actually only the heavy selection is handled
+ * for directories, making directory changes. 
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

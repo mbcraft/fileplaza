@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * Common abstract action for file browser actions. Saves the CurrentDirectoryState parameter to a private final variable.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -30,6 +31,11 @@ abstract class AbstractBrowsePanelAction implements EventHandler<ActionEvent> {
     
     protected final CurrentDirectoryState myState;
     
+    /**
+     * Shared common constructor.
+     * 
+     * @param state The CurrentDirectoryState instance to save.
+     */
     public AbstractBrowsePanelAction(CurrentDirectoryState state) {
         myState = state;
     }

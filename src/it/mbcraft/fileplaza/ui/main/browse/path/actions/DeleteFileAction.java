@@ -34,6 +34,12 @@ import javafx.event.ActionEvent;
 @LangResource("main.browse.path.actions.DeleteFileAction")
 public class DeleteFileAction extends AbstractBrowsePanelAction {
 
+    /**
+     * Action constructor. Needs the CurrentDirectoryState for obtaining
+     * the currently selected file.
+     * 
+     * @param state The CurrentDirectoryState instance
+     */
     public DeleteFileAction(CurrentDirectoryState state) {
         super(state);
     }

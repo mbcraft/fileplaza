@@ -28,7 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * This class rapresents a button used inside the dialogs.
+ * This class represents a button used inside the dialogs.
  * 
  * @author Mark Heckler (mark.heckler@gmail.com, @MkHeck)
  */

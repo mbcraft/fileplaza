@@ -29,6 +29,8 @@ import javafx.scene.image.ImageView;
 
 
 /**
+ * This class is used to get ImageView instances for images used inside
+ * FilePlaza. It caches the images loaded to reduce cpu usage.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -129,8 +131,10 @@ public class IconFactory {
     }
     
     /**
-     * @param countryCode
-     * @return 
+     * Returns a flag icon by country code.
+     * 
+     * @param countryCode The country code string (usually a two letter string).
+     * @return The ImageView for this country code
      */
     public static ImageView getFlagIconByCountryCode(String countryCode) {
         InputStream stream = Main.class.getResourceAsStream("graphics/official/icons/languages/"+countryCode+".png");
@@ -140,7 +144,14 @@ public class IconFactory {
         ImageView result = new ImageView(new Image(stream));
         return result;
     }
-
+    
+    /**
+     * Gets the app icon as Image instance. Throws an IllegalStateException
+     * if the image is not found.
+     * 
+     * @param size The required dimension size of the Image.
+     * @return The Image instance
+     */
     public static Image getAppIconAsImage(int size) {
         InputStream is = Main.class.getResourceAsStream("graphics/official/icons/logo/fileplaza_"+size+".jpg");
         if (is==null)
@@ -152,6 +163,13 @@ public class IconFactory {
         return new Image(is);
     }
 
+    /**
+     * Gets an icon by its IconReference.
+     * 
+     * @param ref The IconReference of the icon to get
+     * @param size The wanted icon size
+     * @return The ImageView instance containing the requested icon.
+     */
     public static ImageView getIconByReference(IconReference ref, int size) {
         switch (ref.getIconType()) {
             case FILE : return getFileIconByExtension(ref.getIconName(), size);

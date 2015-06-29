@@ -31,16 +31,31 @@ public class GridPaneFiller {
     private static int currentX = 0;
     private static int currentY = 0;
     
+    /**
+     * Resets this filler helper to the requested column numbers.
+     * 
+     * @param numColumns The number of columns of the grid to fill.
+     */
     public static void reset(int numColumns) {
         xItems = numColumns;
         currentX = 0;
         currentY = 0;
     }
     
+    /**
+     * Returns the x value for the grid pane
+     * 
+     * @return The int x value
+     */
     public static int X() {        
         return currentX++;
     }
     
+    /**
+     * Returns the y value for the grid pane
+     * 
+     * @return The int y value
+     */
     public static int Y() {
         if (currentX == xItems) {
             currentX = 0;

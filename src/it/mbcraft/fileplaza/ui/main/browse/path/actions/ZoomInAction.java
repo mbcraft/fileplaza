@@ -24,13 +24,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
- *
+ * Executes a zoom in action if the zoom level is not too high.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ZoomInAction implements EventHandler<ActionEvent> {
 
     private final IntegerProperty zoomLevelProperty;
     
+    /**
+     * Action constructor.
+     * 
+     * @param zoomLevel The zoomLevel IntegerProperty
+     */
     public ZoomInAction(IntegerProperty zoomLevel) {
         zoomLevelProperty = zoomLevel;
     }

@@ -23,12 +23,19 @@ import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import javafx.event.ActionEvent;
 
 /**
+ * Changes the current directory to the parent folder directory.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.browse.path.actions.GoToParentFolderAction")
 public class GoToParentFolderAction extends AbstractBrowsePanelAction {    
 
+    /**
+     * Action constructor. Needs the CurrentDirectoryState for changing the
+     * current directory.
+     * 
+     * @param state The CurrentDirectoryState instance
+     */
     public GoToParentFolderAction(CurrentDirectoryState state) {
         super(state);
     }

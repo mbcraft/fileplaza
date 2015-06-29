@@ -27,12 +27,19 @@ import it.mbcraft.fileplaza.ui.dialogs.DialogFactory;
 import javafx.event.ActionEvent;
 
 /**
- *
+ * Ask the user a name of a new folder to create.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.browse.path.actions.NewFolderAction")
 public class NewFolderAction extends AbstractBrowsePanelAction {
 
+    /**
+     * Action constructor. Needs the CurrentDirectoryState for obtaining
+     * the current path in which create the new folder.
+     * 
+     * @param state The CurrentDirectoryState instance
+     */
     public NewFolderAction(CurrentDirectoryState state) {
         super(state);
     }

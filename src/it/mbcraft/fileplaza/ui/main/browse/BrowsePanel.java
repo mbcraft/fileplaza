@@ -39,7 +39,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 /**
- * TODO : define what this component does.
+ * This panel shows the file browser panels and the file information
+ * tabs and subpanels.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

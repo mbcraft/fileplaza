@@ -57,6 +57,12 @@ public class CurrentPathPanel implements INodeProvider {
     private final CurrentDriveState currentDriveState;
     private final CurrentDirectoryState currentDirectoryState;
     
+    /**
+     * Creates a CurrentPathPanel. Needs some parameters for working.
+     * 
+     * @param driveState The CurrentDriveState instance
+     * @param directoryState The CurrentDirectoryState instance
+     */
     public CurrentPathPanel(CurrentDriveState driveState,CurrentDirectoryState directoryState) {  
         currentDriveState = driveState;
         currentDirectoryState = directoryState;
@@ -106,10 +112,6 @@ public class CurrentPathPanel implements INodeProvider {
                 currentPath.setText(newValue.getAbsolutePath());
             }
         });
-    }
-    
-    public CurrentDirectoryState getCurrentDirectoryState() {
-        return currentDirectoryState; 
     }
     
     @Override

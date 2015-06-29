@@ -36,11 +36,15 @@ import javafx.event.ActionEvent;
 @LangResource("main.browse.path.actions.RenameFileAction")
 public class RenameFileAction extends AbstractBrowsePanelAction {
 
+    /**
+     * Action constructor. Needs the CurrentDirectoryState for obtaining the
+     * currently selected file.
+     * 
+     * @param state The CurrentDirectoryState instance
+     */
     public RenameFileAction(CurrentDirectoryState state) {
         super(state);
     }
-
-    
 
     @Override
     public void handle(ActionEvent t) {
