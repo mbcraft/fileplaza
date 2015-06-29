@@ -34,6 +34,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.MultipleSelectionModel;
 
 /**
+ * Contains the CurrentDirectoryState containing some properties regarding the current
+ * directory, the sort mode of the current file list.
+ * 
+ * TO FIX : there are some overlaps with SingleSelectionFileSystemProperty
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -133,6 +137,10 @@ public class CurrentDirectoryState {
         });
     }
     
+
+    /**
+     * Refresh the current file list if needed.
+     */
     public void refreshFileListIfNeeded() {
         if (fileListNeedsRefresh) {
             fileListNeedsRefresh = false;
@@ -143,6 +151,9 @@ public class CurrentDirectoryState {
         }
     }
     
+    /**
+     * Clears the current file selection.
+     */
     public void clearFileSelection() {
         MultipleSelectionModel<File> model = selectedFilesProperty.get();
         if (model!=null)
@@ -151,46 +162,103 @@ public class CurrentDirectoryState {
         selectedFileProperty.setValue(null);
     }
 
+    /**
+     * Sets the current path.
+     * 
+     * @param path The current path to set, as a File instance
+     */
     public void setCurrentPath(File path) {
         currentPathProperty.setValue(path);
     }
 
+    /**
+     * Gets the current path
+     * 
+     * @return The current path as a File instance.
+     */
     public File getCurrentPath() {
         return currentPathProperty.getValue();
     }
 
+    /**
+     * Sets the currently selected file
+     * 
+     * @param f The File instance pointing to the currently selected file
+     */
     public void setSelectedFile(File f) {
         selectedFilesProperty.get().getSelectedItems().setAll(f);
     }
 
+    /**
+     * Gets the currently selected file
+     * 
+     * @return The currently selected file, as a File instance
+     */
     public File getSelectedFile() {
         return selectedFilesProperty.get().getSelectedItem();
     }
     
+    /**
+     * Returns the FileSortMode, as an ObjectProperty.
+     * 
+     * @return The FileSortMode
+     */
     public ObjectProperty<FileSortMode> sortModeProperty() {
         return sortModeProperty;
     }
     
+    /**
+     * Returns the FileSortOption, as an ObjectProperty
+     * 
+     * @return The FileSortOption
+     */
     public ObjectProperty<FileSortOption> sortOptionProperty() {
         return sortOptionProperty;
     }
 
+    /**
+     * Returns the currentPath property, as a File inside an ObjectProperty
+     * 
+     * @return The current path, as a File inside an ObjectProperty
+     */
     public ObjectProperty<File> currentPathProperty() {
         return currentPathProperty;
     }
 
+    /**
+     * Returns a property containing a boolean value that is true if a single file
+     * is selected, false otherwise (zero files or more than one file).
+     * 
+     * @return The BooleanProperty of the singleFileSelection value.
+     */
     public BooleanProperty singleFileSelectedProperty() {
         return singleFileSelectedProperty;
     }
 
+    /**
+     * Returns the currently selected file as an ObjectProperty
+     * 
+     * @return The currently selected file
+     */
     public ObjectProperty<File> selectedFileProperty() {
         return selectedFileProperty;
     }
 
+    /**
+     * Returns the selected files, as an ObjectProperty
+     * 
+     * @return a MultipleSelectionModel of File, as an ObjectProperty
+     */
     public ObjectProperty<MultipleSelectionModel<File>> selectedFilesProperty() {
         return selectedFilesProperty;
     }
 
+    /**
+     * Returns the currentDirectory items property, as an ObservableList of File inside an
+     * ObjectProperty
+     * 
+     * @return The ObjectProperty containing the ObservableList of File s.
+     */
     public ObjectProperty<ObservableList<File>> currentDirectoryItemsProperty() {
         return currentDirectoryItemsProperty;
     }
@@ -198,7 +266,7 @@ public class CurrentDirectoryState {
     /**
      * This action deletes the current file (or folder).
      *
-     * @return
+     * @return true if the operation is successful, false otherwise
      */
     public boolean deleteCurrentFile() {
 
@@ -215,7 +283,7 @@ public class CurrentDirectoryState {
      * This action renames the current file to the new name provided.
      *
      * @param newName The new name to assign to this file (or folder).
-     * @return
+     * @return true if the operation is successful, false otherwise
      */
     public boolean renameCurrentFile(String newName) {
 
@@ -237,12 +305,24 @@ public class CurrentDirectoryState {
         return result;
     }
 
+    /**
+     * This action creates a new folder with the specified name in the current path.
+     * 
+     * @param name The name of the new folder
+     * 
+     * @return true if the folder is created successfully, false otherwise
+     */
     public boolean newFolder(String name) {
         File newFolder = new File(getCurrentPath().getAbsolutePath() + File.separator + name);
         boolean result = newFolder.mkdir();
         return result;
     }
 
+    /**
+     * Moves the current directory to the parent folder, if there is a parent folder.
+     * 
+     * @return true if the operation was successful, false otherwise
+     */
     public boolean goToParentFolder() {
         File currentDir = getCurrentPath();
         if (currentDir.getParentFile() != null) {

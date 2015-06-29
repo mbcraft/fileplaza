@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Contains the CurrentLicenseState of this class.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -39,13 +40,21 @@ public class CurrentLicenseState {
     
     private AbstractLicense currentLicense;
     
+    /**
+     * Returns the current instance of this class.
+     * 
+     * @return The current instance of this class.
+     */
     public static CurrentLicenseState getInstance() {
         if (instance==null)
             instance = new CurrentLicenseState();
         return instance;
     }
     
-    public CurrentLicenseState() {
+    /**
+     * Creates an instance of this class.
+     */
+    private CurrentLicenseState() {
         try {
             InputStream is = Main.class.getResourceAsStream("license.properties");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -59,6 +68,11 @@ public class CurrentLicenseState {
         }
     }
     
+    /**
+     * Returns the current license in use for FilePlaza.
+     * 
+     * @return An AbstractLicense in use containing the current license
+     */
     public AbstractLicense getLicense() {
         return currentLicense;
     }  

@@ -26,10 +26,12 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- *
+ * Sort files using a comparator and an option about file and folders handling.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileSorter {
+    
     private static final Comparator ALPHABETICAL_ASCENDING_COMPARATOR = new AlphabeticalAscendingFileComparator();
     private static final Comparator ALPHABETICAL_DESCENDING_COMPARATOR = new AlphabeticalDescendingFileComparator();
     private static final Comparator DATE_ASCENDING_COMPARATOR = new DateAscendingFileComparator();
@@ -40,6 +42,14 @@ public class FileSorter {
     private static final ArrayList filesList = new ArrayList();
     private static final ArrayList foldersList = new ArrayList();
     
+    /**
+     * Sort the given files. A FileSortMode and a FileSortOption are needed.
+     * 
+     * @param files The files to sort as a File array.
+     * @param mode The FileSortMode to use for sorting these files.
+     * @param option The FileSortOption to use for sorting these files.
+     * @return a sorted File array.
+     */
     public static File[] sort(File[] files, FileSortMode mode, FileSortOption option) {
         Comparator cmp = getComparatorByMode(mode);
         return sortWithComparatorByOption(files, cmp, option);

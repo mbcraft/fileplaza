@@ -20,7 +20,6 @@ package it.mbcraft.fileplaza.state;
 
 import it.mbcraft.fileplaza.service.os.DriveIdentifier;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,6 +29,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
+ * Contains a property with the current drive used in file browsers.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -77,14 +77,32 @@ public class CurrentDriveState {
         });
     }
     
+    /**
+     * Returns the list of the currently available drives, as a property.
+     * 
+     * @return The ObservableList of DriveIdentifier s, contained inside an ObjectProperty
+     */
     public ObjectProperty<ObservableList<DriveIdentifier>> driveListProperty() {
         return myDriveListProperty;
     }
     
+    /**
+     * Returns the current drive, as an ObjectProperty.
+     * 
+     * @return The DriveIdentifier inside an ObjectProperty
+     */
     public ObjectProperty<DriveIdentifier> currentDriveProperty() {
         return myCurrentDriveProperty;
     }
 
+    /**
+     * Returns the current drive list, as a List of DriveIdentifier s.
+     * 
+     * TO FIX : check if this method is needed and the list can not be obtained from the
+     * driveList property.
+     * 
+     * @return A List of DriveIdentifier.
+     */
     public List<DriveIdentifier> getDriveList() {
         return driveList;
     }

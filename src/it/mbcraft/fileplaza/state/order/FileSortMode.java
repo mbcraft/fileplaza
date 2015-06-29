@@ -19,6 +19,12 @@
 package it.mbcraft.fileplaza.state.order;
 
 /**
+ * The FileSortMode used for sorting the files.
+ * 
+ * ALPHABETICAL_ASCENDING : order alphabetically, from the first letter to the last
+ * ALPHABETICAL_DESCENDING : order alphabetically, from the last letter to the first one
+ * DATE_ASCENDING : order by date, from the oldest to the newest
+ * DATE_DESCENDING : order by date, from the newest to the oldest
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

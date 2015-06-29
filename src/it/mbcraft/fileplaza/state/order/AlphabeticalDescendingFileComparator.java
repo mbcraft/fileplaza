@@ -22,7 +22,9 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- *
+ * This class implements the FileSortMode.ALPHABETICAL_DESCENDING comparator for
+ * sorting out files.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class AlphabeticalDescendingFileComparator implements Comparator<File> {

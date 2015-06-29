@@ -19,6 +19,7 @@
 package it.mbcraft.fileplaza.state.license;
 
 /**
+ * Abstract class for all license modes.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -30,23 +31,61 @@ public abstract class AbstractLicense {
     private byte allowedOsMask;
     private byte licenseType;
     
+    /**
+     * Creates a license with the provided license code.
+     * 
+     * @param code The license code
+     */
     public AbstractLicense(String code) {
         licenseCode = code;
     }
     
+    /**
+     * Returns the registration email for this license.
+     * 
+     * @return The registration email
+     */
     public String getRegistrationEmail() {
         return registrationEmail;
     }
     
+    /**
+     * Returns the license code for this license.
+     * 
+     * @return The license code
+     */
     public String getLicenseCode() {
         return licenseCode;
     }
 
+    /**
+     * Return the name inside this license.
+     * 
+     * @return The license name found inside this license
+     */
     public abstract String getLicenseName();
     
+    /**
+     * Returns trie if file and directory tagging is enabled for 
+     * this license.
+     * 
+     * @return true if file and folder tagging is enabled, false otherwise.
+     */
     public abstract boolean isFileAndDirectoryTaggingEnabled();
     
+    /**
+     * Returns true if the online catalog connection is enabled for
+     * this license.
+     * 
+     * @return true if the online catalog connection is enabled, false otherwise
+     */
     public abstract boolean isOnlineCatalogConnectionEnabled();
 
+    /**
+     * Returns true if the unlimited os installation is enabled for
+     * this license.
+     * 
+     * @return true if the unlimited os installation is enabled, false otherwise
+     */
     public abstract boolean isUnlimitedOSInstallationEnabled();
 }

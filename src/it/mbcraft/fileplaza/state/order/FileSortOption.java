@@ -19,7 +19,11 @@
 package it.mbcraft.fileplaza.state.order;
 
 /**
- *
+ * File sort options : 
+ * MIXED : the files and folders are interleaved.
+ * FOLDERS_THEN_FILES : put the sorted folders before the sorted files.
+ * FILES_THEN_FOLDERS : put the sorted files before the sorted folders.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public enum FileSortOption {

@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class implements the FileSortMode.DATE_DESCENDING comparator for sorting
+ * files.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

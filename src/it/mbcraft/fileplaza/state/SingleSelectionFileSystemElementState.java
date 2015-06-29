@@ -45,11 +45,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 
 /**
- * TO DO : refactor for including multiple file selection
+ * TODO : refactor for including multiple file selection
  * 
  * This class keeps the current AbstractFileSystemElement selected instance_.
  * It contains methods used to change the current AbstractFileSystemElement.
- * It tracks changes and handles saving on file.
+ * It tracks changes and handles saving of data associated to this file.
  * 
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
@@ -66,6 +66,11 @@ public class SingleSelectionFileSystemElementState {
     
     private static SingleSelectionFileSystemElementState instance = null;
     
+    /**
+     * Returns the current unique instance of this class.
+     * 
+     * @return A SingleSelectionFileSystemElementState instance
+     */
     public static SingleSelectionFileSystemElementState getInstance() {
         if (instance==null)
             instance = new SingleSelectionFileSystemElementState();
@@ -144,15 +149,30 @@ public class SingleSelectionFileSystemElementState {
         currentPreviewData.set(NO_FILE_SELECTED_PREVIEW_DATA);
     }
             
+    /**
+     * Sets the priority on the currently selected file.
+     * 
+     * @param p The Priority p to set 
+     */
     public void setPriority(Priority p) {
         currentElement.getValue().setPriority(p);
         _currentElementChanged = true;
     }
     
+    /**
+     * Returns the Priority associated with the current element.
+     * 
+     * @return The Priority instance
+     */
     public Priority getPriority() {
         return currentElement.getValue().getPriority();
     }
     
+    /**
+     * Sets the custom preview key associated with the currently selected file.
+     * 
+     * @param nk The preview key
+     */
     public void setCustomPreviewKey(String nk) {
         FileElement el = (FileElement) currentElement.getValue();
         
@@ -166,16 +186,31 @@ public class SingleSelectionFileSystemElementState {
         _currentElementChanged = true;
     }
     
+    /**
+     * Gets the custom preview key associated with this file
+     * 
+     * @return A string containing the custom preview key of this file
+     */
     public String getCustomPreviewKey() {
         FileElement el = (FileElement) currentElement.getValue();
         return el.getCustomPreviewKey();
     }
     
+    /**
+     * Returns the notes associated to this file
+     * 
+     * @param nt The notes associated to this file
+     */
     public void setNotes(String nt) {
         currentElement.getValue().setNotes(nt);
         _currentElementChanged = true;
     }
     
+    /**
+     * Returns the notes associated to the currently selected file
+     * 
+     * @return The notes associated to this file
+     */
     public String getNotes() {
         return currentElement.getValue().getNotes();
     }
@@ -192,6 +227,9 @@ public class SingleSelectionFileSystemElementState {
         fem.saveOrUpdate(el);
     }
     
+    /**
+     * Saves the metadata associated to the current element if needed.
+     */
     public void saveCurrentElementIfNeeded() {
         if (currentElement.getValue()!=null && _currentElementChanged) {
             AbstractFileSystemElement element = currentElement.getValue();
@@ -204,18 +242,39 @@ public class SingleSelectionFileSystemElementState {
         }
     }
     
+    /**
+     * Returns the ObjectProperty containing the PreviewData for this file.
+     * 
+     * @return An ObjectProperty containing the PreviewData of this file.
+     */
     public ObjectProperty previewDataProperty() {
         return currentPreviewData;
     }
     
+    /**
+     * Returns the StringProperty containing the text notes for
+     * this file.
+     * 
+     * @return The StringProperty containing the notes
+     */
     public StringProperty notesProperty() {
         return currentNotes;
     }
     
+    /**
+     * Returns the tagList property for this class.
+     * 
+     * @return The tag list property of the generic tags associated with this file.
+     */
     public ListProperty<Tag> tagListProperty() {
         return currentTags;
     }
     
+    /**
+     * Link the currently selected file with the provided ReadOnlyObjectProperty.
+     * 
+     * @param property The property used for reading data about the currently selected file.
+     */
     public void linkWithFileProperty(ReadOnlyObjectProperty<File> property) {
         property.addListener(new ChangeListener<File>(){
 
