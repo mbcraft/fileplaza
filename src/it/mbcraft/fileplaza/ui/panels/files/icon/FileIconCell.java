@@ -113,7 +113,7 @@ public class FileIconCell extends ImprovedTileCell<File> {
         setMainIcon(new IconReference(IconReference.IconCategory.FILE, extension));
     }
     
-    public void updateRequiredCellSize() {
+    private void updateRequiredCellSize() {
         requiredCellHeightProperty().setValue(getRequiredCellHeight());
         requiredCellWidthProperty().setValue(getRequiredCellWidth()+getCharacterWidthPadding()*2);
     }

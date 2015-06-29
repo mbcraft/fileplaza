@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * Action for showing the settings window.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

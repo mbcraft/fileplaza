@@ -24,6 +24,7 @@ import it.mbcraft.fileplaza.ui.common.IconReference;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
+ * This class displays a dictionary as a ListCell.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

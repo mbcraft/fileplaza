@@ -21,24 +21,27 @@ package it.mbcraft.fileplaza.ui.main.menu;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.main.menu.help.actions.HelpAboutAction;
-import it.mbcraft.fileplaza.ui.main.menu.help.actions.HelpSuggestionsAction;
+import it.mbcraft.fileplaza.ui.main.menu.help.actions.HelpFeedbackAction;
 import it.mbcraft.fileplaza.ui.main.menu.help.actions.HelpUserGuideAction;
 
 /**
- * This class handles the state of the Help menu.  
+ * This class handles the state of the Help menu for FilePlaza.  
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.menu.HelpMenu")
 public class HelpMenu extends AbstractMenu {
     
+    /**
+     * Creates the HelpMenu for FilePlaza.
+     */
     public HelpMenu() {
         
         super(L("main.menu.HelpMenu", "Help_Menu"));
         
         addItem(L(this,"UserGuide_Item"),new HelpUserGuideAction());
         
-        addItem(L(this,"Suggestions_Item"),new HelpSuggestionsAction());
+        addItem(L(this,"Suggestions_Item"),new HelpFeedbackAction());
         
         //no registration needed
         //addItem(L(this,"Register_Item"),new HelpRegisterAction());

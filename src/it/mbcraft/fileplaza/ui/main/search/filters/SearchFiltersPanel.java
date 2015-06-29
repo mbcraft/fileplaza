@@ -49,11 +49,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Creates a SearchFilterPanel for showing filters for search panel.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-@LangResource("main.search.filters.FiltersPanel")
-public class FiltersPanel implements INodeProvider {
+@LangResource("main.search.filters.SearchFiltersPanel")
+public class SearchFiltersPanel implements INodeProvider {
     
     public VBox box = new VBox();
     
@@ -72,7 +73,13 @@ public class FiltersPanel implements INodeProvider {
     
     private final SearchState myState;
     
-    public FiltersPanel(SearchState state) {        
+    /**
+     * Creates a SearchFilterPanel. Needs SearchState object to update
+     * the search state.
+     * 
+     * @param state The SearchState to update.
+     */
+    public SearchFiltersPanel(SearchState state) {        
         
         myState = state;
         

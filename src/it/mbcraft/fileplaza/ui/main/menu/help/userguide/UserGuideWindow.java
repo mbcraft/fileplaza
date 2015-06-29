@@ -32,7 +32,9 @@ import javafx.geometry.Insets;
 import javafx.scene.web.WebView;
 
 /**
- *
+ * Creates the the user guide window.
+ * The window actually shows html files, depending on the current language.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.menu.help.userguide.UserGuideWindow")
@@ -40,6 +42,10 @@ public class UserGuideWindow extends AbstractPresenterWindow {
     
     private WebView view;
     
+    /**
+     * Builds the UserGuideWindows. It doesn't need any parameter, the user guide
+     * path is hardcoded.
+     */
     public UserGuideWindow() {
         super(L(UserGuideWindow.class,"UserGuide_Window"));
         setPadding(new Insets(5));

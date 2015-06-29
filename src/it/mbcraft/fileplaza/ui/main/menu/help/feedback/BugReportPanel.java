@@ -50,7 +50,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- *
+ * This class creates a panel for reporting bugs.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.menu.help.feedback.BugReportPanel")
@@ -70,6 +71,9 @@ public class BugReportPanel implements INodeProvider {
     private TextField attachment2;
     private TextField attachment3;
         
+    /**
+     * Creates the panel. No parameters are needed.
+     */
     public BugReportPanel() { 
         BUG_TYPES = new String[] {L(this,"1bug_Choice"),L(this,"2bug_Choice"),L(this,"3bug_Choice"),L(this,"4bug_Choice"),L(this,"5bug_Choice")};
         initGrid();

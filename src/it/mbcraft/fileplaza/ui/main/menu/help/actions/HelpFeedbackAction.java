@@ -23,10 +23,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * Action for showing the FeedbackWindow
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class HelpSuggestionsAction implements EventHandler<ActionEvent> {
+public class HelpFeedbackAction implements EventHandler<ActionEvent> {
 
     private final FeedbackWindow suggestionWindow = new FeedbackWindow();
     

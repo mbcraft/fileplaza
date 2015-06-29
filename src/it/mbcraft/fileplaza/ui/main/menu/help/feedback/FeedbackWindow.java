@@ -32,7 +32,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 
 /**
- *
+ * Creates the FeedbackWindow, with all its panels.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.menu.help.feedback.FeedbackWindow")
@@ -50,6 +51,9 @@ public class FeedbackWindow extends AbstractPresenterWindow {
     private SuggestAFeaturePanel suggestAFeaturePanel;
     private BugReportPanel bugReportPanel;
     
+    /**
+     * Creates the 'feedback' window.
+     */
     public FeedbackWindow() {
         super(L("main.menu.help.feedback.FeedbackWindow","Feedback_Window"));
     }

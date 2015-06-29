@@ -47,11 +47,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Builds a panel containing the filters to be set for sorting out
+ * files.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-@LangResource("main.sort.filters.FiltersPanel")
-public class FiltersPanel implements INodeProvider {
+@LangResource("main.sort.filters.SortFiltersPanel")
+public class SortFiltersPanel implements INodeProvider {
 
     private final VBox box = new VBox();
     
@@ -67,8 +69,13 @@ public class FiltersPanel implements INodeProvider {
     
     private final ObjectProperty<FileElementSort> currentSort;
     
-    
-    public FiltersPanel(ObjectProperty<FileElementSort> currentSortProperty) {
+    /**
+     * Build a sort filters panel. Needs a FileElementSort as an ObjectProperty, for
+     * actually previewing and clearing the sort.
+     * 
+     * @param currentSortProperty 
+     */
+    public SortFiltersPanel(ObjectProperty<FileElementSort> currentSortProperty) {
         
         currentSort = currentSortProperty;
         initContainer();
@@ -155,7 +162,7 @@ public class FiltersPanel implements INodeProvider {
         if (sort.hasResults())
             currentSort.set(sort);
         else {
-            DialogFactory.showInformationDialog(L(FiltersPanel.class,"NoElementsFound_Dialog"), L(FiltersPanel.class,"NoElementsFound_Text"));    
+            DialogFactory.showInformationDialog(L(SortFiltersPanel.class,"NoElementsFound_Dialog"), L(SortFiltersPanel.class,"NoElementsFound_Text"));    
         }
     }
     

@@ -21,9 +21,16 @@ package it.mbcraft.fileplaza.ui.main.menu;
 import javafx.scene.control.MenuBar;
 
 /**
- *
+ * This interface is implemented by classes that creates MenuBar s.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IMenuBarProvider {
+    
+    /**
+     * Returns the created and fully initialized MenuBar.
+     * 
+     * @return The MenuBar.
+     */
     public MenuBar getMenuBar();
 }

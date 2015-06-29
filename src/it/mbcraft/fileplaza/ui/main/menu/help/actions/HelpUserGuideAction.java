@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * Action for showing the UserGuideWindow.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

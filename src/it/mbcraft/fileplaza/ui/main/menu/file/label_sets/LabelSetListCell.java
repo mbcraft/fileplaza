@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.data.models.LabelSet;
 import javafx.scene.control.ListCell;
 
 /**
+ * This class shows a LabelSet as a ListCell.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

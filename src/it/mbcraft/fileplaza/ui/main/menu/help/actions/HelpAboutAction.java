@@ -24,7 +24,8 @@ import javafx.event.EventHandler;
 import it.mbcraft.fileplaza.ui.main.menu.help.about.AboutWindow;
 
 /**
- *
+ * Shows the 'About' action.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.menu.help.actions.HelpAboutAction")

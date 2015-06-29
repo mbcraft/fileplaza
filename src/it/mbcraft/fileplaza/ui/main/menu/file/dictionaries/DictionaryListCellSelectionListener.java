@@ -23,14 +23,15 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * Creates a listener for selection on Dictionary ListCell s.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 class DictionaryListCellSelectionListener implements EventHandler<MouseEvent> {
 
-    private final DictionariesWindow window;
+    private final DictionariesSettingsWindow window;
     
-    public DictionaryListCellSelectionListener(DictionariesWindow window) {
+    public DictionaryListCellSelectionListener(DictionariesSettingsWindow window) {
         this.window = window;
     }
     

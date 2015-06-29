@@ -23,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * This class handles mouse actions on a DictionaryEntryListCell
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

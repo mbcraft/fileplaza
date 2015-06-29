@@ -22,7 +22,8 @@ import java.util.Map.Entry;
 import javafx.scene.control.ListCell;
 
 /**
- *
+ * This class displays a DictionaryEntry as a ListCell.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 class DictionaryEntryListCell extends ListCell<Entry<String,String>> {

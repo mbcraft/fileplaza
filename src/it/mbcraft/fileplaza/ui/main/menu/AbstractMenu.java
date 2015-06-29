@@ -25,7 +25,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 
 /**
- *
+ * This abstract class provides common functionality for menu providers.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class AbstractMenu implements IMenuProvider {
@@ -36,12 +37,20 @@ public class AbstractMenu implements IMenuProvider {
         myMenu = new Menu(title);
     }
     
+    /**
+     * Adds an item to this menu. The item has a String title and a handler for the click/action event.
+     * @param title
+     * @param handler 
+     */
     public void addItem(String title,EventHandler<ActionEvent> handler) {
         MenuItem item = new MenuItem(title);
         item.setOnAction(handler);
         myMenu.getItems().add(item);
     }
     
+    /**
+     * Adds a separator to this menu.
+     */
     public void addSeparator() {
         myMenu.getItems().add(new SeparatorMenuItem());
     }

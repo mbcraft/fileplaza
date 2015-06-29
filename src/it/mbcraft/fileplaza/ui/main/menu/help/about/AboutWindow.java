@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
+ * Builds the 'About' window.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
+ * This class is a factory for ListCell s.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

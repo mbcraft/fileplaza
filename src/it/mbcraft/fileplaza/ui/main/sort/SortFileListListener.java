@@ -26,7 +26,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.MouseEvent;
 
 /**
- *
+ * Creates a listener for the sort file preview panel.
+ * Actually, simply executes sort on double clicked files.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 class SortFileListListener implements IElementActionListener {

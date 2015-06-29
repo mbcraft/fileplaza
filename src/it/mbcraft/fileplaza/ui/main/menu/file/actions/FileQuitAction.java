@@ -19,12 +19,12 @@
 package it.mbcraft.fileplaza.ui.main.menu.file.actions;
 
 import it.mbcraft.fileplaza.state.SingleSelectionFileSystemElementState;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
- *
+ * Action for closing the application.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileQuitAction implements EventHandler<ActionEvent> {

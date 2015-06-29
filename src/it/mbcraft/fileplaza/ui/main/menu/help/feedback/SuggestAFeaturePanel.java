@@ -39,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * This class creates a panel for letting user submit a suggestion.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -53,6 +54,9 @@ public class SuggestAFeaturePanel implements INodeProvider {
     private final TextField featureTitle = new TextField();
     private final TextArea featureDescription = new TextArea();
     
+    /**
+     * Creates the panel. No parameters are needed.
+     */
     public SuggestAFeaturePanel() {
         initGrid();
         initButtonBar();

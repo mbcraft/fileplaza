@@ -26,6 +26,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
+ * Factory class for ListCells used to display Dictionary entries as
+ * required by ListView.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

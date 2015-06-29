@@ -23,7 +23,10 @@ import java.io.File;
 import javafx.scene.input.MouseEvent;
 
 /**
- *
+ * Listener for searched files showed in the list.
+ * Actually no actions are done for heavy selection, simple selection or context
+ * menu requests.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class SearchPanelFileListListener implements IElementActionListener {

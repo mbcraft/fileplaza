@@ -43,6 +43,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Builds a SortDetailsPanel for showing sort details of a file.
+ * Shows previous and current path, and buttons for doing sort or 
+ * removing the file from the list of files to be sorted.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -23,14 +23,15 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * This class handles the event of clicks on LabelSetListCell s.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class LabelSetListCellSelectionListener implements EventHandler<MouseEvent> {
 
-    private final LabelSetsWindow window;
+    private final LabelSetsSettingsWindow window;
     
-    public LabelSetListCellSelectionListener(LabelSetsWindow window) {
+    public LabelSetListCellSelectionListener(LabelSetsSettingsWindow window) {
         this.window = window;
     }
     

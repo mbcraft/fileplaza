@@ -38,6 +38,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
 /**
+ * Creates the SettingsWindow. It contains generic settings for the application.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

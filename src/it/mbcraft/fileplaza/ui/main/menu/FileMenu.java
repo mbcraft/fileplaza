@@ -20,13 +20,13 @@ package it.mbcraft.fileplaza.ui.main.menu;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileDictionariesAction;
-import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileLabelSetsAction;
+import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileDictionariesSettingsAction;
+import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileLabelSetsSettingsAction;
 import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileQuitAction;
 import it.mbcraft.fileplaza.ui.main.menu.file.actions.FileSettingsAction;
 
 /**
- * This class handles the creation of the File menu.
+ * This class handles the creation of the File menu for FilePlaza.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -36,8 +36,8 @@ public class FileMenu extends AbstractMenu {
     public FileMenu() {
         super(L(FileMenu.class, "File_Menu"));
         
-        addItem(L(this,"Dictionaries_Item"),new FileDictionariesAction());
-        addItem(L(this,"LabelSets_Item"),new FileLabelSetsAction());
+        addItem(L(this,"Dictionaries_Item"),new FileDictionariesSettingsAction());
+        addItem(L(this,"LabelSets_Item"),new FileLabelSetsSettingsAction());
         
         addSeparator();
         

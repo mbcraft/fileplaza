@@ -42,6 +42,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * This class builds the 'application review' panel. It enables the user to
+ * leave a feedback of the application.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -56,6 +58,9 @@ public class ApplicationReviewPanel implements INodeProvider {
     private Button editReviewButton;
     private Button submitReviewButton;
         
+    /**
+     * Builds an instance of the ApplicationReviewPanel
+     */
     public ApplicationReviewPanel() { 
         initGrid();
         initButtonBar();
@@ -159,6 +164,11 @@ public class ApplicationReviewPanel implements INodeProvider {
         return container;
     }
 
+    /**
+     * Gets the current ApplicationReview.
+     * 
+     * @return The ApplicationReview built from the values submitted using this panel
+     */
     public ApplicationReview getApplicationReview() {
         ApplicationReview review = new ApplicationReview();
         review.setStars(stars.getSelectionModel().getSelectedIndex());
@@ -166,6 +176,11 @@ public class ApplicationReviewPanel implements INodeProvider {
         return review;
     }
     
+    /**
+     * Sets the value inside this panel using the provided ApplicationReview.
+     * 
+     * @param review An instance of ApplicationReview used to set up values inside this panel.
+     */
     public void setApplicationReview(ApplicationReview review) {
         stars.getSelectionModel().clearAndSelect(review.getStars());
         reviewText.setText(review.getReviewText());

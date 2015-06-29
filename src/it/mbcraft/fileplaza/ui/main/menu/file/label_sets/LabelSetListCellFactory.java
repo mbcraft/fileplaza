@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 /**
+ * Factory class for LabelSetListCell.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
+ * This panel shows a 'thank you' message.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

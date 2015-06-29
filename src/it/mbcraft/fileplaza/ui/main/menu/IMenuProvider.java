@@ -21,9 +21,16 @@ package it.mbcraft.fileplaza.ui.main.menu;
 import javafx.scene.control.Menu;
 
 /**
+ * This interface is used for classes that creates Menu.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IMenuProvider {
+    
+    /**
+     * Returns the created and fully initialized Menu.
+     * 
+     * @return The Menu instance.
+     */
     public Menu getMenu();
 }

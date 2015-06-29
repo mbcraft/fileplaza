@@ -44,11 +44,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
+ * This window shows the settings for the label sets.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-@LangResource("main.menu.file.label_sets.LabelSetsWindow")
-public class LabelSetsWindow extends AbstractSettingsWindow {
+@LangResource("main.menu.file.label_sets.LabelSetsSettingsWindow")
+public class LabelSetsSettingsWindow extends AbstractSettingsWindow {
     
     private HBox main;
     
@@ -63,9 +64,7 @@ public class LabelSetsWindow extends AbstractSettingsWindow {
     private Button enableButton;
     private Button disableButton;
     
-    
-    
-    public LabelSetsWindow() {
+    public LabelSetsSettingsWindow() {
         super(L("main.menu.file.label_sets.LabelSetsWindow","LabelSets_Window"),true);
     }
         
@@ -74,17 +73,14 @@ public class LabelSetsWindow extends AbstractSettingsWindow {
      */
     @Override
     protected void initMiddleContent() {
-        
         main = new HBox();
         main.setPadding(new Insets(5));
         
         initUserDefinedEnumListPanel();
         initLabelSetEditPanel();
         
-        addToWindow(main);
-                
+        addToWindow(main);     
     }
-    
     
     private void initUserDefinedEnumListPanel() {
         VBox vbox = new VBox();
@@ -209,7 +205,6 @@ public class LabelSetsWindow extends AbstractSettingsWindow {
         labelSetsList.getItems().remove(en);
         fireDataChanged();
         viewLabelSet(null);
-        
     }
     
     private void disableLabelSet(LabelSet en) {

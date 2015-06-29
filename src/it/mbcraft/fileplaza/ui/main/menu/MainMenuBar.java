@@ -21,7 +21,7 @@ package it.mbcraft.fileplaza.ui.main.menu;
 import javafx.scene.control.MenuBar;
 
 /**
- * This class handles the creation of the whole menubar.
+ * This class creates the FilePlaza MenuBar.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -29,6 +29,9 @@ public class MainMenuBar implements IMenuBarProvider {
         
     private final MenuBar menuBar_;
         
+    /**
+     * Creates the MenuBar. Does not need any parameter.
+     */
     public MainMenuBar() {
         menuBar_ = new MenuBar();
         
@@ -37,7 +40,7 @@ public class MainMenuBar implements IMenuBarProvider {
         addMenuFromProvider(new HelpMenu());    
     }
     
-    public final void addMenuFromProvider(IMenuProvider provider) {
+    private void addMenuFromProvider(IMenuProvider provider) {
         menuBar_.getMenus().add(provider.getMenu());
     }
         

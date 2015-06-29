@@ -41,6 +41,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
+ * Creates the registration window, used for registering this copy of FilePlaza.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -55,6 +56,9 @@ public class RegisterWindow extends AbstractSettingsWindow {
     private Button generateMachineCodeButton;
     private Label currentLicenseLabel;
         
+    /**
+     * Creates the Register Window. Does not need any parameter.
+     */
     public RegisterWindow() {
         super(L(RegisterWindow.class,"Register_Window"),true);
     }

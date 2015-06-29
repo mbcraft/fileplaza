@@ -18,21 +18,21 @@
 
 package it.mbcraft.fileplaza.ui.main.menu.file.actions;
 
-import it.mbcraft.fileplaza.ui.main.menu.file.dictionaries.DictionariesWindow;
+import it.mbcraft.fileplaza.ui.main.menu.file.label_sets.LabelSetsSettingsWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
+ * Action for showing the label sets settings window.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class FileDictionariesAction implements EventHandler<ActionEvent> {
+public class FileLabelSetsSettingsAction implements EventHandler<ActionEvent> {
 
-    private final DictionariesWindow window = new DictionariesWindow();
+    private final LabelSetsSettingsWindow window = new LabelSetsSettingsWindow();
     
     @Override
     public void handle(ActionEvent t) {
         window.showAndWait();
     }
-    
 }

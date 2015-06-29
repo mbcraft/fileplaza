@@ -36,6 +36,7 @@ import javafx.stage.StageStyle;
 
 /**
  * This class handles the main application window for FilePlaza.
+ * Builds all the sub-panels and sub-windows it needs.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -49,6 +50,12 @@ public class FilePlazaMainWindow {
     private MainMenuBar mainMenuBarProvider;
     private StatusBar statusBarProvider;
     
+    /**
+     * Builds the FilePlaza main window.
+     * 
+     * @param primaryStage The JavaFX stage needed for building and displaying the window
+     * @param version The current version of the application
+     */
     public FilePlazaMainWindow(Stage primaryStage, String version) {
         
         Platform.setImplicitExit(false);
@@ -124,6 +131,9 @@ public class FilePlazaMainWindow {
         mainLayout.setBottom(statusBarProvider.getNode());
     }
 
+    /**
+     * Show the application window.
+     */
     public void show() {
         primaryStage.show();
     }

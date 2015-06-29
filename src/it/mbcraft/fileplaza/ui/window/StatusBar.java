@@ -41,6 +41,11 @@ public class StatusBar implements INodeProvider {
         statusBar.setAlignment(Pos.CENTER_LEFT);
     }
     
+    /**
+     * Returns the StringProperty that is displayed in the status bar.
+     * 
+     * @return The StringProperty of the status bar.
+     */
     public StringProperty statusProperty() {
         return statusBar.textProperty();
     }

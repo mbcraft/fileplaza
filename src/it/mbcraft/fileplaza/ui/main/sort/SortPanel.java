@@ -22,7 +22,7 @@ import it.mbcraft.fileplaza.algorithm.sort.FileElementSort;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileViewListPanel;
-import it.mbcraft.fileplaza.ui.main.sort.filters.FiltersPanel;
+import it.mbcraft.fileplaza.ui.main.sort.filters.SortFiltersPanel;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
 import java.io.File;
@@ -43,7 +43,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * This class builds a SortPanel.
+ * The SortPanel shows file that needs to be sorted in a preview area.
+ * It features sort options, a preview of the files that will be sorted and
+ * buttons for confirming the operation.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("main.sort.SortPanel")
@@ -51,7 +55,7 @@ public class SortPanel implements INodeProvider {
     
     private final VBox box = new VBox();
     
-    private FiltersPanel filters;
+    private SortFiltersPanel filters;
     private FileViewListPanel previewedList;
     private SortDetailsPanel sortDetails;
     
@@ -59,6 +63,10 @@ public class SortPanel implements INodeProvider {
 
     private final ObjectProperty<FileElementSort> currentSort = new SimpleObjectProperty();
 
+    /**
+     * Builds a sort panel. Does not need any parameter since all operation
+     * are run using the parameters set inside the panel.
+     */
     public SortPanel() {
         initContainer();
         initComponents();
@@ -72,7 +80,7 @@ public class SortPanel implements INodeProvider {
     }
     
     private void initComponents() {
-        filters = new FiltersPanel(currentSort);
+        filters = new SortFiltersPanel(currentSort);
         ObservableList<File> elements = FXCollections.observableArrayList();
         previewedList = new FileViewListPanel(new SimpleIntegerProperty(ZoomHelper.getMinLevelIndex()),new SortFileListListener(elements,currentSort));
         sortDetails = new SortDetailsPanel(elements,previewedList.selectionModelProperty(),currentSort);

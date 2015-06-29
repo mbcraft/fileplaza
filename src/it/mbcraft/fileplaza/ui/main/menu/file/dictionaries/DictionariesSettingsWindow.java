@@ -45,11 +45,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
+ * This class displays a settings window for dictionaries.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-@LangResource("main.menu.file.dictionaries.DictionariesWindow")
-public class DictionariesWindow extends AbstractSettingsWindow {
+@LangResource("main.menu.file.dictionaries.DictionariesSettingsWindow")
+public class DictionariesSettingsWindow extends AbstractSettingsWindow {
 
     private HBox main;
         
@@ -67,8 +68,8 @@ public class DictionariesWindow extends AbstractSettingsWindow {
     private Button enableButton;
     private Button disableButton;
     
-    public DictionariesWindow() {
-        super(L("main.menu.file.dictionaries.DictionariesWindow","Dictionaries_Window"),true);
+    public DictionariesSettingsWindow() {
+        super(L("main.menu.file.dictionaries.DictionariesSettingsWindow","DictionariesSettings_Window"),true);
     }
         
     /**
@@ -287,6 +288,11 @@ public class DictionariesWindow extends AbstractSettingsWindow {
         dictionaryList.getItems().addAll(DictionaryDAO.getInstance().findAll());
     }
     
+    /**
+     * Updates the viewed dictionary inside the window.
+     * 
+     * @param d The dictionary to view.
+     */
     public void viewDictionary(Dictionary d) {
         if (d==null) {
             dictionaryList.getSelectionModel().clearSelection();

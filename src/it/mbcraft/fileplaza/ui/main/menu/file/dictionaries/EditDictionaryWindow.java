@@ -37,6 +37,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
 /**
+ * Creates the window for editing a dictionary.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -68,10 +69,21 @@ public class EditDictionaryWindow extends AbstractEntityEditorWindow {
     private Button addOrSaveButton;
     private Button deleteButton;
 
+    /**
+     * Creates the EditDictionaryWindow. Requires a localized title.
+     * 
+     * 
+     * @param title The title of the window
+     */
     public EditDictionaryWindow(String title) {
         super(title);
     }
 
+    /**
+     * Sets the dictionary to edit.
+     * 
+     * @param d A Dictionary instance
+     */
     public void setDictionary(Dictionary d) {
         titleField.setText(d.getShortTitle());
         descriptionArea.setText(d.getDescription());
@@ -80,6 +92,11 @@ public class EditDictionaryWindow extends AbstractEntityEditorWindow {
         viewEntry(null);
     }
 
+    /**
+     * Gets the modified dictionary
+     * 
+     * @return A Dictionary instance
+     */
     public Dictionary getDictionary() {
         Dictionary d = new Dictionary();
         d.setShortTitle(titleField.getText());
@@ -175,7 +192,10 @@ public class EditDictionaryWindow extends AbstractEntityEditorWindow {
         addToWindow(pane);
     }
 
-    public void saveOrAddEntry() {
+    /**
+     * Saves or adds an entry to the current dictionary being edited.
+     */
+    private void saveOrAddEntry() {
         String singular = singularField.getText().toLowerCase();
         String plural = pluralField.getText().toLowerCase();
         if (singular != null && !singular.equals("") && plural != null && !plural.equals("")) {
@@ -195,10 +215,12 @@ public class EditDictionaryWindow extends AbstractEntityEditorWindow {
             DialogFactory.showErrorDialog(L(this, "EntryError_Dialog"), L(this, "EntryError_Text"));
         }
         singularField.requestFocus();
-
     }
     
-    public void deleteEntry() {
+    /**
+     * Deletes the selected entry from the dictionary.
+     */
+    private void deleteEntry() {
         entryList.getItems().remove(entryList.getSelectionModel().getSelectedIndex());
         viewEntry(null);
     }
@@ -211,6 +233,11 @@ public class EditDictionaryWindow extends AbstractEntityEditorWindow {
 
     }
 
+    /**
+     * Updates the edit fields with the entry.
+     * 
+     * @param e The DictionaryEntry to show in the edit fields
+     */
     void viewEntry(DictionaryEntry e) {
         if (e == null) {
             singularField.setText("");
