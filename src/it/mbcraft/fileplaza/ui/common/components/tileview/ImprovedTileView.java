@@ -31,6 +31,8 @@ import javafx.util.Callback;
  *
  * This widget enables view of elements in a tiled fashion. If used directly
  * does not allow zoom. It allows change of viewed elements.
+ * It also enables vertical scrolling automatically if needed.
+ * Does not scrolls horizontally.
  * 
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>

@@ -22,6 +22,13 @@ import it.mbcraft.fileplaza.ui.common.IconReference;
 import javafx.scene.text.Font;
 
 /**
+ * Common interface for elements that features :
+ * - a main icon
+ * - a main label
+ * - a customizable font for the label
+ * - a list of status icons
+ * 
+ * It's used for the list view and the icon view.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

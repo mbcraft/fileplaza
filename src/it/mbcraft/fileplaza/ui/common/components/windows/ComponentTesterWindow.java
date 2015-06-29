@@ -30,6 +30,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 /**
+ * This class models a window that can be used for testing components.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -37,6 +38,12 @@ public class ComponentTesterWindow implements IWindow {
     
     private final Stage myStage;
     
+    /**
+     * Creates a ComponentTesterWindow. Requires the JavaFX stage.
+     * 
+     * @param st The JavaFX stage.
+     * @param n The component to test, as a Node instance
+     */
     public ComponentTesterWindow(Stage st,Node n) {
         
         st.setTitle("Component tester");

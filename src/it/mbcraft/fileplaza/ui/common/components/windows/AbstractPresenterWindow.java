@@ -34,6 +34,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ * This abstract class is used to ease the development of
+ * windows presenting information to the user.
+ * This abstract class features a localized window title and an 'Ok'
+ * button used to close the window.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -56,16 +60,36 @@ public abstract class AbstractPresenterWindow implements IWindow {
         initButtonPane();
     }
     
+    /**
+     * This method must add all the content to the window using methods
+     * of this class.
+     */
     protected abstract void initMiddleContent();
     
+    /**
+     * Adds a node to the window container. Nodes are stacked vertically
+     * in a VBox layout.
+     * 
+     * @param n The Node instance to add to this window.
+     */
     protected void addToWindow(Node n) {
         box.getChildren().add(n);
     }
     
+    /**
+     * Sets the spacing between nodes in this window.
+     * 
+     * @param d The spacing double value
+     */
     protected void setSpacing(double d) {
         box.setSpacing(d);
     }
     
+    /**
+     * Sets the padding Insets of the nodes in this window.
+     * 
+     * @param insets The insets to use as padding.
+     */
     protected void setPadding(Insets insets) {
         box.setPadding(insets);
     }
@@ -105,6 +129,10 @@ public abstract class AbstractPresenterWindow implements IWindow {
         box.getChildren().add(pane);
     }
     
+    /**
+     * Resets this window before show. Makes the component
+     * inside this window ready for be shown.
+     */
     protected abstract void reset();
     
     @Override

@@ -21,9 +21,17 @@ package it.mbcraft.fileplaza.ui.common.components;
 import javafx.scene.Node;
 
 /**
+ * This is a common interface for classes that creates and initializes
+ * a single specific Node instance.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface INodeProvider {
+    
+    /**
+     * Returns the created node.
+     * 
+     * @return The fully initialized Node instance.
+     */
     public Node getNode();
 }

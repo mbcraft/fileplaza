@@ -19,7 +19,14 @@
 package it.mbcraft.fileplaza.ui.common.components;
 
 /**
- *
+ * This is a common interface for viewers components that allows
+ * refresh of :
+ * - all items
+ * - a specific index or item
+ * - the currently selected item
+ * 
+ * @param <T> The type viewed by this widget
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IRefreshable<T> {

@@ -29,6 +29,9 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
 /**
+ * This class creates a scrollable image viewer. The widget never shows
+ * scroll bars : it just enables the image to be moved around using a drag
+ * behavior showing an open hand cursor above the image.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -58,6 +61,11 @@ public class ScrollableImageViewer implements INodeProvider {
         });
     }
     
+    /**
+     * Updates the image shown in this scroller.
+     * 
+     * @param img The Image instance of the image to whow.
+     */
     public void updateImage(Image img) {
         lastImageView = new ImageView(img);
         pane.setContent(lastImageView);

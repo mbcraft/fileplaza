@@ -22,7 +22,6 @@ import it.mbcraft.fileplaza.ui.common.components.IViewableElement;
 import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.ui.common.helpers.IconFactory;
 import it.mbcraft.fileplaza.ui.common.helpers.ZoomHelper;
-import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener;
 import it.mbcraft.fileplaza.ui.panels.files.IElementActionListener.SelectionPlace;
 import it.mbcraft.fileplaza.utils.NodeUtils;
 import java.util.ArrayList;
@@ -40,9 +39,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 /**
+ * This class builds on ListCell providing some common methods and a standard
+ * view for items as ListCell s.
+ * It actually features :
+ * - zoom level of items
+ * - a main icon
+ * - a main label text
+ * - a customizable label font
+ * - a list of status icons
+ * - detection of selection place (status icon, main icon, label text or other)
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
- * @param <T>
+ * 
+ * @param <T> The type of the item to be displayed and used to update the cell content
  */
 public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewableElement {
     
@@ -62,6 +71,11 @@ public abstract class ImprovedListCell<T> extends ListCell<T> implements IViewab
     
     protected static final String CELL_FONT = "Arial";
     
+    /**
+     * Creates a cell.
+     * 
+     * @param cellZoomLevelProp The property to be used as zoom value for this cell
+     */
     public ImprovedListCell(IntegerProperty cellZoomLevelProp) {
         
         cellZoomLevelProperty = cellZoomLevelProp;

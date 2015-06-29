@@ -49,10 +49,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
- *
+ * This class extends the GridCell and provides common features to be used
+ * for GridCell s.
+ * It actually features :
+ * - zoom level for cells
+ * - a main cell icon
+ * - a list of status icon
+ * - a label text
+ * - detection of selection place (status icon, main icon, label text or other)
+ * 
+ * The text of the label is broken if needed in order to not exceed 18 character
+ * per line.
+ * 
+ * TO FIX : add setLabelFont and getLabelFont as ImprovedListCell supports this.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
- * @param <T>
+ * 
+ * @param <T> The type viewed and used for updating this cell.
  */
 public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewableElement {
     
@@ -247,7 +260,6 @@ public abstract class ImprovedTileCell<T> extends GridCell<T> implements IViewab
         return requiredWidth;
     }
     
-
     protected double getRequiredCellHeight() {
         
         double statusIconsHeight = 0;

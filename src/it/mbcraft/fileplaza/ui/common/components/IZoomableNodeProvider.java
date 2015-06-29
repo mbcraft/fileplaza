@@ -21,11 +21,17 @@ package it.mbcraft.fileplaza.ui.common.components;
 import javafx.beans.property.IntegerProperty;
 
 /**
+ * Common interface for nodes that can be zoomed in and out.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IZoomableNodeProvider extends INodeProvider {
         
+    /**
+     * Returns the zoomLevel property of the node.
+     * 
+     * @return The IntegerProperty containing the zoom level value
+     */
     public IntegerProperty zoomLevelProperty();
     
 }

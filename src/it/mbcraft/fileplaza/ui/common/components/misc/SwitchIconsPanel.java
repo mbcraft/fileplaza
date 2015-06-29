@@ -30,6 +30,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
+ * This panel enables the selection of a single item from a series of
+ * buttons displayed, showing a panel from a list of available panels.
+ * 
+ * Actually it switches panel stacked on top of an ImprevedStackPane panel.
+ * 
+ * TO FIX : the button and the panel should be added on a single method, enforcing
+ * consistence of data and correct usage of this class.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -40,12 +47,22 @@ public class SwitchIconsPanel implements INodeProvider {
     private final HBox buttonsPane; 
     private int panelCount = 0;
     
+    /**
+     * Creates a SwitchIconsPanel. Needs a list of INodeProviders.
+     * 
+     * @param panels The panels to select from.
+     */
     public SwitchIconsPanel(List<INodeProvider> panels) {
         buttonsPane = new HBox();
         buttonsPane.setPadding(new Insets(5));
         buttonsPane.setSpacing(5);
     }
 
+    /**
+     * Adds a switch icon to this panel.
+     * 
+     * @param icon An ImageView icon for choosing among the available panels.
+     */
     public void addSwitchIcon(ImageView icon) {
         final ToggleButton toggleButton = new ToggleButton("",icon);
         toggleButton.setUserData(new Integer(panelCount));
@@ -71,6 +88,11 @@ public class SwitchIconsPanel implements INodeProvider {
         return buttonsPane;
     }
     
+    /**
+     * Returns the StackPane containing all the panels to be shown.
+     * 
+     * @return The ImprovedStackPane instance
+     */
     public ImprovedStackPane getStackPane() {
         return selector;
     }

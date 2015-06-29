@@ -21,10 +21,20 @@ package it.mbcraft.fileplaza.ui.common.components.misc;
 import javafx.scene.layout.Pane;
 
 /**
+ * This class implements a transparent pane. Transparency is obtained
+ * using JavaFX css styles. It actually features a preferred width and height
+ * to be specified in the panel constructor.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class GlassPane extends Pane {
+    
+    /**
+     * Construct a transparent pane.
+     * 
+     * @param width The preferred width for this pane
+     * @param height The preferred height for this pane
+     */
     public GlassPane(double width,double height) {
         setStyle("-fx-background-color:transparent;");
         setPrefSize(width, height);

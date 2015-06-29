@@ -28,9 +28,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 /**
- * This class is used to set the chosen file in a disabled TextField
- * as is done in many applications.
- * 
+ * This action actually shows a file chooser dialog.
+ * It saves the selected file as object inside a user data container, 
+ * and the file path inside a text field.
+ *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FileChooserAction implements EventHandler<ActionEvent> {
@@ -39,6 +40,12 @@ public class FileChooserAction implements EventHandler<ActionEvent> {
     private final TextField myPathContainer;
     private final FileChooser chooser;
     
+    /**
+     * Creates a file chooser action.
+     * 
+     * @param userDataContainer The Node instance used for saving the selected file instance
+     * @param pathContainer The TextField instance to be updated with the path of the selected folder
+     */
     public FileChooserAction(Node userDataContainer,TextField pathContainer) {
         if (userDataContainer==null) throw new InvalidParameterException("User data container can't be null.");
          

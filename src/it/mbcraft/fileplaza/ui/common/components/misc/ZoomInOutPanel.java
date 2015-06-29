@@ -33,6 +33,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 /**
+ * This panel contains zoom in and out icon buttons.
+ * Contains a zoom level property that can be attached to other widgets/components.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

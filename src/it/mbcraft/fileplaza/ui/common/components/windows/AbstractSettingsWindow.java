@@ -34,7 +34,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
+ * Common helper class for settings window. It features
+ * an 'Ok', 'Cancel' and an optional 'Apply' button.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 @LangResource("common.AbstractSettingsWindow")
@@ -47,6 +49,12 @@ public abstract class AbstractSettingsWindow implements IWindow {
     private boolean dataChanged = false;
     private Button applyButton;
     
+    /**
+     * Creates a window instance.
+     * 
+     * @param title The localized window title
+     * @param showApplyButton true if the apply button must be shown, false otherwise.
+     */
     public AbstractSettingsWindow(String title, boolean showApplyButton) {
         showApply = showApplyButton;
         
@@ -63,22 +71,36 @@ public abstract class AbstractSettingsWindow implements IWindow {
         initButtonPane();
     }
     
+    /**
+     * Sets the title of this window.
+     * 
+     * @param title The new title for this window.
+     */
     public void setWindowTitle(String title) {
         window.setTitle(title);
     }
     
+    /**
+     * Gets the title of this window.
+     * 
+     * @return The title as a string
+     */
     public String getWindowTitle() {
         return window.getTitle();
     }
     
     /**
      * Initializes the middle content of this window.
+     * Must be implemented by subclasses. Inside this method
+     * all the window content must be created and added to the window using 
+     * methods of this class.
      */
     protected abstract void initMiddleContent();
     
     /**
      * Adds a node to the main window body. The nodes are stacked 
      * vertically.
+     * 
      * @param n The node to add.
      */
     protected void addToWindow(Node n) {
@@ -157,18 +179,26 @@ public abstract class AbstractSettingsWindow implements IWindow {
     }
     
     /**
-     * This method must load all the data for this window
+     * This method must load all the data for this window inside
+     * the window components.
+     * This method is called before the window is actually shown.
+     * 
      */
     protected abstract void loadData();
     
     /**
-     * This method must persist all the data for this window
+     * This method must persist all the data for this window.
+     * It is called if the 'Ok' or 'Apply' button are pressed.
+     * It should read data from the components inside the window and save
+     * the settings inside a (permanent) storage.
      */
     protected abstract void saveData();
     
     /**
-     * This method must be called whenever data is changed, in order to 
-     * enable the 'Apply' button. ???
+     * In order to enable the 'Apply' button
+     * only when the data is changed this method must be called whenever
+     * data is changed, in order to enable the 'Apply' button only
+     * when changes to be saved occurs.
      */
     protected final void fireDataChanged() {
         dataChanged = true;
@@ -203,9 +233,13 @@ public abstract class AbstractSettingsWindow implements IWindow {
     }
     
     /**
-     * This method is called before pressing Apply or Ok buttons.
+     * This method is called before pressing 'Apply' or 'Ok' buttons.
+     * If the data is not valid (methods return false) the window is not closed
+     * and some components can be changed or error messages shown allowing
+     * the user to correct its input, otherwise the data is fetched from
+     * the components and saved using saveData.
      * 
-     * @return True if the window can continue in it's action, false otherwise.
+     * @return True if the window can continue in its save, false otherwise.
      */
     protected abstract boolean validateBeforeSave();
 }

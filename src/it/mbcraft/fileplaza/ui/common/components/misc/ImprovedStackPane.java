@@ -26,7 +26,11 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 /**
- *
+ * This class enables panes to be stacked on top of each other, and
+ * to show only a single pane at a time. The panel to be shown
+ * is indexed by a selectedPanel integer property. If the selectedPanel index
+ * is not valid an exception is thrown.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ImprovedStackPane extends StackPane {

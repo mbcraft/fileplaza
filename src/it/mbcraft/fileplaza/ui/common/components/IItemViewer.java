@@ -23,13 +23,25 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.MultipleSelectionModel;
 
 /**
+ * This is a common interface for widgets that enable to view a list
+ * of items and select zero or more items.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * 
  * @param <T> The type of the viewed and selectable items
  */
 public interface IItemViewer<T> {
+    
+    /**
+     * Returns the itemsProperty, as an ObjectProperty
+     * @return The property containing an ObservableList of <T> elements.
+     */
     public ObjectProperty<ObservableList<T>> itemsProperty();
     
+    /**
+     * Returns the selectionModelProperty, as an ObjectProperty
+     * 
+     * @return The property containing a MultipleSelectionModel of <T> elements.
+     */
     public ObjectProperty<MultipleSelectionModel<T>> selectionModelProperty();
 }

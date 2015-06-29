@@ -27,6 +27,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 
 /**
+ * This action actually shows a folder chooser dialog.
+ * It saves the selected folder as object inside a user data container, 
+ * and the folder path inside a text field.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -36,6 +39,12 @@ public class FolderChooserAction implements EventHandler<ActionEvent> {
     private final TextField myPathContainer;
     private final DirectoryChooser chooser;
     
+    /**
+     * Creates a folder chooser action.
+     * 
+     * @param userDataContainer The Node instance used for saving the selected folder instance
+     * @param pathContainer The TextField instance to be updated with the path of the selected folder
+     */
     public FolderChooserAction(Node userDataContainer,TextField pathContainer) {
         myUserDataContainer = userDataContainer;
         myPathContainer = pathContainer;

@@ -21,6 +21,13 @@ package it.mbcraft.fileplaza.ui.common.components.windows;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 
 /**
+ * This abstract window class helps the creation of windows that
+ * have an 'editing' behaviour.
+ * It actually features a localized window title, and two editing modes :
+ * EDIT and NEW.
+ * 
+ * TO FIX : edit title and new title should be passed as parameters and should
+ * not depend on 'EditDictionary_Window'.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -19,11 +19,15 @@
 package it.mbcraft.fileplaza.ui.common.components.windows;
 
 /**
+ * Common interface for windows.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IWindow {
 
+    /**
+     * Shows the window and wait, until it is closed or hidden.
+     */
     public void showAndWait();
     
 }

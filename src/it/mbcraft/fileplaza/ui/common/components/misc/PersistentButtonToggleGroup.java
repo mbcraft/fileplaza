@@ -17,8 +17,6 @@
  */
 package it.mbcraft.fileplaza.ui.common.components.misc;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.control.Toggle;
@@ -27,6 +25,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * Creates a persistent button toggle group, showing a pressed toggle button
+ * of the chosen option.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
