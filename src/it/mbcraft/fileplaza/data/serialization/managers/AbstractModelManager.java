@@ -24,9 +24,10 @@ import java.io.File;
 import java.util.List;
 
 /**
- * This class defines how a model is serialized. 
+ * This abstract class defines how a model is serialized. 
+ * It builds upon IObjectStorage to provide a cleaner interface.
  * 
- * @param <T> The model class
+ * @param <T> The model class to save or read
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * 
@@ -56,9 +57,9 @@ public abstract class AbstractModelManager<T> {
     
     /**
      * Returns true if the model serialized is a singleton, 
-     * false otherwise.
+     * false otherwise, eg there is only one model to read or save.
      * 
-     * @return true if the model class is singleton, false otherwise.
+     * @return true if the model class is only one, false otherwise.
      */
     public abstract boolean isSingleton();
     
@@ -71,7 +72,7 @@ public abstract class AbstractModelManager<T> {
     public abstract String getModelKey(T obj);
     
     /**
-     * This method as been added to enable AbstractModelManager automatic detection.
+     * This method has been added to enable AbstractModelManager automatic detection.
      * 
      * @return The root element name of this serialized model class 
      */
@@ -85,10 +86,10 @@ public abstract class AbstractModelManager<T> {
     public abstract Class getDataClass();
     
     /**
-     * Returns the XStream configured serializer object or another kind
-     * of serializer.
+     * Returns the configured serializer object used to read and
+     * write model instances.
      * 
-     * @return The serializer
+     * @return The serializer to be used
      */
     public abstract ISerializer getSerializer();
     
@@ -163,7 +164,7 @@ public abstract class AbstractModelManager<T> {
     /**
      * Reads a single object from a file
      * 
-     * @param source The xml file to deserialize the object from
+     * @param source The file to deserialize the object from
      * @return The object deserializeed
      */
     public T loadFrom(File source) {
@@ -181,7 +182,7 @@ public abstract class AbstractModelManager<T> {
     }
     
     /**
-     * Save an object to an xml file.
+     * Save an object to a file. The format depends by the serializer.
      * 
      * @param toSave The object to save or update
      * @param dest The file used to save the object
@@ -195,6 +196,8 @@ public abstract class AbstractModelManager<T> {
 
     /**
      * Returns this model singleton
+     * 
+     * TO FIX : maybe check that isSingleton is true
      * 
      * @return The singleton model for this serializer
      */

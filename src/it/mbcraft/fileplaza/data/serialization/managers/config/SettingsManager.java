@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.data.serialization.managers.config;
 
-import it.mbcraft.fileplaza.data.serialization.storages.StorageHelper;
+import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
@@ -27,13 +27,14 @@ import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
 import java.io.File;
 
 /**
- *
+ * Settings model manager implementation.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class SettingsManager extends AbstractModelManager<Settings> {
 
     public SettingsManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_CONFIG_PATH)));
+        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_CONFIG_PATH)));
     }
     
     @Override

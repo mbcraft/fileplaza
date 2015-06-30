@@ -26,17 +26,17 @@ import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageHelper;
+import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import java.io.File;
 
 /**
- * This class handles the serialization of generic 
+ * FileElement model manager implementation.
  * 
  */
 public class FileElementManager extends AbstractModelManager<FileElement> {
 
     public FileElementManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_FILE_ELEMENTS_PATH)));
+        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_FILE_ELEMENTS_PATH)));
     }
 
     @Override

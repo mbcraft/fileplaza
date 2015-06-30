@@ -23,18 +23,18 @@ import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageHelper;
+import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.utils.DigestUtils;
 import java.io.File;
 
 /**
- * This class defines where and how LabelSet instances are finded and saveToOrUpdated.
+ * LabelSet Model manager implementation.
  * 
  */
 public class LabelSetManager extends AbstractModelManager<LabelSet> {
 
     public LabelSetManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_LABEL_SETS_PATH)));
+        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_LABEL_SETS_PATH)));
     }
 
     @Override

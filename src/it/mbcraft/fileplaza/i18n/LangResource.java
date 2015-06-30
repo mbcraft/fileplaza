@@ -24,6 +24,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Annotation used to specify which language file to use for a specific
+ * class.
+ * 
+ * The value specified is the "short path" of the language file, without extension.
+ * 
+ * eg. : @LangResource("common.AbstractSettingsWindow")
+ * 
+ * fetches localized messages from : it.mbcraft.fileplaza.i18n.common.AbstractPresenterWindow*.properties
+ * 
+ * where * is an empty string or the language and country short code, eg "_it".
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

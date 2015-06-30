@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileFilter;
 
 /**
+ * FileFilter implementation that returns only files (no directories).
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

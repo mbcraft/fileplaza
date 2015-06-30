@@ -44,20 +44,40 @@ public class StorageInfo {
     
     private final Properties myProperties;
     
+    /**
+     * Creates a StorageInfo instance, with a random UUID and not read only.
+     */
     public StorageInfo() {
         myProperties = new Properties();
         myProperties.put(STORAGE_UUID_KEY, UUID.randomUUID().toString());
         myProperties.put(READ_ONLY_KEY, "false");
     }
     
+    /**
+     * Create a StorageInfo from a Properties instance.
+     * 
+     * @param pt The Properties used to create the StorageInfo
+     */
     StorageInfo(Properties pt) {
         myProperties = pt;
     }
     
+    /**
+     * Returns the UUID of this StorageInfo
+     * 
+     * @return The UUID of this StorageInfo
+     */
     public UUID getStorageUUID() {
         return UUID.fromString(myProperties.getProperty(STORAGE_UUID_KEY));
     }
     
+    /**
+     * Loads the StorageInfo from a File.
+     * 
+     * @param storageFile The path of the StorageInfo file.
+     * @return The initialized StorageInfo instance
+     * @throws IOException If something goes wrong
+     */
     public static StorageInfo loadFrom(File storageFile) throws IOException {
         try (FileInputStream fis = new FileInputStream(storageFile)) {
             Properties pt = new Properties();
@@ -66,6 +86,12 @@ public class StorageInfo {
         }
     }
     
+    /**
+     * Save the current StorageInfo to a file.
+     * 
+     * @param storageFile The path where to save the StorageInfo
+     * @throws IOException If something goes wrong
+     */
     public void saveTo(File storageFile) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(storageFile)) {
             myProperties.store(fos, "StorageInfo data");

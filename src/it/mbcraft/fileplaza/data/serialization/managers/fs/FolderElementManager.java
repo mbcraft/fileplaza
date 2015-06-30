@@ -26,16 +26,16 @@ import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageHelper;
+import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import java.io.File;
 
 /**
- * This class defines where and how FolderElement instances are finded and saveToOrUpdated.
+ * FolderElement model manager implementation. 
  */
 public class FolderElementManager extends AbstractModelManager<FolderElement> {
 
     public FolderElementManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_FOLDER_ELEMENTS_PATH)));
+        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_FOLDER_ELEMENTS_PATH)));
     }
     
     @Override

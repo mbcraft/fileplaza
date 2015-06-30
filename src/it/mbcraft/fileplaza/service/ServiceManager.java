@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class handles the service start/stop behaviour
+ * This class handles the service start/stop behavior
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

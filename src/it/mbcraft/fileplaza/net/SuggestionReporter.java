@@ -24,20 +24,48 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 /**
+ * This class is used to send suggestions to the fileplaza web site, in order
+ * to collect the data useful for improving the software.
+ * 
+ * TO BE IMPLEMENTED
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class SuggestionReporter {
     
-    public void reportBug(int type,String title, String description, File attach1, File attach2, File attach3) {
+    /**
+     * Reports a bug the the FilePlaza web site.
+     * @param type the type of bug reported
+     * @param title the title for the bug
+     * @param description A brief description of the bug
+     * @param attach1 First attachment, can be null
+     * @param attach2 Second attachment, can be null
+     * @param attach3 Third attachment, can be null
+     */
+    public void reportBug(int type,String title, String description, 
+            File attach1, File attach2, File attach3) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
     }
     
+    /**
+     * Suggests a feature sending report data to the FilePlaza web site.
+     * 
+     * @param type The type of the feature to suggest
+     * @param title The feature title
+     * @param description The a brief description of the feature
+     */
     public void suggestFeature(int type,String title, String description) {
-        
+        CloseableHttpClient httpclient = HttpClients.createDefault();
     }
     
+    /**
+     * Updates the application review for this user, sending data to 
+     * the FilePlaza web site.
+     * 
+     * @param review The ApplicationReview instance containing the application 
+     * review data
+     */
     public void updateApplicationReview(ApplicationReview review) {
-        
+        CloseableHttpClient httpclient = HttpClients.createDefault();
     }
 }

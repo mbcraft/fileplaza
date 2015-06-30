@@ -27,7 +27,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 /**
- * Language helper class.
+ * Language helper class. This class is used to fetch localized messages
+ * from the translation files inside the software (they are built inside the jar s).
+ * It can be used with static import, providing very short methods for doing
+ * string internationalization.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -40,19 +43,35 @@ public class Lang {
     private static String currentPath = null;
     private static ResourceBundle currentBundle = null;
     
-    public static void init(String language) {
+    /**
+     * Initializes this helper class with a specific language.
+     * 
+     * @param languageCode The language code to use, as a string
+     */
+    public static void init(String languageCode) {
         logger.config("Configuring Localization class ...");
         getAllSupportedLanguages();
         
-        String langCode = getShortLanguageCode(language);
+        String langCode = getShortLanguageCode(languageCode);
         logger.info("Setting current locale to : " + langCode);
         setLocale(langCode);
     }
     
+    /**
+     * Returns the list of all supported languages.
+     * 
+     * @return A list of all supported languages.
+     */
     public static List<String> getAllSupportedLanguages() {
         return Arrays.asList(new String[] {"Italiano".intern(),"English".intern()});
     }
     
+    /**
+     * Returns the short language code for a given supported language.
+     * 
+     * @param language The full language name
+     * @return The language short code
+     */
     private static String getShortLanguageCode(String language) {
         switch (language) {
             case "Italiano" : return "it";
@@ -61,14 +80,31 @@ public class Lang {
         }
     }
     
+    /**
+     * Sets the locale to use for the localized messages
+     * 
+     * @param loc Sets the locale to be used
+     */
     public static void setLocale(Locale loc) {
         Locale.setDefault(loc);
     }
     
+    /**
+     * Sets the locale to use and the specific country by language
+     * and country short codes
+     * 
+     * @param language The language short code
+     * @param country The country short code
+     */
     public static void setLocale(String language, String country) {
         Locale.setDefault(new Locale(language, country));
     }
     
+    /**
+     * Sets the locale to use by its language name
+     * 
+     * @param language The language name
+     */
     public static void setLocale(String language) {
         Locale.setDefault(new Locale(language));
     }   
@@ -212,6 +248,11 @@ public class Lang {
         return setupWithInstanceAndGetArray(from, key);
     }
 
+    /**
+     * Returns the current language in use
+     * 
+     * @return The current language string
+     */
     public static String getCurrentLanguage() {
         return Locale.getDefault().getLanguage();
     }

@@ -25,11 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DirObjectStorage
- 
- Current version : basic model saveToOrUpdate, findByKey, findAll, deleteByKey, check, rename and deleteAll.
- * No subdirectories supported for improving structure. All files are copied and
- * only File type is supported. Permission check is done during creation.
+ * This implementation of IObjectStorage interface stores all the data objects
+ * inside files in a single folder, using the provided key as a file name
+ * and a default file extension.
+ * Permission check is done during creation.
  * 
  */
 public class DirObjectStorage implements IObjectStorage {
@@ -39,7 +38,7 @@ public class DirObjectStorage implements IObjectStorage {
     private final File _rootDir;
     
     /**
-     * Creates a new storage using dir as root.
+     * Creates a new storage using a directory as root.
      * 
      * @param rootDir The root of the storage.
      */
@@ -95,7 +94,7 @@ public class DirObjectStorage implements IObjectStorage {
     }
     
     /**
-     * Deletes all the content of the storage.
+     * Deletes all the objects inside this storage.
      */
     @Override
     public void deleteAll() {
@@ -121,12 +120,11 @@ public class DirObjectStorage implements IObjectStorage {
     }
 
     /**
-     * Store a file inside this storage. The file is copied and the name is
-     * left unaltered.
+     * Store an object inside this storage, which is mapped to a file.
      * 
-     * @param model The model to saveToOrUpdate
+     * @param model The object to saveToOrUpdate
      * @param key The key to use for saving this object
-     * @param sz The serializer used to convert binary data to object instances
+     * @param sz The serializer used to convert object instances to binary data
      */
     @Override
     public void saveOrUpdate(Object model, String key, ISerializer sz) {
@@ -139,9 +137,9 @@ public class DirObjectStorage implements IObjectStorage {
     }
                 
     /**
-     * Deletes a file from the storage.
+     * Deletes an object from the storage.
      * 
-     * @param key The filename of the file to deleteByKey.
+     * @param key The key of the object to delete, which is mapped to a file
      */
     @Override
     public void deleteByKey(String key) {
@@ -152,11 +150,12 @@ public class DirObjectStorage implements IObjectStorage {
     }
     
     /**
-     * Checks if this storage has a file named fileName inside.
+     * Checks if this storage has an object with a specified key, mapping
+     * it to a file inside the storage
      * 
-     * @param key The filename to check
+     * @param key The key to check
      * 
-     * @return true if this filename exists inside the storage, false otherwise.
+     * @return true if an object with this key exists, false otherwise
      */
     @Override
     public boolean hasKey(String key) {
@@ -167,11 +166,15 @@ public class DirObjectStorage implements IObjectStorage {
     }
     
     /**
-     * Retrieves the file specified by filename saveToOrUpdateOrUpdated inside this storage.
+     * Retrieves the object with the specified key inside this storage.
+     * The hasKey method must be called before using this one.
      * 
-     * @param key The name of the file to find.
+     * TO FIX : rename to load, or make it return null if key is not valid
+     * 
+     * 
+     * @param key The name of the object to find, which is mapped to a file.
      * @param sz The serializer used to convert binary data to object instances
-     * @return The find file in its original position.
+     * @return The object found
      */
     @Override
     public Object find(String key, ISerializer sz) {

@@ -30,7 +30,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Utility classes for dealing with StorageInfo
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class StorageInfoUtils {

@@ -23,11 +23,11 @@ import java.util.List;
 
 /**
  * This interface rapresents a storage for models. Multiple models can
- be stored within the same IObjectStorage.
+ * be stored within the same IObjectStorage.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * 
- * @param <T>
+ * @param <T> The object type to store
  */
 public interface IObjectStorage<T> {
 
@@ -53,6 +53,8 @@ public interface IObjectStorage<T> {
      * 
      * @param oldKey The old key
      * @param newKey The new key
+     * 
+     * @return true if the rename is successful, false otherwise
      */
     boolean rename(String oldKey, String newKey);
 

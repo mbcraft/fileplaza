@@ -19,10 +19,11 @@
 package it.mbcraft.fileplaza.data.serialization.storages;
 
 /**
+ * This class contains storage constants used for storing data of FilePlaza 
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class StorageHelper {
+public class StorageConstants {
 
     public static final String DEFAULT_CONFIG_PATH = "data/config/";
     public static final String DEFAULT_PREVIEW_PATH = "data/previews/";

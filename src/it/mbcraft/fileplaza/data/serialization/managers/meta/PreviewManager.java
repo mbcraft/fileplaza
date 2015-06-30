@@ -22,12 +22,13 @@ import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.ImageSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageHelper;
+import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
 
 /**
+ * Model manager class for BufferedImage used for previews.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -36,7 +37,7 @@ public class PreviewManager extends AbstractModelManager<BufferedImage> {
     private final Random rnd = new Random();
     
     public PreviewManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageHelper.DEFAULT_PREVIEW_PATH)));
+        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_PREVIEW_PATH)));
     }
 
     @Override
