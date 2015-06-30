@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.panels.files.drive;
 
-import it.mbcraft.fileplaza.service.os.DriveIdentifier;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier;
 import it.mbcraft.fileplaza.ui.common.IconReference;
 import it.mbcraft.fileplaza.ui.common.components.listview.ImprovedListCell;
 import javafx.beans.property.IntegerProperty;

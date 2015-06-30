@@ -16,13 +16,22 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.service.os;
+package it.mbcraft.fileplaza.service.drivewatch.os;
+
+import java.nio.file.FileStore;
+import java.util.List;
 
 /**
- * MacOS Drive list updater. Same behaviour as Linux.
+ * Interfaces shared by DriveListUpdater implementations.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class MacOSDriveListUpdater extends LinuxDriveListUpdater {
+public interface IDriveListUpdater {
     
+    /**
+     * Update the DriveList given the iterable FileStore.
+     * @param stores The iterable FileStore.
+     * @param driveListProperty The drive list property to update.
+     */
+    public void updateDriveList(Iterable<FileStore> stores,List<DriveIdentifier> driveListProperty);
 }

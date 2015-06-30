@@ -19,9 +19,7 @@
 package it.mbcraft.fileplaza.data.serialization.storages;
 
 import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
-import it.mbcraft.fileplaza.state.devices.FileOnlyFileFilter;
 import java.io.File;
-import java.io.FileFilter;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ import java.util.List;
  */
 public class DirObjectStorage implements IObjectStorage {
     
-    private static final FileFilter FILES_ONLY = new FileOnlyFileFilter();
+    private static final FileOnlyFileFilter FILES_ONLY = new FileOnlyFileFilter();
     
     private final File _rootDir;
     

@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.service.os;
+package it.mbcraft.fileplaza.service.drivewatch.os;
 
 import it.mbcraft.fileplaza.data.storage_device.StorageInfo;
 import it.mbcraft.fileplaza.data.storage_device.StorageInfoUtils;

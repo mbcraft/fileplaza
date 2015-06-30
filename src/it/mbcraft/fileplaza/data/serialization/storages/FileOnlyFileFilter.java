@@ -16,29 +16,22 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.state.devices;
-
+package it.mbcraft.fileplaza.data.serialization.storages;
 
 import java.io.File;
-import java.security.InvalidParameterException;
+import java.io.FileFilter;
 
 /**
- * This class rapresents a DeviceChangeEvent. It contains the root File
- * of the changed device.
- * 
+ *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class DeviceChangeEvent {
-    
-    private final File deviceRootFile;
-    
-    public DeviceChangeEvent(File deviceRootFile) {
-        if (!deviceRootFile.isDirectory()) 
-            throw new InvalidParameterException("Only folders can be device roots.");
-        this.deviceRootFile = deviceRootFile;
+public class FileOnlyFileFilter implements FileFilter {
+
+    @Override
+    public boolean accept(File pathname) {
+        if (pathname.isFile())
+            return true;
+        else return false;
     }
     
-    public File getDeviceRootFile() {
-        return deviceRootFile;
-    }
 }

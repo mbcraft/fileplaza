@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.state;
 
-import it.mbcraft.fileplaza.service.os.DriveIdentifier;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier;
 import java.io.File;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;

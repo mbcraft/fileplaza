@@ -16,9 +16,10 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.service;
+package it.mbcraft.fileplaza.service.drivewatch;
 
-import it.mbcraft.fileplaza.service.os.DriveIdentifier;
+import it.mbcraft.fileplaza.service.IService;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.util.Iterator;
@@ -27,7 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Checks if the drive list changes (a storage device is attached or detached)
+ * and updates the drive list accordingly.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class DriveWatchService implements IService {
@@ -35,9 +38,12 @@ public class DriveWatchService implements IService {
     private final DriveWatchServiceRunnable runner;
     private Thread runnerThread = null;
     
+    /**
+     * Creates a drive watch service.
+     * 
+     * @param driveList The list of drives to update
+     */
     public DriveWatchService(List<DriveIdentifier> driveList) {
-        //mandatory check if not previously done
-        checkFileStoreToStringBehaviour();
         //ok
         runner = new DriveWatchServiceRunnable(driveList);
     }
@@ -46,17 +52,7 @@ public class DriveWatchService implements IService {
     public String getName() {
         return "DriveWatchService";
     }
-    
-    public static void checkFileStoreToStringBehaviour() throws IllegalStateException {
-        Iterator<FileStore> itfs = FileSystems.getDefault().getFileStores().iterator();
-        while (itfs.hasNext()) {
-            FileStore fs = itfs.next();
-            String fsString = fs.toString();
-            if (fsString.indexOf(" (")==-1)
-                throw new IllegalStateException("FileStore.toString() does not behave as expected in "+System.getProperty("java.vendor")+" Java "+System.getProperty("java.version"));
-        }
-    }
-    
+        
     @Override
     public void start() {
         runnerThread = new Thread(runner);
@@ -78,5 +74,17 @@ public class DriveWatchService implements IService {
         } catch (InterruptedException ex) {
             Logger.getLogger(DriveWatchService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public boolean canRun() {
+        Iterator<FileStore> itfs = FileSystems.getDefault().getFileStores().iterator();
+        while (itfs.hasNext()) {
+            FileStore fs = itfs.next();
+            String fsString = fs.toString();
+            if (fsString.indexOf(" (")==-1)
+                return false;
+        }
+        return true;
     }
 }

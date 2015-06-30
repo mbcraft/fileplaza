@@ -16,9 +16,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.service.os;
+package it.mbcraft.fileplaza.service.drivewatch.os;
 
-import it.mbcraft.fileplaza.service.os.DriveIdentifier.DriveType;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier.DriveType;
 import java.io.IOException;
 import java.nio.file.FileStore;
 import java.util.ArrayList;

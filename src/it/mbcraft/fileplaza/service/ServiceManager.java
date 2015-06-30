@@ -18,42 +18,50 @@
 
 package it.mbcraft.fileplaza.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * This interface is implemented by active services (threads) that are
- * running for providing functionalities useful for the application.
- * 
+ * This class handles the service start/stop behaviour
+ *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public interface IService {
+public class ServiceManager {
     
+    private static List<IService> services = new ArrayList<>();
     
     /**
-     * Checks if this service can be run (the environment is ok).
+     * Adds a service to the list of services to be run.
      * 
-     * @return true if this service can run, false otherwise
+     * @param service The service to add
      */
-    public boolean canRun();
-    /**
-     * Returns the name of this service
-     * 
-     * @return The service name as a string
-     */
-    public String getName();
+    public static void addService(IService service) {
+        services.add(service);
+    }
     
     /**
-     * Returns the running status of this service
-     * 
-     * @return true if this service is active, false otherwise
+     * Starts all the previously added services
      */
-    public boolean isActive();
+    public static void startAllServices() {
+        for (IService s : services) {
+            if (s.canRun() && !s.isActive())
+                s.start();
+            else
+            {
+                throw new IllegalStateException("The service "+s.getName()+" can't be run!!");
+            }
+        }
+    }
     
     /**
-     * Starts this service
+     * Stops all the previously started services
      */
-    public void start();
+    public static void stopAllServices() {
+        for (IService s : services) {
+            if (s.isActive())
+                s.stop();
+        }
+    }
     
-    /**
-     * Stops this service
-     */
-    public void stop();
+    
 }

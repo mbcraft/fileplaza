@@ -18,7 +18,7 @@
 
 package it.mbcraft.fileplaza.ui.panels.files;
 
-import it.mbcraft.fileplaza.service.DriveWatchService;
+import it.mbcraft.fileplaza.service.drivewatch.DriveWatchService;
 import it.mbcraft.fileplaza.state.CurrentDriveState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import it.mbcraft.fileplaza.ui.common.components.misc.ImprovedStackPane;

@@ -20,7 +20,7 @@ package it.mbcraft.fileplaza.ui.main.browse.path;
 
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
-import it.mbcraft.fileplaza.service.os.DriveIdentifier;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier;
 import it.mbcraft.fileplaza.state.CurrentDriveState;
 import it.mbcraft.fileplaza.state.CurrentDirectoryState;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;

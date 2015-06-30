@@ -16,11 +16,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.service;
+package it.mbcraft.fileplaza.service.drivewatch;
 
-import it.mbcraft.fileplaza.service.os.DriveIdentifier;
-import it.mbcraft.fileplaza.service.os.DriveListUpdaterFactory;
-import it.mbcraft.fileplaza.service.os.IDriveListUpdater;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveIdentifier;
+import it.mbcraft.fileplaza.service.drivewatch.os.DriveListUpdaterFactory;
+import it.mbcraft.fileplaza.service.drivewatch.os.IDriveListUpdater;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 
 /**
+ * This class is the actual Runnable implementation of the DriveWatchService.
+ * Checks for drive changes and updates the drive list accordingly.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

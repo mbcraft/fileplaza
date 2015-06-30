@@ -16,30 +16,13 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.state.devices;
-
-import java.util.EventListener;
-
-
+package it.mbcraft.fileplaza.service.drivewatch.os;
 
 /**
- *
+ * MacOS Drive list updater. Same behaviour as Linux.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public interface IDeviceChangeListener extends EventListener {
-    
-    /**
-     * Gets called when a new device is added
-     * 
-     * @param ev The event containing the added file device
-     */
-    public void deviceAdded(DeviceChangeEvent ev);
-    
-    /**
-     * Gets called when a device is removed
-     * 
-     * @param ev The event containing the removed file device
-     */
-    public void deviceRemoved(DeviceChangeEvent ev);
+public class MacOSDriveListUpdater extends LinuxDriveListUpdater {
     
 }
