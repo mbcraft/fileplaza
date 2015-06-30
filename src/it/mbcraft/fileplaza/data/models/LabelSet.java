@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * This class models an enumeration list. Its key is given as an md5 hash
+ * This class models an enumeration of labels. Its key is given as an md5 hash
  * of its type name.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
@@ -32,16 +32,16 @@ import java.util.Set;
 public class LabelSet {
     
     /**
-     * The shortTitle of this user defined enum
+     * The shortTitle of this label set
      */
     private String shortTitle;
     
     /**
-     * The enabled state of this user defined enum
+     * The enabled state of this label set
      */
     private boolean enabled;
     /**
-     * The set name of this label set.
+     * The name of this label set.
      */
     private String setName;
             
@@ -60,31 +60,55 @@ public class LabelSet {
     
     
     /**
-     * @return the enabled
+     * Returns the enabled state of this label set
+     * 
+     * @return true if this label set is enabled, false otherwise
      */
     public boolean isEnabled() {
         return enabled;
     }
 
     /**
-     * @param enabled the enabled to set
+     * Sets the enabled state of this label set
+     * 
+     * @param enabled the state to set
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
      
+    /**
+     * Returns the label set name
+     * 
+     * @return the name of this set as a string
+     */
     public String getSetName() {
         return this.setName;
     }
     
+    /**
+     * Sets the label set name as a string
+     * 
+     * @param setName the name of the label set
+     */
     public void setSetName(String setName) {
         this.setName = setName;
     }
             
+    /**
+     * Return the labels in this label set
+     * 
+     * @return the label as a map
+     */
     public Map<String,String> getLabels() {
         return values;
     }
 
+    /**
+     * Sets the labels in this label set
+     * 
+     * @param values The map containing all the labels of this set.
+     */
     public void setLabels(Map<String,String> values) {
         this.values = values;
     }

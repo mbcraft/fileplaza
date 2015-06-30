@@ -34,6 +34,9 @@ import javafx.scene.input.ClipboardContent;
 
 /**
  * Detects for image in the clipboard or new file added to user home.
+ * Factory class for screen shots.
+ * 
+ * FIX IT : should be a singleton
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -43,11 +46,16 @@ public class CustomPreviewFactory {
     private BufferedImage lastScreenshot = null;
     private final Clipboard clipboard;
 
-    
+    /**
+     * Creates an instance of this screen shot factory.
+     */
     public CustomPreviewFactory() {
         clipboard = Clipboard.getSystemClipboard();
     }
     
+    /**
+     * Waits until a screen shot is found.
+     */
     private void waitForScreenshot() {
         setupBeforeScreenshot();
         
@@ -71,16 +79,29 @@ public class CustomPreviewFactory {
 
     }
     
+    /**
+     * Gets the last screen shot picked as a BufferedImage
+     * 
+     * @return the last screen shot
+     */
     private BufferedImage getLastScreenshot() {
         return lastScreenshot;
 
     }
     
+    /**
+     * Waits until a screen shot is not done.
+     * 
+     * @return a BufferedImage containing the screen shot
+     */
     public BufferedImage fetchCustomPreview() {
         waitForScreenshot();
         return getLastScreenshot();
     }
     
+    /**
+     * Does some setup before attempting to detect a new screen shot
+     */
     private void setupBeforeScreenshot() {
         lastScreenshot = null;
         //Update home files
@@ -92,6 +113,13 @@ public class CustomPreviewFactory {
         clipboard.setContent(new ClipboardContent());
     }
     
+    /**
+     * Checks if the user home has new files since the last setup.
+     * This is done because in some linux distros saves the screen shot directly 
+     * inside the user home.
+     * 
+     * @return true if the home directory has new files, false otherwise
+     */
     private boolean hasNewFiles() {
         File home = FileUtils.getUserHomeDir();
         File[] files = home.listFiles();
@@ -101,14 +129,25 @@ public class CustomPreviewFactory {
             return false;
     }
     
+    /**
+     * Checks if there is an image inside the clipboard
+     * 
+     * @return true if there is an image inside the clipboard, false otherwise
+     */
     private boolean hasImageInClipboard() {
         return clipboard.hasImage();
     }
     
+    /**
+     * Updates the last screen shot image picking it from the system clipboard.
+     */
     private void updateLastScreenshotFromClipboard() {
         lastScreenshot = SwingFXUtils.fromFXImage(clipboard.getImage(),null);
     }
     
+    /**
+     * Updates the last screen shot image picking it from the home directory as an image file
+     */
     private void updateLastScreenshotFromFile() {
         File home = FileUtils.getUserHomeDir();
         File[] files = home.listFiles();

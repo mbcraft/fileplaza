@@ -21,9 +21,18 @@ package it.mbcraft.fileplaza.data.models.listeners;
 import java.util.EventListener;
 
 /**
+ * This interface is implemented by listeners of file system change
+ * events.
+ * 
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IFSElementChangeListener extends EventListener {
+    
+    /**
+     * This method is called whenever a file system element is changed.
+     * 
+     * @param ev The change details that occurred, as a FSElementChangeEvent instance
+     */
     public void fsElementChanged(FSElementChangeEvent ev);
 }

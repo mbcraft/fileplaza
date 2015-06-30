@@ -22,18 +22,28 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
+ * Contains a single change done to a single filesystem element.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ChangeHistory {
     
-    
+    /**
+     * Creates a new instance.
+     * 
+     * @param changeDate The date when the change occurred
+     * @param changeType The type of change that occurred
+     * @param oldValue The old value before the change occurred
+     */
     public ChangeHistory(Date changeDate, ChangeType changeType, Object oldValue) {
         this.changeDate = changeDate;
         this.changeType = changeType;
         this.oldValue = oldValue;
     }
     
+    /**
+     * Creates an uninitialized instance.
+     */
     public ChangeHistory() {
         
     }
@@ -43,41 +53,65 @@ public class ChangeHistory {
     private Object oldValue;
 
     /**
-     * @return the changeDate
+     * Gets the change date of this ChangeHistory.
+     * 
+     * @return the changeDate as a Date object
      */
     public Date getChangeDate() {
         return changeDate;
     }
 
     /**
-     * @param changeDate the changeDate to set
+     * Sets the change date of this ChangeHistory
+     * 
+     * @param changeDate the changeDate as a Date object
      */
     public void setChangeDate(Date changeDate) {
         this.changeDate = changeDate;
     }
     
+    /**
+     * Gets the change type of this ChangeHistory
+     * 
+     * @return the ChangeType of this ChangeHistory
+     */
     public ChangeType getChangeType() {
         return changeType;
     }
     
+    /**
+     * Sets the ChangeType of this ChangeHistory
+     * 
+     * @param type the type of this change as a ChangeType instance
+     */
     public void setChangeType(ChangeType type) {
         this.changeType = type;
     }
 
     /**
-     * @return the oldValue
+     * Gets the value before this change occurred.
+     * 
+     * @return the oldValue as a generic Object
      */
     public Object getOldValue() {
         return oldValue;
     }
 
     /**
-     * @param oldValue the oldValue to set
+     * Sets the old value before this change occurred.
+     * 
+     * @param oldValue the oldValue as a generic Object instance
      */
     public void setOldValue(Object oldValue) {
         this.oldValue = oldValue;
     }
     
+    /**
+     * Static enumeration containing the type of changes that are recorded. Actually
+     * only two changes are recorded into history :
+     * - CONTENT : the content of the element is changed
+     * - PATH : the path of the element is changed
+     */
     public static enum ChangeType {
         CONTENT, PATH
     }

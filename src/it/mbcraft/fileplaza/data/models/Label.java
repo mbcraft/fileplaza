@@ -19,6 +19,8 @@
 package it.mbcraft.fileplaza.data.models;
 
 /**
+ * This class models a label for a file (maybe in the future can be on other
+ * entities)
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -26,18 +28,38 @@ public class Label {
     private String name;
     private String colorAsString;
     
+    /**
+     * Sets the name of this label
+     * 
+     * @param newName The name of this label as a string
+     */
     public void setName(String newName) {
         this.name = newName;
     }
     
+    /**
+     * Gets the name of this label as a string
+     * 
+     * @return The name of this label
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * Sets the color of this label as a string
+     * 
+     * @param colorString The string color for this label
+     */
     public void setColorAsString(String colorString) {
         this.colorAsString = colorString;
     }
     
+    /**
+     * Gets the color of this label as a string
+     * 
+     * @return the string rapresenting the color of this label
+     */
     public String getColorAsString() {
         return colorAsString;
     }

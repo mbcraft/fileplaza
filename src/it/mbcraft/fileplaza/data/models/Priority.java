@@ -19,7 +19,8 @@
 package it.mbcraft.fileplaza.data.models;
 
 /**
- *
+ * This class models a priority that can be attached to a file
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public enum Priority {

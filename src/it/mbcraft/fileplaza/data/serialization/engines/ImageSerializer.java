@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 /**
+ * Implementation of ISerializer reading and writing images in jpeg format.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

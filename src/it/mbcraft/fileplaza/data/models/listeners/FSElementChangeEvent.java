@@ -21,17 +21,30 @@ package it.mbcraft.fileplaza.data.models.listeners;
 import it.mbcraft.fileplaza.data.models.AbstractFileSystemElement;
 
 /**
- *
+ * This class contains details about the change that
+ * occurred to a file system element.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FSElementChangeEvent {
     
     private final AbstractFileSystemElement _fsElement;
 
+    /**
+     * Construct a FSElementChangeEvent. Needs a reference to the
+     * file system element that changed
+     * 
+     * @param _currentFse the instance of the AbstractFileSystemElement that changed
+     */
     public FSElementChangeEvent(AbstractFileSystemElement _currentFse) {
         _fsElement = _currentFse;
     }
     
+    /**
+     * Gets the AbstractFileSystemElement that changed.
+     * 
+     * @return the instance of the element that changed
+     */
     public AbstractFileSystemElement getAbstractFileSystemElement() {
         return _fsElement;
     }

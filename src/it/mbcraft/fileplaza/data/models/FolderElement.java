@@ -24,12 +24,16 @@ import java.security.InvalidParameterException;
 import java.util.Date;
 
 /**
- * This class models a folder index with its tags
+ * This class models a folder with its tags and associated meta data.
+ * Inherits from AbstractFileSystemElement.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class FolderElement extends AbstractFileSystemElement {
     
+    /**
+     * Builds a new FolderElement.
+     */
     public FolderElement() {
         super(AbstractFileSystemElement.Type.FOLDER);
     }
@@ -58,6 +62,12 @@ public class FolderElement extends AbstractFileSystemElement {
         return partialHashCode();
     }
 
+    /**
+     * Setup this object with an existing file. The file must point to a 
+     * valid directory.
+     * 
+     * @param f The File used for setting up this object : must be a valid directory
+     */
     public void setupWithFolder(File f) {
         checkFileNotNullAndExists(f);
         if (!f.isDirectory())

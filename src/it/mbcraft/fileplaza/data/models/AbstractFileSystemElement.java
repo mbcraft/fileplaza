@@ -28,8 +28,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Questa classe rappresenta un file o una cartella nel filesystem.
- * Classe astratta, contiene solo i metodi e i campi comuni a entrambi i tipi.
+ * This abstract class contains data associated to a file or a folder 
+ * in the filesystem. This class is abstract, it just contains common
+ * methods and fields used in both types.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -50,6 +51,11 @@ public abstract class AbstractFileSystemElement  {
         FILE, FOLDER
     }
     
+    /**
+     * Creates a new AbstractFileSystemElement of the given type.
+     * 
+     * @param t The Type of this file system element
+     */
     protected AbstractFileSystemElement(Type t) {
         priority = Priority.NONE;
         indexNamedByPath = true;
@@ -69,6 +75,8 @@ public abstract class AbstractFileSystemElement  {
     }
     
     /**
+     * Calculates the sha256 digest for this file system element.
+     * 
      * Solution taken from www.stackoverflow.com
      * Link : http://stackoverflow.com/questions/9655181/convert-from-byte-array-to-hex-string-in-java
      * Author : http://stackoverflow.com/users/1284661/maybewecouldstealavan
@@ -83,42 +91,54 @@ public abstract class AbstractFileSystemElement  {
     public abstract void recalculateSha256();
     
     /**
-     * @return the currentPath
+     * Gets the current path for this file system element.
+     * 
+     * @return the currentPath as a string
      */
     public String getCurrentPath() {
         return currentPath;
     }
 
     /**
-     * @param currentPath the currentPath to set
+     * Sets the current path for this file system element
+     * 
+     * @param currentPath the currentPath as a string
      */
     public void setCurrentPath(String currentPath) {
         this.currentPath = currentPath;
     }
 
     /**
-     * @return the indexedDate
+     * Returns the date this file system element was indexed
+     * 
+     * @return the date this element was indexed, as a Date instance
      */
     public Date getIndexedDate() {
         return indexedDate;
     }
 
     /**
-     * @param indexedDate the indexedDate to set
+     * Sets the date this element was indexed
+     * 
+     * @param indexedDate the date this element was indexed, as a Date instance
      */
     public void setIndexedDate(Date indexedDate) {
         this.indexedDate = indexedDate;
     }
 
     /**
-     * @return the lastChangedDate
+     * Returns the last date this element changed.
+     * 
+     * @return the last changed date as a Date instance
      */
     public Date getLastChangedDate() {
         return lastChangedDate;
     }
 
     /**
-     * @param lastChangedDate the lastChangedDate to set
+     * Sets the last changed date of this file system element.
+     * 
+     * @param lastChangedDate the last changed date for this element as a Date instance
      */
     public void setLastChangedDate(Date lastChangedDate) {
         this.lastChangedDate = lastChangedDate;
@@ -127,7 +147,7 @@ public abstract class AbstractFileSystemElement  {
     /**
      * Gets the priority of this FileSystemElement
      * 
-     * @return The priority of this FileSystemElement
+     * @return The priority of this FileSystemElement as a Priority value
      */
     public Priority getPriority() {
         return priority;
@@ -136,55 +156,61 @@ public abstract class AbstractFileSystemElement  {
     /**
      * Sets the priority of this FileSystemElement
      * 
-     * @param pri The priority
+     * @param pri The priority as a Priority value
      */
     public void setPriority(Priority pri) {
         this.priority = pri;
     }
     
     /**
-     * Gets the notes for this Element.
+     * Gets the notes for this FileSystemElement.
      * 
-     * @return The fixedColor
+     * @return The notes as a string
      */
     public String getNotes() {
         return notes;
     }
     
     /**
-     * Sets the notes for this Element
+     * Sets the notes for this FileSystemElement
      * 
-     * @param nt The color to set
+     * @param nt The notes as a string
      */
     public void setNotes(String nt) {
         notes = nt;
     }
 
     /**
-     * @return the tags
+     * Returns the generic tags associated with this file system element.
+     * 
+     * @return the tags as a List
      */
     public List<Tag> getTags() {
         return tags;
     }
 
     /**
-     * @param tags the tags to set
+     * Sets the tags for this file system element.
+     * 
+     * @param tags the tags for this file system element as a List
      */
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
     /**
-     * @return the changeHistoryList
+     * Gets the list of ChangeHistory for this file system element.
+     * 
+     * @return the List of ChangeHistory
      */
     public List<ChangeHistory> getChangeHistoryList() {
         return changeHistoryList;
     }
     
     /**
-     * Set a new changeHistoryList
+     * Sets the list of ChangeHistory for this file system element.
      * 
-     * @param changes The change list
+     * @param changes The new change list as a List of ChangeHistory
      */
     public void setChangeHistoryList(List<ChangeHistory> changes) {
         this.changeHistoryList = changes;
@@ -200,14 +226,18 @@ public abstract class AbstractFileSystemElement  {
     }
     
     /**
-     * @return the sha256
+     * Gets the computed sha256 for this file system element
+     * 
+     * @return the sha256 as a string
      */
     public String getSha256() {
         return sha256;
     }
 
     /**
-     * @param sha256 the sha256 to set
+     * Sets the sha256 for this file system element
+     * 
+     * @param sha256 the sha256 to set as a string
      */
     public void setSha256(String sha256) {
         this.sha256 = sha256;
@@ -216,7 +246,7 @@ public abstract class AbstractFileSystemElement  {
     /**
      * Adds a tag to this FileSystemElement
      *  
-     * @param t The tag to add
+     * @param t The tag to add as a Tag instance
      */
     public void addTag(Tag t) {
         tags.add(t);
@@ -225,12 +255,16 @@ public abstract class AbstractFileSystemElement  {
     /**
      * Removes a tag from this FileSystemElement
      * 
-     * @param t The tag to remove
+     * @param t The tag to remove as a Tag instance
      */
     public void removeTag(Tag t) {
         tags.remove(t);
     }
 
+    /**
+     * Checks that the sha256 for this element is not null.
+     * If it is, throw an IllegalStateException.
+     */
     public void checkSha256NotNull() {
         if (sha256 == null) {
             throw new IllegalStateException("Sha256 of this FileSystemElement is null!");
@@ -305,6 +339,11 @@ public abstract class AbstractFileSystemElement  {
             throw new InvalidParameterException("The file or folder does not exists!");
     }
     
+    /**
+     * Gets the type of this file system element, as a Type value.
+     * 
+     * @return the type of this file system element
+     */
     public Type getType() {
         return type;
     }

@@ -23,11 +23,23 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
- *
+ * This class models a tag attached to something. 
+ * A tag is formed by :
+ * - a key, as a string
+ * - a value that can be any object (should be serializable to a string)
+ * - a type, useful for parsing and writing the value
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class Tag {
 
+    /**
+     * Creates a tag
+     * 
+     * @param key The key of this tag, as a string
+     * @param value The value of this tag, as an object
+     * @param type The type of this tag, as a TagType value
+     */
     public Tag(String key, Object value, TagType type) {
         this.key = key;
         this.value = value;
@@ -47,6 +59,8 @@ public class Tag {
     private Object value;
 
     /**
+     * Gets the type of this tag, as a TagType value
+     * 
      * @return the type
      */
     public TagType getType() {
@@ -54,21 +68,27 @@ public class Tag {
     }
 
     /**
-     * @param tagType the type to set
+     * Sets the type of this tag
+     * 
+     * @param tagType the type of this tag, as a TagType value
      */
     public void setType(TagType tagType) {
         this.type = tagType;
     }
 
     /**
-     * @return the key
+     * Returns the key of this tag
+     * 
+     * @return the key of this tag as a string
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * @param key the key to set
+     * Sets the key of this tag
+     * 
+     * @param key the key to set as a string
      */
     public void setKey(String key) {
         this.key = key;
@@ -95,6 +115,8 @@ public class Tag {
     }
 
     /**
+     * Gets the value of this tag as a Date
+     * 
      * @return the value as date
      */
     public Date getValueAsDate() {
@@ -102,6 +124,8 @@ public class Tag {
     }
 
     /**
+     * Sets the value of this tag as a Date
+     * 
      * @param value the value to set as date
      */
     public void setValueAsDate(Date value) {
@@ -109,6 +133,8 @@ public class Tag {
     }
 
     /**
+     * Gets the value of this tag as a string
+     * 
      * @return the value as string
      */
     public String getValueAsString() {
@@ -116,6 +142,8 @@ public class Tag {
     }
 
     /**
+     * Sets the value of this tag as a string
+     * 
      * @param value the value to set as string
      */
     public void setValueAsString(String value) {
@@ -123,41 +151,48 @@ public class Tag {
     }
 
     /**
-     * @return the value
+     * Gets the value of this tag as a number
+     * 
+     * @return the value as int
      */
     public int getValueAsNumber() {
         return (Integer) getValue();
     }
 
     /**
-     * @param value the value to set
+     * Sets the value of this tag as a number
+     * 
+     * @param value the value to set as a number
      */
     public void setValueAsNumber(int value) {
         setValue(value, TagType.NUMBER);
     }
 
     /**
-     * Returns the value of this tag as a user defined enum (string)
+     * Returns the value of this tag as a label string
      *
-     * @return The value of an user defined enum as a string
+     * @return The value of a label as a string
      */
-    public String getValueAsUserDefinedEnum() {
+    public String getValueAsLabel() {
         return (String) getValue();
     }
 
     /**
-     * Sets the value of this tag as a user defined enum.
+     * Sets the value of this tag as a label string.
      *
-     * @param value The string value of an user defined enum.
+     * @param value The string value of this tag as a label string.
      */
-    public void setValueAsUserDefinedEnum(String value) {
+    public void setValueAsLabel(String value) {
         setValue(value, TagType.LABEL);
     }
 
     /**
-     * Gets the value as a dictionary string
+     * Gets the tag value as a dictionary string
+     * 
+     * TO FIX : maybe add a Dictionary parameter to use for verification
+     * 
      *
-     * @return The string value
+     * @return The string value, as a dictionary value
      */
     public String getValueAsDictionary() {
         return (String) getValue();
@@ -165,31 +200,42 @@ public class Tag {
 
     /**
      * Sets the value as a dictionary string
+     * 
+     * TO FIX : maybe add a Dictionary parameter to use for verification
      *
-     * @param dict The string value of the dictionary
+     * @param dict The value used for this tag, as a DICTIONARY tag
      */
     public void setValueAsDictionary(String dict) {
         setValue(dict, TagType.DICTIONARY);
     }
 
     /**
-     * Checks if this tag is plural of the parameter tag
+     * Checks if this tag is plural of the parameter tag.
+     * Useful only for DICTIONARY tags.
      * 
-     * @param fileTag
-     * @return 
+     * @param otherTag the tag to compare to
+     * @return true if this tag is plural of the other tag, false otherwise
      */
-    public boolean isPluralOf(Tag fileTag) {
+    public boolean isPluralOf(Tag otherTag) {
         DictionaryDAO dao = DictionaryDAO.getInstance();
-        Entry<String,String> match = dao.findEntryFromEnabledDictionaries(fileTag.getValueAsString());
+        Entry<String,String> match = dao.findEntryFromEnabledDictionaries(otherTag.getValueAsString());
         if (match==null)
             return false;
-        if (fileTag.getValueAsString().equals(match.getKey()))
+        if (otherTag.getValueAsString().equals(match.getKey()))
             return true;
         return false;            
     }
 
     /**
-     *
+     * The TagType identifies the type of the Tag allowing
+     * improved parse, serialization and identification of data.
+     * Current supported types :
+     * - DATE
+     * - STRING
+     * - DICTIONARY (differs from string because the value must be present in a dictionary)
+     * - NUMBER (integer value)
+     * - LABEL (differs from string because the value must be present in a label set)
+     * 
      * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
      */
     public static enum TagType {

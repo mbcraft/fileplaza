@@ -34,11 +34,21 @@ import java.util.TreeSet;
  */
 public class Dictionary {
 
+    /**
+     * This class models an entry in the dictionary.
+     * It contains a singular and plural term
+     */
     public static class DictionaryEntry implements Entry<String,String>,Comparable<DictionaryEntry> {
 
         private String singular;
         private String plural;
         
+        /**
+         * Creates a DictionaryEntry.
+         * 
+         * @param singular The singular form of this entry
+         * @param plural The plural form of this entry
+         */
         public DictionaryEntry(String singular, String plural) {
             this.singular = singular;
             this.plural = plural;
@@ -87,14 +97,18 @@ public class Dictionary {
     private final Set<Entry<String,String>> entries = new TreeSet();
 
     /**
-     * @return the shortTitle
+     * Gets the short title of this Dictionary
+     * 
+     * @return the shortTitle as a String
      */
     public String getShortTitle() {
         return shortTitle;
     }
 
     /**
-     * @param shortTitle the shortTitle to set
+     * Sets the short title for this Dictionary
+     * 
+     * @param shortTitle the shortTitle for this dictionary as a string
      */
     public void setShortTitle(String shortTitle) {
         this.shortTitle = shortTitle;
@@ -102,28 +116,36 @@ public class Dictionary {
     }
     
     /**
-     * @return the enabled
+     * Checks if this dictionary is enabled
+     * 
+     * @return true if this dictionary is enabled, false otherwise
      */
     public boolean isEnabled() {
         return enabled;
     }
 
     /**
-     * @param enabled the enabled to set
+     * Sets the enabled state of this dictionary
+     * 
+     * @param enabled sets the enabled state of this dictionary
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
     
     /**
-     * @return the description
+     * Gets the description of this dictionary
+     * 
+     * @return the description as a string
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @param description the description to set
+     * Sets the description for this dictionary
+     * 
+     * @param description the description as a string
      */
     public void setDescription(String description) {
         this.description = description;
@@ -131,14 +153,18 @@ public class Dictionary {
     }
 
     /**
-     * @return the entries
+     * Returns the entries of this dictionary
+     * 
+     * @return the entries as a set instance
      */
     public Set<Entry<String,String>> getEntries() {
         return entries;
     }
 
     /**
-     * @param data the entries to set
+     * Sets the entries of this dictionary
+     * 
+     * @param data the entries of this dictionary as a Set instance
      */
     public void setEntries(Set<Entry<String,String>> data) {
         this.entries.clear();
@@ -161,10 +187,10 @@ public class Dictionary {
     }
     
     /**
-     * Try to find a match for a word inside this dictionary.
+     * Try to find an exact match for a word inside this dictionary.
      * Either return a match for both forms (singular and plural), one, or null.
-     * @param word The word to match
-     * @return A DictionaryMatch object with the other word
+     * @param word The word to match as a string
+     * @return An matching Entry or null.
      */
     public Entry<String,String> findEntryFromWord(String word) {
         boolean matchedSingular = false;

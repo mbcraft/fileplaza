@@ -25,8 +25,12 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 
 /**
+ * Implementation of ISerializer interface producing reading and writind data 
+ * in xml format.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
+ * 
+ * @param <T> the class of the model to be serialized
  */
 public class XMLSerializer<T> extends XStream implements ISerializer<T> {
 

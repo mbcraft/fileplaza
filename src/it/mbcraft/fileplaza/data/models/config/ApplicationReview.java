@@ -20,7 +20,8 @@ package it.mbcraft.fileplaza.data.models.config;
 
 
 /**
- *
+ * Contains the application review for this application
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class ApplicationReview {
@@ -28,18 +29,38 @@ public class ApplicationReview {
     private int stars;
     private String reviewText;
     
+    /**
+     * Sets the number of stars (from 1 to 5) for this application.
+     * 
+     * @param stars the number of stars as an integer
+     */
     public void setStars(int stars) {
         this.stars = stars;
     }
     
+    /**
+     * Gets the number of stars for this application
+     * 
+     * @return the number of stars as an integer
+     */
     public int getStars() {
         return stars;
     }
     
+    /**
+     * Sets the review text for this application
+     * 
+     * @param text the review text as a string
+     */
     public void setReviewText(String text) {
         this.reviewText = text;
     }
     
+    /**
+     * Gets the review text for this application
+     * 
+     * @return the review text as a string
+     */
     public String getReviewText() {
         return reviewText;
     }

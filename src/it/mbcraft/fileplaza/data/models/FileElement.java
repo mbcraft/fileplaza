@@ -24,7 +24,7 @@ import java.security.InvalidParameterException;
 import java.util.Date;
 
 /**
- * This class models a file index with its tags.
+ * This class models file with its associated tags and meta data
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -33,10 +33,13 @@ public class FileElement extends AbstractFileSystemElement {
     private long size;
     private String customPreviewKey = "";
     
-    
+    /**
+     * Builds a new FileElement.
+     */
     public FileElement() {
         super(AbstractFileSystemElement.Type.FILE);
     }
+    
     /**
      * This method calculates the sha256 of the content.
      * @return 
@@ -47,6 +50,8 @@ public class FileElement extends AbstractFileSystemElement {
     }
 
     /**
+     * Returns the size of this file
+     * 
      * @return the size
      */
     public long getSize() {
@@ -54,20 +59,30 @@ public class FileElement extends AbstractFileSystemElement {
     }
 
     /**
+     * Sets the size of this file.
+     * 
+     * TO FIX : remove this method, or change 'size' to 'lastObservedSize'
+     * 
      * @param size the size to set
      */
     public void setSize(long size) {
         this.size = size;
     }
     
+    /**
+     * Checks if this file has a custom preview.
+     * 
+     * @return true if this file has a custom preview, false otherwise
+     */
     public boolean hasCustomPreview() {
         return !customPreviewKey.equals("");
     }
     
     /**
-     * Gets the key of the preview, or empty if no preview is available.
+     * Gets the key of the custom preview, or returns an empty string
+     * if no custom preview is available.
      * 
-     * @return The key of the preview, or empty if no custom preview is available.
+     * @return The key of the custom preview, or empty string if no custom preview is available.
      */
     public String getCustomPreviewKey() {
         return customPreviewKey;
@@ -106,6 +121,11 @@ public class FileElement extends AbstractFileSystemElement {
         return hash;
     }
 
+    /**
+     * Setup the data inside this FileElement from the provided paramenter.
+     * 
+     * @param f The File instance used to configure this FileElement.
+     */
     public void setupWithFile(File f) {
         checkFileNotNullAndExists(f);
         if (!f.isFile())
