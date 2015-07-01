@@ -22,6 +22,7 @@ import it.mbcraft.fileplaza.data.serialization.managers.meta.PreviewManager;
 import java.awt.image.BufferedImage;
 
 /**
+ * This DAO is used to read and write the preview for files.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

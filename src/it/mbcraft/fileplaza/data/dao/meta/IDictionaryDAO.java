@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * This is the storage independent interface for Dictionary DAOs.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IDictionaryDAO {

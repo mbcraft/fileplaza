@@ -23,17 +23,46 @@ import java.io.File;
 import java.util.List;
 
 /**
- *
+ * This is the storage independent interface for storing FileElement
+ * objects.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IFileElementDAO {
 
+    /**
+     * Find a FileElement by key.
+     * 
+     * @param key The key of the FileElement, as a string
+     * 
+     * @return The FileElement instance
+     */
     FileElement find(String key);
 
+    /**
+     * Returns all the FileElement instances.
+     * 
+     * @return All the FileElement instances, as a List.
+     */
     List<FileElement> findAll();
 
+    /**
+     * Checks if a FileElement instance exists with this key
+     * 
+     * @param key The key to check
+     * @return true if this FileElement instance exists, false otherwise
+     */
     boolean hasKey(String key);
 
+    /**
+     * Changes the FileElement references file path to a new value.
+     * This does actually not change the FileElement storage location, it
+     * just changes the FileElement pointed file location to a new value.
+     * 
+     * @param el The FileElement to update
+     * @param finalPath The new path of the referenced file
+     * @return true if the operation was successful, false otherwise
+     */
     boolean move(FileElement el, File finalPath);
     
 }

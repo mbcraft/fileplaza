@@ -27,16 +27,17 @@ import it.mbcraft.fileplaza.data.models.config.ApplicationReview;
 public interface IFeedbackDAO {
 
     /**
-     * Loads the singleton instance
+     * Loads the ApplicationReview singleton instance
+     * from the storage.
      *
-     * @return The instance
+     * @return The ApplicationReview instance
      */
     ApplicationReview load();
 
     /**
-     * Saves the singleton instance
+     * Saves the ApplicationReview singleton instance
      *
-     * @param review The instance to save
+     * @param review The instance of ApplicationReview to save
      */
     void save(ApplicationReview review);
     

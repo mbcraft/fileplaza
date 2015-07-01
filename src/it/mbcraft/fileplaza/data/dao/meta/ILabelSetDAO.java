@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * This is the storage independent interface for label set DAOs.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

@@ -25,8 +25,8 @@ import java.io.File;
 import java.util.List;
 
 /**
- * This class contains the main operations done with user defined enum
- * storage.
+ * This class contains the main operations done for reading and
+ * writing label sets.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

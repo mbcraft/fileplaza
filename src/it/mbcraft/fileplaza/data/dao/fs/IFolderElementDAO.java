@@ -22,15 +22,36 @@ import it.mbcraft.fileplaza.data.models.FolderElement;
 import java.util.List;
 
 /**
+ * This is the storage independent interface for reading and writing
+ * FolderElement s.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IFolderElementDAO {
 
+    /**
+     * Find a FolderElement instance by its key.
+     * 
+     * @param key The key of the FolderElement
+     * 
+     * @return The FolderElement instance
+     */
     FolderElement find(String key);
 
+    /**
+     * Returns all the FolderElement instances loaded.
+     * 
+     * @return The List of all the FolderElement s.
+     */
     List<FolderElement> findAll();
 
+    /**
+     * Checks if a FolderElement with this key exists.
+     * 
+     * @param key The string key identifying the FolderElement
+     * 
+     * @return true if a stored FolderElement with this key exists, false otherwise
+     */
     boolean hasKey(String key);
     
 }

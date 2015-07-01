@@ -21,10 +21,23 @@ package it.mbcraft.fileplaza.data.misc;
 import java.security.InvalidParameterException;
 
 /**
+ * This class contain behavior used to check if the preview data
+ * should be updated. If the preview key changes, then the new preview key
+ * must be updated inside the AbstractFileSystemElement to reflect the
+ * change happened.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class PreviewUpdateBehaviour {
+    
+    /**
+     * Checks if the AbstractFileSystemElement must be updated as
+     * preview data changes.
+     * 
+     * @param oldData The old preview data
+     * @param newData The new preview data
+     * @return true if the AbstractFileSystemElement must be updated, false otherwise
+     */
     public static boolean needsUpdate(PreviewData oldData,PreviewData newData) {
         if (oldData==null || newData==null)
             throw new InvalidParameterException("Old data or new data is null!");

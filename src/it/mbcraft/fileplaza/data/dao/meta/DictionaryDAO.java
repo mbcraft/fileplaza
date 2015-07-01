@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /**
- * This class contains the main operations done on dictionaries storage.
+ * This class implements the DAO for Dictionary class.
+ * It actually uses DirObjectStorage through DictionaryManager as a 
+ * storage engine for Dictionary instances.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */

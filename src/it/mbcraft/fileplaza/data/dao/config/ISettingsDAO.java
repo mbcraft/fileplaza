@@ -21,13 +21,25 @@ package it.mbcraft.fileplaza.data.dao.config;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 
 /**
- *
+ * This interface is implemented by all DAOs that reads and saves
+ * Settings instances.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface ISettingsDAO {
 
+    /**
+     * Load the singleton Settings instance from the storage.
+     * 
+     * @return The fully initialized Settings instance.
+     */
     Settings load();
 
+    /**
+     * Saves the singleton Settings instance to the storage.
+     * 
+     * @param settings The Settings instance to save
+     */
     void save(Settings settings);
     
 }

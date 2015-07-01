@@ -21,7 +21,8 @@ package it.mbcraft.fileplaza.data.dao.meta;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * This is the storage independent interface implemented by preview DAO.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public interface IPreviewDAO {
