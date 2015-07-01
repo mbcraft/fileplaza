@@ -199,11 +199,11 @@ public class SearchFiltersPanel implements INodeProvider {
                 FileSystemElementSearch search = new FileSystemElementSearch();
                 //type
                 if (searchTypeGroup.getSelectedToggle()==filesToggle)
-                    search.setType(FileSystemElementSearch.Type.FILES);
+                    search.setType(FileSystemElementSearch.SearchType.FILES);
                 if (searchTypeGroup.getSelectedToggle()==foldersToggle)
-                    search.setType(FileSystemElementSearch.Type.FOLDERS);
+                    search.setType(FileSystemElementSearch.SearchType.FOLDERS);
                 if (searchTypeGroup.getSelectedToggle()==bothToggle)
-                    search.setType(FileSystemElementSearch.Type.BOTH);
+                    search.setType(FileSystemElementSearch.SearchType.BOTH);
                 //within folder
                 search.setWithinFolder((File) withinFolderField.getUserData());
                 //priority

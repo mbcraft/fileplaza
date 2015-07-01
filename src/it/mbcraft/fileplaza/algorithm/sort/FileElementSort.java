@@ -30,7 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Implementation completed.
+ * This class enables sorting of files referenced by FileElement s.
+ * It provides high level methods for sorting the files.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -41,7 +42,13 @@ public class FileElementSort {
     private final IFolderElementDAO folderDAO;
     private final SortOptions sortOptions;
     
-        
+    /**
+     * Creates a new instance that enables sorting files.
+     * 
+     * @param folderDao the DAO used to read FolderElement s.
+     * @param fileDao the DAO used to read FileElement s.
+     * @param options the sort options
+     */
     public FileElementSort(IFolderElementDAO folderDao,IFileElementDAO fileDao, SortOptions options) {
         folderDAO = folderDao;
         fileDAO = fileDao;
@@ -49,7 +56,8 @@ public class FileElementSort {
     }
     
     /**
-     * Calculates and returns the previewed list of files to move
+     * Calculates a list of files to move (sort). The list of files
+     * to be sorted can be obtained by calling getPreviewedFileList().
      * 
      */
     public void preview() {
@@ -73,7 +81,7 @@ public class FileElementSort {
         sorter.setTargetLeaves(foldersCollector.getLeaves());
         
         //actually collects scores and fills the preview list
-        for (FileElement fe : filesCollector.getFileList()) {
+        for (FileElement fe : filesCollector.getFileElementList()) {
             SortScore score = sorter.getScoreForFileElement(fe);
             if (score!=null) {
                 previewed.put(new File(fe.getCurrentPath()), score);
@@ -82,11 +90,12 @@ public class FileElementSort {
     }
     
     /**
-     * Returns the score object for this sort.
+     * Returns the score object for the specified file.
+     * If the file is not in the preview list an exception is thrown
      * 
-     * @param f The file to be moved
+     * @param f The file for which get the SortScore
      * 
-     * @return the score
+     * @return the score of the file that is going to be sorted as a SortScore instance
      */
     public SortScore getSortScore(File f) {
         checkFileInPreviewList(f);
@@ -95,9 +104,9 @@ public class FileElementSort {
     }
     
     /**
-     * Removes a file from the list of the "to-be-moved" files.
+     * Removes a file from the preview list of the "to-be-moved" files.
      * 
-     * @param f The files to move.
+     * @param f The files to remove from the preview list.
      */
     public void remove(File f) {
         checkFileInPreviewList(f);
@@ -106,10 +115,11 @@ public class FileElementSort {
     }
     
     /**
-     * Sort a previewed file.
+     * Sort a previewed file. The file is also removed from the preview list.
+     * If the file is not in the preview list an exception is thrown.
      * 
      * @param f The file to sort
-     * @return true if the file has been succesfully sorted, false otherwise
+     * @return true if the file has been successfully sorted, false otherwise.
      */
     public boolean sort(File f) {
         checkFileInPreviewList(f);
@@ -140,9 +150,9 @@ public class FileElementSort {
      * Returns the actual files inside the preview list, or the remaining
      * as with errors after a sort.
      * 
-     * @return The file list
+     * @return The previewed sort file list as a List of File s.
      */
-    public List<File> getFileList() {
+    public List<File> getPreviewedFileList() {
         List<File> result = new ArrayList();
         result.addAll(previewed.keySet());
         return result;
@@ -157,6 +167,11 @@ public class FileElementSort {
             throw new InvalidParameterException("The file must be inside the preview list.");
     }
 
+    /**
+     * Returns true if there are files to be sorted, false otherwise.
+     * 
+     * @return true if there are files to be sorted, false otherwise
+     */
     public boolean hasResults() {
         return !previewed.isEmpty();
     }

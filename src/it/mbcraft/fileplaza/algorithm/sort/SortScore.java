@@ -23,7 +23,8 @@ import java.io.File;
 import java.security.InvalidParameterException;
 
 /**
- *
+ * Contains the sort score for a FileElement and its target folder.
+ * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class SortScore implements Comparable<SortScore> {
@@ -32,6 +33,13 @@ public class SortScore implements Comparable<SortScore> {
     private final int myScore;
     private final File myTargetFolder;
     
+    /**
+     * Creates a SortScore
+     * 
+     * @param el The FileElement this SortScore refers to
+     * @param score The score collected for this sort
+     * @param targetFolder The target folder this sort will move the file referenced by the FileElement to.
+     */
     public SortScore(FileElement el, int score,File targetFolder) {
         if (el==null)
             throw new InvalidParameterException("FileElement must not be null.");
@@ -45,14 +53,29 @@ public class SortScore implements Comparable<SortScore> {
         myTargetFolder = targetFolder;
     }
     
+    /**
+     * Returns the FileElement this SortScore refers to.
+     * 
+     * @return The FileElement for this SortScore
+     */
     public FileElement getElement() {
         return myElement;
     }
     
+    /**
+     * Returns the score for this FileElement.
+     * 
+     * @return the integer score for this suggested sort
+     */
     public int getScore() {
         return myScore;
     }
     
+    /**
+     * The new folder suggested for the file referenced by the FileElement
+     * 
+     * @return the folder suggested as a File instance
+     */
     public File getTargetFolder() {
         return myTargetFolder;
     }

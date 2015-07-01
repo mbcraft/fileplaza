@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Executes the search.
+ * This class can be used for doing searches of file system elements.
+ * It actually allows the search to be done with many different options.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -41,28 +42,57 @@ public class FileSystemElementSearch {
     private final List<Tag> searchTags = new ArrayList<>();
     private Priority fromPriority = null;
     private File withinFolder = null;
-    private Type searchType;
+    private SearchType searchType;
     
-    public enum Type {
+    /**
+     * The types of search, detailing the kind of elements to be searched
+     */
+    public enum SearchType {
         FILES, FOLDERS, BOTH
     }
     
-    public void setType(Type t) {
+    /**
+     * Sets the type of search to be done
+     * 
+     * @param t the type of search as a SearchType enum value 
+     */
+    public void setType(SearchType t) {
         searchType = t;
     }
     
+    /**
+     * Adds a tag to be matched in the elements found in this search
+     * 
+     * @param t the tag to match as a Tag instance
+     */
     public void addTag(Tag t) {
         searchTags.add(t);
     }
     
+    /**
+     * Removes a tag to be matched in the elements found in this search
+     * 
+     * @param t the tag to remove
+     */
     public void removeTag(Tag t) {
         searchTags.remove(t);
     }
     
+    /**
+     * Sets the starting priority of the elements that needs to be 
+     * matched in this search.
+     * 
+     * @param p the priority 
+     */
     public void setFromPriority(Priority p) {
         fromPriority = p;
     }
     
+    /**
+     * Sets the folder which will limit the search.
+     * 
+     * @param f the folder in which execute the search as a File instance
+     */
     public void setWithinFolder(File f) {
         withinFolder = f;
     }
@@ -91,14 +121,18 @@ public class FileSystemElementSearch {
         }
     }
     
-        
+    /**
+     * Executes the search with the previously set parameters.
+     * 
+     * @return a List of File instances matching the previously specified criteria
+     */
     public List<File> execute() {
-        if (searchType==Type.BOTH || searchType==Type.FOLDERS) {
+        if (searchType==SearchType.BOTH || searchType==SearchType.FOLDERS) {
             List<FolderElement> folders = FolderElementDAO.getInstance().findAll();
             collectResults(folders);
         }
         
-        if (searchType==Type.BOTH || searchType==Type.FILES) {
+        if (searchType==SearchType.BOTH || searchType==SearchType.FILES) {
             List<FileElement> files = FileElementDAO.getInstance().findAll();
             collectResults(files);
         }

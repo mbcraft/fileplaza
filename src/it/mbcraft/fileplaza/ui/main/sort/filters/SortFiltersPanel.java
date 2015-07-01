@@ -155,8 +155,8 @@ public class SortFiltersPanel implements INodeProvider {
     private void previewButtonPressed() {
         SortOptions options = new SortOptions();
         options.setSortType(getSortType());
-        options.setSourceFolder(getSourceFolder());
-        options.setTargetFolder(getTargetFolder());
+        options.setSourceRootFolder(getSourceFolder());
+        options.setTargetRootFolder(getTargetFolder());
         FileElementSort sort = new FileElementSort(FolderElementDAO.getInstance(),FileElementDAO.getInstance(),options);
         sort.preview();
         if (sort.hasResults())
@@ -214,11 +214,11 @@ public class SortFiltersPanel implements INodeProvider {
         box.getChildren().add(buttons);
     }
     
-    private SortOptions.Type getSortType() {
+    private SortOptions.SortType getSortType() {
         if (fileCollectMode.getSelectedToggle()==allTagged)
-            return SortOptions.Type.ALL_TAGGED;
+            return SortOptions.SortType.ALL_TAGGED;
         else
-            return SortOptions.Type.NEWLY_TAGGED;
+            return SortOptions.SortType.NEWLY_TAGGED;
     }
     
     private File getSourceFolder() {

@@ -21,61 +21,78 @@ package it.mbcraft.fileplaza.algorithm.sort;
 import java.io.File;
 
 /**
+ * Options to use for collecting the SortScore for the files to be
+ * sorted.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public class SortOptions {
     
-    private Type sortType;
-    private File sourceFolder;
-    private File targetFolder;
+    private SortType sortType;
+    private File sourceRootFolder;
+    private File targetRootFolder;
 
+    /**
+     * Creates a new SortOption instance.
+     */
     public SortOptions() {
     }
 
     /**
-     * @return the sortType
+     * Returns the type of sort to be done on files.
+     * 
+     * @return the sortType as a Type enum value
      */
-    public Type getSortType() {
+    public SortType getSortType() {
         return sortType;
     }
 
     /**
-     * @param sortType the sortType to set
+     * Sets the type of sort to be done
+     * 
+     * @param sortType the sortType to do as a Type enum value
      */
-    public void setSortType(Type sortType) {
+    public void setSortType(SortType sortType) {
         this.sortType = sortType;
     }
 
     /**
-     * @return the sourceFolder
+     * Returns the source folder root in which look for files to sort.
+     * 
+     * @return the sourceFolder as a File instance
      */
-    public File getSourceFolder() {
-        return sourceFolder;
+    public File getSourceRootFolder() {
+        return sourceRootFolder;
     }
 
     /**
-     * @param sourceFolder the sourceFolder to set
+     * Sets the source folder root for the files to be sorted.
+     * 
+     * @param sourceFolder the sourceFolder to set as a File instance
      */
-    public void setSourceFolder(File sourceFolder) {
-        this.sourceFolder = sourceFolder;
+    public void setSourceRootFolder(File sourceFolder) {
+        this.sourceRootFolder = sourceFolder;
     }
 
     /**
+     * Returns the target folder root in which the files can be placed
+     * 
      * @return the targetFolder
      */
-    public File getTargetFolder() {
-        return targetFolder;
+    public File getTargetRootFolder() {
+        return targetRootFolder;
     }
 
     /**
-     * @param targetFolder the targetFolder to set
+     * Sets the target folder root in which the files can be placed in this sort operation
+     * 
+     * @param targetFolder the targetFolder to set as a File instance
      */
-    public void setTargetFolder(File targetFolder) {
-        this.targetFolder = targetFolder;
+    public void setTargetRootFolder(File targetFolder) {
+        this.targetRootFolder = targetFolder;
     }
     
-    public enum Type {
+    public enum SortType {
         NEWLY_TAGGED, ALL_TAGGED
     }
         

@@ -76,8 +76,8 @@ public class SortFoldersCollector {
         
         //init source path filter
         Path targetFolderPath = null;
-        if (options.getTargetFolder()!=null) 
-            options.getTargetFolder().toPath();
+        if (options.getTargetRootFolder()!=null) 
+            options.getTargetRootFolder().toPath();
         
         List<FolderElement> folders = dao.findAll();
         

@@ -117,7 +117,7 @@ public class SortPanel implements INodeProvider {
                 }
                 else {
                     sortAllButton.setDisable(false);
-                    previewedList.itemsProperty().get().setAll(newValue.getFileList());
+                    previewedList.itemsProperty().get().setAll(newValue.getPreviewedFileList());
                 }
             }
         });

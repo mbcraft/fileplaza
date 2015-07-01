@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class collects the file that will be sorted.
+ * This class collects the FileElement that will be sorted.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
@@ -36,6 +36,13 @@ public class SortFilesCollector {
     private final SortOptions options;
     private List<FileElement> collectedFiles;
     
+    /**
+     * Creates a SortFilesCollector. Needs IFileElementDAO reference
+     * for reading FileElement s and SortOption instance for sorting option.
+     * 
+     * @param dataSource the DAO for reading FileElement instances.
+     * @param sortOptions the sort options as a SortOption instance
+     */
     public SortFilesCollector(IFileElementDAO dataSource, SortOptions sortOptions) {
         dao = dataSource;
         options = sortOptions;
@@ -47,23 +54,24 @@ public class SortFilesCollector {
      * 
      * @return The list of FileElement.
      */
-    public List<FileElement> getFileList() {
+    public List<FileElement> getFileElementList() {
         return collectedFiles;
     
     }
 
     /**
-     * Calculates the file list to be sorted.
+     * Calculates the file list to be sorted that can be returned
+     * calling getFileElementList().
      */
     public void collect() {
         List<FileElement> allFiles = dao.findAll();
         
         //optionally filter for where to pick files (source folder)
         List<FileElement> allTaggedFiles;
-        if (options.getSourceFolder()==null)
+        if (options.getSourceRootFolder()==null)
             allTaggedFiles = allFiles;
         else {
-            Path sourcePath = options.getSourceFolder().toPath();
+            Path sourcePath = options.getSourceRootFolder().toPath();
             allTaggedFiles = new ArrayList();
             for (FileElement el : allFiles) {
                 Path p = new File(el.getCurrentPath()).toPath();
@@ -75,7 +83,7 @@ public class SortFilesCollector {
         //only correcty folder filtered elements
         
         //filter by 'sort type'
-        if (options.getSortType() == SortOptions.Type.NEWLY_TAGGED) {
+        if (options.getSortType() == SortOptions.SortType.NEWLY_TAGGED) {
             List<FileElement> newlyTagged = new ArrayList();
             for (FileElement el : allTaggedFiles) {
                 if (el.getChangeHistoryList().isEmpty())
