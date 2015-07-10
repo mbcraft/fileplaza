@@ -17,7 +17,7 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.serialization.storages;
+package it.mbcraft.fileplaza.data.serialization.storages.local_dir;
 
 /**
  * This class contains storage constants used for storing data of FilePlaza 

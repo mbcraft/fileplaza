@@ -17,9 +17,10 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.serialization.storages;
+package it.mbcraft.fileplaza.data.serialization.storages.local_dir;
 
 import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.storages.IObjectStorage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,7 +40,7 @@ import java.util.logging.Logger;
  * Permission check is done during creation.
  * 
  */
-public class DirObjectStorage implements IObjectStorage {
+public class LocalDirObjectStorage implements IObjectStorage {
     
     private static final FileOnlyFileFilter FILES_ONLY = new FileOnlyFileFilter();
     
@@ -50,7 +51,7 @@ public class DirObjectStorage implements IObjectStorage {
      * 
      * @param rootDir The root of the storage.
      */
-    public DirObjectStorage(File rootDir) {
+    public LocalDirObjectStorage(File rootDir) {
         checkParameterNotNull(rootDir);
         
         if (rootDir.isDirectory()) {
@@ -144,7 +145,7 @@ public class DirObjectStorage implements IObjectStorage {
         try (OutputStream o = new FileOutputStream(dest)) {
             sz.serialize(model,o );
         } catch (IOException ex) {
-            Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LocalDirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
                 
@@ -197,7 +198,7 @@ public class DirObjectStorage implements IObjectStorage {
         try (InputStream is = new FileInputStream(dest)) {
             return sz.deserialize(is);
         } catch (IOException ex) {
-            Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LocalDirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalStateException("Object with key "+key+" not found.");
         }
     }
@@ -236,7 +237,7 @@ public class DirObjectStorage implements IObjectStorage {
             try (InputStream is = new FileInputStream(f)) {
                 result.add(sz.deserialize(is));
             } catch (IOException ex) {
-                Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LocalDirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
                 throw new IllegalStateException("Unable to read object from file : "+f.getName());
             } 
         }

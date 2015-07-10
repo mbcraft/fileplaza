@@ -20,11 +20,11 @@
 package it.mbcraft.fileplaza.data.serialization.managers.meta;
 
 import it.mbcraft.fileplaza.data.models.Dictionary;
-import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.LocalDirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.StorageConstants;
 import it.mbcraft.fileplaza.utils.DigestUtils;
 import java.io.File;
 
@@ -35,7 +35,7 @@ import java.io.File;
 public class DictionaryManager extends AbstractModelManager<Dictionary> {
 
     public DictionaryManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_DICTIONARIES_PATH)));
+        super(new LocalDirObjectStorage(new File(prefix+StorageConstants.DEFAULT_DICTIONARIES_PATH)));
     }
 
     @Override

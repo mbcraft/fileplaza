@@ -19,11 +19,11 @@
 
 package it.mbcraft.fileplaza.data.serialization.managers.meta;
 
-import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.LocalDirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.ImageStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.StorageConstants;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class PreviewManager extends AbstractModelManager<BufferedImage> {
     private final Random rnd = new Random();
     
     public PreviewManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_PREVIEW_PATH)));
+        super(new LocalDirObjectStorage(new File(prefix+StorageConstants.DEFAULT_PREVIEW_PATH)));
     }
 
     @Override

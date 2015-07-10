@@ -23,11 +23,11 @@ import it.mbcraft.fileplaza.data.dao.fs.FileElementDAO;
 import it.mbcraft.fileplaza.data.models.ChangeHistory;
 import it.mbcraft.fileplaza.data.models.Tag;
 import it.mbcraft.fileplaza.data.models.FileElement;
-import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.LocalDirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
-import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.StorageConstants;
 import java.io.File;
 
 /**
@@ -37,7 +37,7 @@ import java.io.File;
 public class FileElementManager extends AbstractModelManager<FileElement> {
 
     public FileElementManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_FILE_ELEMENTS_PATH)));
+        super(new LocalDirObjectStorage(new File(prefix+StorageConstants.DEFAULT_FILE_ELEMENTS_PATH)));
     }
 
     @Override

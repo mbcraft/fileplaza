@@ -19,10 +19,10 @@
 
 package it.mbcraft.fileplaza.data.serialization.managers.config;
 
-import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.StorageConstants;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.models.config.ApplicationReview;
-import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
+import it.mbcraft.fileplaza.data.serialization.storages.local_dir.LocalDirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;
 import java.io.File;
 
@@ -34,7 +34,7 @@ import java.io.File;
 public class FeedbackManager extends AbstractModelManager<ApplicationReview> {
 
     public FeedbackManager(String prefix) {
-        super(new DirObjectStorage(new File(prefix+StorageConstants.DEFAULT_CONFIG_PATH)));
+        super(new LocalDirObjectStorage(new File(prefix+StorageConstants.DEFAULT_CONFIG_PATH)));
     }
 
     @Override
