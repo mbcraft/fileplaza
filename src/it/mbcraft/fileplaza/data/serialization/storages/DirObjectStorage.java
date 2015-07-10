@@ -19,12 +19,9 @@
 
 package it.mbcraft.fileplaza.data.serialization.storages;
 
-import it.mbcraft.fileplaza.data.serialization.engines.file.IFileSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.ImageStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

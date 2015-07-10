@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.mbcraft.fileplaza.data.serialization.engines.stream;
+package it.mbcraft.fileplaza.data.serialization.engines;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

@@ -21,8 +21,8 @@ package it.mbcraft.fileplaza.data.serialization.managers.meta;
 
 import it.mbcraft.fileplaza.data.models.Dictionary;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.utils.DigestUtils;

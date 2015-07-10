@@ -20,7 +20,7 @@
 package it.mbcraft.fileplaza.data.serialization.managers;
 
 import it.mbcraft.fileplaza.data.serialization.storages.IObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

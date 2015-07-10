@@ -19,7 +19,7 @@
 
 package it.mbcraft.fileplaza.data.serialization.storages;
 
-import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import java.util.List;
 
 /**

@@ -20,10 +20,8 @@
 package it.mbcraft.fileplaza.data.serialization.managers.meta;
 
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.file.IFileSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.file.ImageFileSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.ImageStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.ImageStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import java.awt.image.BufferedImage;
@@ -51,11 +49,11 @@ public class PreviewManager extends AbstractModelManager<BufferedImage> {
     @Override
     public String getModelKey(BufferedImage obj) {
         long nextId = rnd.nextLong();
-        while (nextId<=0 || hasKey(nextId+"."+ImageFileSerializer.DEFAULT_IMAGE_EXTENSION)) {
+        while (nextId<=0 || hasKey(nextId+"."+ImageStreamSerializer.DEFAULT_IMAGE_EXTENSION)) {
             nextId = rnd.nextLong();
         }
         
-        return nextId+"."+ImageFileSerializer.DEFAULT_IMAGE_EXTENSION;
+        return nextId+"."+ImageStreamSerializer.DEFAULT_IMAGE_EXTENSION;
     }
 
     @Override

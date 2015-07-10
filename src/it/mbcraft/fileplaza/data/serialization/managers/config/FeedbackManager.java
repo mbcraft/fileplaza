@@ -23,7 +23,7 @@ import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.models.config.ApplicationReview;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;
 import java.io.File;
 
 /**
