@@ -23,8 +23,10 @@ import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.models.config.Settings;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.file.IFileSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.file.XMLFileSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
 import java.io.File;
 
 /**
@@ -59,8 +61,8 @@ public class SettingsManager extends AbstractModelManager<Settings> {
     }
 
     @Override
-    public ISerializer getSerializer() {
-        XMLSerializer xs = new XMLSerializer();
+    public IStreamSerializer getSerializer() {
+        XMLStreamSerializer xs = new XMLStreamSerializer();
         xs.alias("settings", Settings.class);
         return xs;
     }

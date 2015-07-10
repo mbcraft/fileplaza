@@ -19,11 +19,21 @@
 
 package it.mbcraft.fileplaza.data.serialization.storages;
 
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.file.IFileSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.ImageStreamSerializer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This implementation of IObjectStorage interface stores all the data objects
@@ -128,13 +138,17 @@ public class DirObjectStorage implements IObjectStorage {
      * @param sz The serializer used to convert object instances to binary data
      */
     @Override
-    public void saveOrUpdate(Object model, String key, ISerializer sz) {
+    public void saveOrUpdate(Object model, String key, IStreamSerializer sz) {
         checkParameterNotNull(model);
         checkParameterNotNull(key);
         checkParameterNotNull(sz);
 
         File dest = new File(_rootDir,key);
-        sz.serialize(model, dest);
+        try (OutputStream o = new FileOutputStream(dest)) {
+            sz.serialize(model,o );
+        } catch (IOException ex) {
+            Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
                 
     /**
@@ -178,12 +192,17 @@ public class DirObjectStorage implements IObjectStorage {
      * @return The object found
      */
     @Override
-    public Object find(String key, ISerializer sz) {
+    public Object find(String key, IStreamSerializer sz) {
         checkParameterNotNull(key);
         checkParameterNotNull(sz);
         
         File dest = new File(_rootDir,key);
-        return sz.deserialize(dest);
+        try (InputStream is = new FileInputStream(dest)) {
+            return sz.deserialize(is);
+        } catch (IOException ex) {
+            Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IllegalStateException("Object with key "+key+" not found.");
+        }
     }
     
     /**
@@ -191,7 +210,7 @@ public class DirObjectStorage implements IObjectStorage {
      * 
      * @param oldKey The old object key
      * @param newKey The new object key
-     * @return true if rename was succesful, false otherwise
+     * @return true if rename was successful, false otherwise
      */
     @Override
     public boolean rename(String oldKey, String newKey) {
@@ -210,14 +229,19 @@ public class DirObjectStorage implements IObjectStorage {
      * @return The list of objects.
      */
     @Override
-    public List findAll(ISerializer sz) {
+    public List findAll(IStreamSerializer sz) {
         checkParameterNotNull(sz);
         
         List result = new ArrayList();
         File[] allObjects = _rootDir.listFiles(FILES_ONLY);
 
         for (File f : allObjects) {
-            result.add(sz.deserialize(f));
+            try (InputStream is = new FileInputStream(f)) {
+                result.add(sz.deserialize(is));
+            } catch (IOException ex) {
+                Logger.getLogger(DirObjectStorage.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalStateException("Unable to read object from file : "+f.getName());
+            } 
         }
         
         return result;

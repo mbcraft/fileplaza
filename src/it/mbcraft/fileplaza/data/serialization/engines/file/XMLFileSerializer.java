@@ -17,7 +17,7 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.serialization.engines;
+package it.mbcraft.fileplaza.data.serialization.engines.file;
 
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
@@ -26,14 +26,14 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 
 /**
- * Implementation of ISerializer interface producing reading and writind data 
+ * Implementation of IFileSerializer interface producing reading and writind data 
  * in xml format.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * 
  * @param <T> the class of the model to be serialized
  */
-public class XMLSerializer<T> extends XStream implements ISerializer<T> {
+public class XMLFileSerializer<T> extends XStream implements IFileSerializer<T> {
 
     /**
      * Some help from https://www.stackoverflow.com
@@ -42,7 +42,7 @@ public class XMLSerializer<T> extends XStream implements ISerializer<T> {
      * 
      */
     
-    public XMLSerializer() {
+    public XMLFileSerializer() {
         omitField(getClass(), "__sourceFile");
         ignoreUnknownElements();
     }

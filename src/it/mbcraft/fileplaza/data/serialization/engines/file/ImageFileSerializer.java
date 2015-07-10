@@ -17,7 +17,7 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.serialization.engines;
+package it.mbcraft.fileplaza.data.serialization.engines.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,11 +30,11 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 /**
- * Implementation of ISerializer reading and writing images in jpeg format.
+ * Implementation of IFileSerializer reading and writing images in jpeg format.
  *
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
-public class ImageSerializer implements ISerializer {
+public class ImageFileSerializer implements IFileSerializer {
 
     public static final String DEFAULT_IMAGE_EXTENSION = "jpg";
     
@@ -50,10 +50,10 @@ public class ImageSerializer implements ISerializer {
                 return null;
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ImageSerializer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileSerializer.class.getName()).log(Level.SEVERE, null, ex);
             throw new InvalidParameterException("Image file not found.");
         } catch (IOException ex) {
-            Logger.getLogger(ImageSerializer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileSerializer.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalStateException("Unable to read image.");
         }
     }
@@ -69,7 +69,7 @@ public class ImageSerializer implements ISerializer {
             BufferedImage img = (BufferedImage) o;
             ImageIO.write(img, DEFAULT_IMAGE_EXTENSION, f);
         } catch (IOException ex) {
-            Logger.getLogger(ImageSerializer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageFileSerializer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

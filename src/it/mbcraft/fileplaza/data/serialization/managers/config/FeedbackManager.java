@@ -23,7 +23,7 @@ import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.models.config.ApplicationReview;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
 import java.io.File;
 
 /**
@@ -48,8 +48,8 @@ public class FeedbackManager extends AbstractModelManager<ApplicationReview> {
     }
 
     @Override
-    public XMLSerializer getSerializer() {
-        XMLSerializer xs = new XMLSerializer();
+    public XMLStreamSerializer getSerializer() {
+        XMLStreamSerializer xs = new XMLStreamSerializer();
         xs.alias(getRootName(), ApplicationReview.class);
         return xs;
     }

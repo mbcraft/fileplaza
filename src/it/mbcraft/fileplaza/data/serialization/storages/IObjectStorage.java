@@ -19,11 +19,11 @@
 
 package it.mbcraft.fileplaza.data.serialization.storages;
 
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
 import java.util.List;
 
 /**
- * This interface rapresents a storage for models. Multiple models can
+ * This interface represents a storage for models. Multiple models can
  * be stored within the same IObjectStorage.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
@@ -71,7 +71,7 @@ public interface IObjectStorage<T> {
      * @param sz The serializer used to convert files from binary data to object instances
      * @return The model instance with all its data
      */
-    T find(String key,ISerializer sz);
+    T find(String key,IStreamSerializer sz);
 
     /**
      * Store a model inside this storage. The model is copied and the name is
@@ -82,7 +82,7 @@ public interface IObjectStorage<T> {
      * @param sz The serializer used to convert data from object instances to binary data
      * 
      */
-    void saveOrUpdate(T data, String key, ISerializer sz);
+    void saveOrUpdate(T data, String key, IStreamSerializer sz);
     
     /**
      * Returns all the models inside this storage.
@@ -90,6 +90,6 @@ public interface IObjectStorage<T> {
      * @param sz The serializer used to convert files from binary data to object instances
      * @return The list of all the saveOrUpdated objects.
      */
-    List<T> findAll(ISerializer sz);
+    List<T> findAll(IStreamSerializer sz);
     
 }

@@ -17,7 +17,7 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.serialization.engines;
+package it.mbcraft.fileplaza.data.serialization.engines.file;
 
 import java.io.File;
 
@@ -37,7 +37,7 @@ import java.io.File;
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  * @param <T> the class of the model to be serialized
  */
-public interface ISerializer<T> {
+public interface IFileSerializer<T> {
     
     /**
      * Deserialize the object from the given file.
@@ -48,7 +48,7 @@ public interface ISerializer<T> {
     public T deserialize(File f);
     
     /**
-     * Serialize an obhect to a given file.
+     * Serialize an object to a given file.
      * 
      * @param o an instance of the object to serialize
      * @param dest the file to use as a destination for the serialized data

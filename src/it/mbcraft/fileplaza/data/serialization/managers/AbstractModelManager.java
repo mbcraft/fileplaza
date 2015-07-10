@@ -20,9 +20,16 @@
 package it.mbcraft.fileplaza.data.serialization.managers;
 
 import it.mbcraft.fileplaza.data.serialization.storages.IObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This abstract class defines how a model is serialized. 
@@ -92,7 +99,7 @@ public abstract class AbstractModelManager<T> {
      * 
      * @return The serializer to be used
      */
-    public abstract ISerializer getSerializer();
+    public abstract IStreamSerializer getSerializer();
     
     /**
      * Deletes all the object of this kind.
@@ -169,8 +176,13 @@ public abstract class AbstractModelManager<T> {
      * @return The object deserializeed
      */
     public T loadFrom(File source) {
-        ISerializer ser = getSerializer();
-        Object ob = ser.deserialize(source);
+        IStreamSerializer ser = getSerializer();
+        Object ob = null;
+        try (InputStream is = new FileInputStream(source)) {
+            ob = ser.deserialize(is);
+        } catch (IOException ex) {
+            Logger.getLogger(AbstractModelManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (ob==null) {
             //...
@@ -191,8 +203,12 @@ public abstract class AbstractModelManager<T> {
     public void saveTo(T toSave,File dest) {
         if (toSave.getClass()!=getDataClass())
             throw new IllegalStateException("This serializer does not support class : "+toSave.getClass().getName());
-        ISerializer ser = getSerializer();
-        ser.serialize(toSave, dest);
+        IStreamSerializer ser = getSerializer();
+        try (OutputStream os = new FileOutputStream(dest)) {
+            ser.serialize(toSave, os);
+        } catch (IOException ex) {
+            Logger.getLogger(AbstractModelManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -24,8 +24,8 @@ import it.mbcraft.fileplaza.data.models.ChangeHistory;
 import it.mbcraft.fileplaza.data.models.Tag;
 import it.mbcraft.fileplaza.data.models.FileElement;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import java.io.File;
@@ -41,8 +41,8 @@ public class FileElementManager extends AbstractModelManager<FileElement> {
     }
 
     @Override
-    public ISerializer getSerializer() {
-        XMLSerializer xs = new XMLSerializer();
+    public IStreamSerializer getSerializer() {
+        XMLStreamSerializer xs = new XMLStreamSerializer();
         xs.alias(getRootName(), FileElement.class);
         xs.alias("tag",Tag.class);
         xs.alias("changeHistory",ChangeHistory.class);

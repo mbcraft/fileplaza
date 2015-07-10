@@ -21,8 +21,8 @@ package it.mbcraft.fileplaza.data.serialization.managers.meta;
 
 import it.mbcraft.fileplaza.data.models.Dictionary;
 import it.mbcraft.fileplaza.data.serialization.storages.DirObjectStorage;
-import it.mbcraft.fileplaza.data.serialization.engines.ISerializer;
-import it.mbcraft.fileplaza.data.serialization.engines.XMLSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.IStreamSerializer;
+import it.mbcraft.fileplaza.data.serialization.engines.stream.XMLStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.serialization.storages.StorageConstants;
 import it.mbcraft.fileplaza.utils.DigestUtils;
@@ -39,8 +39,8 @@ public class DictionaryManager extends AbstractModelManager<Dictionary> {
     }
 
     @Override
-    public ISerializer getSerializer() {
-        XMLSerializer xs = new XMLSerializer();
+    public IStreamSerializer getSerializer() {
+        XMLStreamSerializer xs = new XMLStreamSerializer();
         xs.alias(getRootName(), Dictionary.class);
         xs.alias("entry", Dictionary.DictionaryEntry.class);
         return xs;
