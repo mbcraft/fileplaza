@@ -45,8 +45,7 @@ public class ChangeHistory {
     /**
      * Creates an uninitialized instance.
      */
-    public ChangeHistory() {
-        
+    public ChangeHistory() {        
     }
     
     private Date changeDate;

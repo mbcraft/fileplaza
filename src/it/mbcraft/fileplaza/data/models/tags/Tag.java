@@ -17,7 +17,7 @@
  *    https://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package it.mbcraft.fileplaza.data.models;
+package it.mbcraft.fileplaza.data.models.tags;
 
 import it.mbcraft.fileplaza.data.dao.meta.DictionaryDAO;
 import java.util.Date;

@@ -97,7 +97,7 @@ public class DictionaryDAO implements IDictionaryDAO {
     
     @Override
     public Dictionary importFromFile(File f) {
-        Dictionary d = (Dictionary) sz.loadFrom(f);
+        Dictionary d = (Dictionary) sz.importFromFile(f);
         d.setEnabled(false);
         return d;
     }

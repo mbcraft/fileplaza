@@ -71,7 +71,7 @@ public class LabelSetDAO implements ILabelSetDAO {
     
     @Override
     public LabelSet importFromFile(File f) {
-        LabelSet en = (LabelSet) sz.loadFrom(f);
+        LabelSet en = (LabelSet) sz.importFromFile(f);
         en.setEnabled(false);
         return en;
     }

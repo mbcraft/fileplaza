@@ -19,7 +19,7 @@
 
 package it.mbcraft.fileplaza.ui.panels.tags.generic;
 
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import it.mbcraft.fileplaza.data.dao.meta.DictionaryDAO;
 import it.mbcraft.fileplaza.data.dao.meta.LabelSetDAO;
 import static it.mbcraft.fileplaza.i18n.Lang.L;

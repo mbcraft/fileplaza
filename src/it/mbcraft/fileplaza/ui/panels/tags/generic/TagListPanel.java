@@ -19,7 +19,7 @@
 
 package it.mbcraft.fileplaza.ui.panels.tags.generic;
 
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import it.mbcraft.fileplaza.ui.common.components.INodeProvider;
 import javafx.beans.property.ListProperty;
 import javafx.collections.ListChangeListener;

@@ -19,6 +19,7 @@
 
 package it.mbcraft.fileplaza.data.models;
 
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import it.mbcraft.fileplaza.utils.DigestUtils;
 import java.io.File;
 import java.security.InvalidParameterException;
@@ -27,25 +28,31 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 
 /**
  * This abstract class contains data associated to a file or a folder 
- * in the filesystem. This class is abstract, it just contains common
+ * in the FileSystem. This class is abstract, it just contains common
  * methods and fields used in both types.
  * 
  * @author Marco Bagnaresi <marco.bagnaresi@gmail.com>
  */
 public abstract class AbstractFileSystemElement  {
     
-    private String currentPath;
-    private String sha256;
-    private Priority priority;  //move to meta dictionary
-    private String notes;       //move to meta dictionary
+    private static final String PRIORITY_KEY = "priority";
+    private static final String NOTES_KEY = "notes";
+    
+    private String currentPath; //che current path of the element
+    private String sha256;      //contains a calculated sha256
+
     private Date indexedDate;   //move to meta dictionary
     private Date lastChangedDate;   //move to meta dictionary
     private boolean indexNamedByPath;   //move to meta dictionary
     private final Type type;    //move to meta dictionary
     private List<Tag> tags;     //move to generic tags list
+    
+    private final Properties metaDataProperties;
+    private final Properties tagsProperties;
     private List<ChangeHistory> changeHistoryList;
     
     public enum Type {
@@ -58,10 +65,14 @@ public abstract class AbstractFileSystemElement  {
      * @param t The Type of this file system element
      */
     protected AbstractFileSystemElement(Type t) {
-        priority = Priority.NONE;
+        setPriority(Priority.NONE);
         indexNamedByPath = true;
         tags = new LinkedList<>();
         changeHistoryList = new LinkedList<>();
+        
+        metaDataProperties = new Properties();
+        tagsProperties = new Properties();
+        
         type = t;
     }
     
@@ -82,13 +93,17 @@ public abstract class AbstractFileSystemElement  {
      * Link : http://stackoverflow.com/questions/9655181/convert-from-byte-array-to-hex-string-in-java
      * Author : http://stackoverflow.com/users/1284661/maybewecouldstealavan
      * 
-     * @return 
+     * @return the calculated digest
      */
-    
     public String calculatePathSha256() {
         return DigestUtils.getSha256DigestForString(currentPath);
     }
     
+    /**
+     * Recalculates the sha256 for this element. This method is called 
+     * usually when the file content is changed, the file is moved or the 
+     * directory content is changed.
+     */
     public abstract void recalculateSha256();
     
     /**
@@ -151,7 +166,7 @@ public abstract class AbstractFileSystemElement  {
      * @return The priority of this FileSystemElement as a Priority value
      */
     public Priority getPriority() {
-        return priority;
+        return Priority.valueOf((String)metaDataProperties.get(PRIORITY_KEY));
     }
     
     /**
@@ -160,16 +175,15 @@ public abstract class AbstractFileSystemElement  {
      * @param pri The priority as a Priority value
      */
     public void setPriority(Priority pri) {
-        this.priority = pri;
+        metaDataProperties.setProperty(PRIORITY_KEY, pri.toString());
     }
-    
     /**
      * Gets the notes for this FileSystemElement.
      * 
      * @return The notes as a string
      */
     public String getNotes() {
-        return notes;
+        return metaDataProperties.getProperty(NOTES_KEY);
     }
     
     /**
@@ -178,7 +192,7 @@ public abstract class AbstractFileSystemElement  {
      * @param nt The notes as a string
      */
     public void setNotes(String nt) {
-        notes = nt;
+        metaDataProperties.put(NOTES_KEY, nt);
     }
 
     /**
@@ -297,8 +311,8 @@ public abstract class AbstractFileSystemElement  {
         boolean fieldsMatches = currentPath.equals(other.currentPath) &&
                 indexedDate.equals(other.indexedDate) &&
                 lastChangedDate.equals(other.lastChangedDate) &&
-                priority.equals(other.priority) &&
-                notes.equals(other.notes) &&
+                getPriority().equals(other.getPriority()) &&
+                getNotes().equals(other.getNotes()) &&
                 indexNamedByPath==other.indexNamedByPath &&
                 changeHistoryList.size()==other.changeHistoryList.size() &&
                 tags.size()==other.tags.size();
@@ -323,8 +337,8 @@ public abstract class AbstractFileSystemElement  {
     protected int partialHashCode() {
         int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.currentPath);
-        hash = 37 * hash + Objects.hashCode(this.priority);
-        hash = 37 * hash + Objects.hashCode(this.notes);
+        hash = 37 * hash + Objects.hashCode(this.getPriority());
+        hash = 37 * hash + Objects.hashCode(this.getNotes());
         hash = 37 * hash + Objects.hashCode(this.indexedDate);
         hash = 37 * hash + Objects.hashCode(this.lastChangedDate);
         hash = 37 * hash + (this.indexNamedByPath ? 1 : 0);

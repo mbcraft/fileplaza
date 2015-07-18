@@ -22,7 +22,7 @@ package it.mbcraft.fileplaza.data.serialization.managers.fs;
 import it.mbcraft.fileplaza.data.dao.fs.FolderElementDAO;
 import it.mbcraft.fileplaza.data.models.ChangeHistory;
 import it.mbcraft.fileplaza.data.models.FolderElement;
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import it.mbcraft.fileplaza.data.serialization.storages.local_dir.LocalDirObjectStorage;
 import it.mbcraft.fileplaza.data.serialization.engines.IStreamSerializer;
 import it.mbcraft.fileplaza.data.serialization.engines.XMLStreamSerializer;

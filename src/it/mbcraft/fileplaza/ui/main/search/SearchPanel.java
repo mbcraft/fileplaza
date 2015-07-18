@@ -20,7 +20,7 @@
 package it.mbcraft.fileplaza.ui.main.search;
 
 import it.mbcraft.fileplaza.state.SearchState;
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.ui.panels.files.list.FileViewListPanel;
 import it.mbcraft.fileplaza.ui.main.search.filters.SearchFiltersPanel;

@@ -21,7 +21,7 @@ package it.mbcraft.fileplaza.ui.main.search.filters;
 
 import it.mbcraft.fileplaza.algorithm.search.FileSystemElementSearch;
 import it.mbcraft.fileplaza.data.models.Priority;
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import static it.mbcraft.fileplaza.i18n.Lang.L;
 import it.mbcraft.fileplaza.i18n.LangResource;
 import it.mbcraft.fileplaza.ui.panels.tags.generic.FullTagsPanel;

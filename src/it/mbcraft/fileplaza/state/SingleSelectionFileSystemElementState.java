@@ -26,7 +26,7 @@ import it.mbcraft.fileplaza.data.models.FileElement;
 import it.mbcraft.fileplaza.data.models.FolderElement;
 import it.mbcraft.fileplaza.data.misc.PreviewData;
 import it.mbcraft.fileplaza.data.models.Priority;
-import it.mbcraft.fileplaza.data.models.Tag;
+import it.mbcraft.fileplaza.data.models.tags.Tag;
 import it.mbcraft.fileplaza.data.serialization.managers.AbstractModelManager;
 import it.mbcraft.fileplaza.data.serialization.managers.fs.FileElementManager;
 import it.mbcraft.fileplaza.data.serialization.managers.fs.FolderElementManager;

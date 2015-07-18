@@ -122,7 +122,7 @@ public abstract class AbstractModelManager<T> {
      * Saves this model
      * 
      * @param model The object to saveToOrUpdate
-     * @return The key of the saveTod object
+     * @return The key of the saved object
      */
     public String saveOrUpdate(T model) {
         String key = getModelKey(model);
@@ -152,7 +152,7 @@ public abstract class AbstractModelManager<T> {
     /**
      * Returns all the objects of this kind.
      * 
-     * @return The list of all the objects for this serializer.
+     * @return The list of all the objects in for this serializer.
      */
     public List<T> findAll() {
         return storage.findAll(getSerializer());
@@ -163,19 +163,19 @@ public abstract class AbstractModelManager<T> {
      * 
      * @param key The key of the object to find
      * 
-     * @return The finded object
+     * @return The object found
      */
     public T find(String key) {
         return (T) storage.find(key, getSerializer());
     }
     
     /**
-     * Reads a single object from a file
+     * Imports a single object from a file
      * 
      * @param source The file to deserialize the object from
      * @return The object deserializeed
      */
-    public T loadFrom(File source) {
+    public T importFromFile(File source) {
         IStreamSerializer ser = getSerializer();
         Object ob = null;
         try (InputStream is = new FileInputStream(source)) {
@@ -195,14 +195,14 @@ public abstract class AbstractModelManager<T> {
     }
     
     /**
-     * Save an object to a file. The format depends by the serializer.
+     * Exports an object to a file. The format depends by the serializer.
      * 
      * @param toSave The object to save or update
      * @param dest The file used to save the object
      */
-    public void saveTo(T toSave,File dest) {
+    public void exportToFile(T toSave,File dest) {
         if (toSave.getClass()!=getDataClass())
-            throw new IllegalStateException("This serializer does not support class : "+toSave.getClass().getName());
+            throw new IllegalStateException("Data class differs from model class : "+toSave.getClass().getName());
         IStreamSerializer ser = getSerializer();
         try (OutputStream os = new FileOutputStream(dest)) {
             ser.serialize(toSave, os);
