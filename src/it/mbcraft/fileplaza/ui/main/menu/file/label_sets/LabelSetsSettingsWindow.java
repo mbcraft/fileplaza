@@ -66,7 +66,7 @@ public class LabelSetsSettingsWindow extends AbstractSettingsWindow {
     private Button disableButton;
     
     public LabelSetsSettingsWindow() {
-        super(L("main.menu.file.label_sets.LabelSetsWindow","LabelSets_Window"),true);
+        super(L("main.menu.file.label_sets.LabelSetsSettingsWindow","LabelSets_Window"),true);
     }
         
     /**
